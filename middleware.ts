@@ -1,6 +1,26 @@
 import NextAuth from "next-auth";
-import { authConfig } from "@/lib/auth.config";
 import { NextResponse } from "next/server";
+
+const authConfig = {
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    async session({ session, token }: any) {
+      if (token && session.user) {
+        session.user.id = token.sub as string;
+      }
+      return session;
+    },
+    async jwt({ token, user }: any) {
+      if (user) {
+        token.sub = user.id;
+      }
+      return token;
+    },
+  },
+  providers: [],
+};
 
 const { auth } = NextAuth(authConfig);
 
