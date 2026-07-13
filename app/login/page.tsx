@@ -1,11 +1,12 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { authenticate } from "./actions";
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
@@ -59,15 +60,28 @@ export default function LoginPage() {
               >
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                placeholder="••••••••"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-ridley-blue focus:bg-white text-black placeholder-gray-400 rounded-xl outline-none transition text-sm"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  placeholder="••••••••"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-ridley-blue focus:bg-white text-black placeholder-gray-400 rounded-xl outline-none transition text-sm pr-12"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  {showPassword ? (
+                    <img src="/assets/images/admin/matabuka.svg" alt="Sembunyikan password" className="w-5 h-5 opacity-70" />
+                  ) : (
+                    <img src="/assets/images/admin/matatutup.svg" alt="Tampilkan password" className="w-5 h-5 opacity-70" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {errorMessage && (

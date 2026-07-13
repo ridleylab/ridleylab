@@ -42,3 +42,32 @@ export async function uploadMediaAction(formData: FormData) {
     return { success: false, error: error.message };
   }
 }
+
+import { UTApi } from "uploadthing/server";
+
+export async function deleteMediaAction(id: string, url: string) {
+  try {
+    // Delete from UploadThing if it's an UploadThing URL
+    if (url.includes("utfs.io/f/")) {
+      const fileKey = url.split("/f/")[1];
+      const utapi = new UTApi();
+      await utapi.deleteFiles(fileKey);
+    } else if (url.includes("utfs.io/a/")) {
+       // Support for new App ID based URLs if applicable
+       const fileKey = url.split("/").pop();
+       if (fileKey) {
+         const utapi = new UTApi();
+         await utapi.deleteFiles(fileKey);
+       }
+    }
+    
+    // Delete from database
+    await prisma.media.delete({ where: { id } });
+    
+    revalidatePath("/admin/media");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Delete media error:", error);
+    return { success: false, error: error.message };
+  }
+}

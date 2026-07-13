@@ -6,6 +6,8 @@ import Image from "next/image";
 import { uploadMediaAction } from "./actions";
 import UploadMediaBox from "@/components/admin/upload-media-box";
 
+import DeleteMediaButton from "@/components/admin/delete-media-button";
+
 export const metadata = {
   title: "Media Gallery - RIDLEY Admin",
 };
@@ -75,13 +77,16 @@ export default async function AdminMediaPage() {
                     <p className="text-[10px] text-gray-400 mt-0.5">{formatBytes(media.size)}</p>
                   </div>
                   <div className="border-t border-white/50 pt-2 mt-3 flex items-center justify-between text-[10px] font-bold text-gray-400">
-                    <a
-                      href={media.url}
-                      target="_blank"
-                      className="text-ridley-blue hover:underline"
-                    >
-                      Buka Aset
-                    </a>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={media.url}
+                        target="_blank"
+                        className="text-ridley-blue hover:underline"
+                      >
+                        Buka Aset
+                      </a>
+                      <DeleteMediaButton id={media.id} url={media.url} />
+                    </div>
                     <span>
                       {new Date(media.createdAt).toLocaleDateString("id-ID", {
                         day: "numeric",
