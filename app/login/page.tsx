@@ -111,7 +111,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-2xl shadow-sm text-sm font-bold text-white bg-ridley-blue hover:bg-[#216694] focus:outline-none transition disabled:opacity-50 disabled:cursor-not-allowed shadow-ridley-blue/20"
+                className="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-2xl shadow-sm text-sm font-bold text-white bg-ridley-blue hover:bg-[#216694] focus:outline-none transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-ridley-blue/20"
               >
                 {isPending ? "Memproses..." : "Masuk"}
               </button>
