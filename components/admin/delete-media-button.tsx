@@ -23,8 +23,8 @@ export default function DeleteMediaButton({ id, url }: { id: string; url: string
     <button
       onClick={handleDelete}
       disabled={isDeleting}
-      className={`text-red-500 hover:text-red-600 transition flex items-center justify-center p-1 rounded-md hover:bg-red-50 ${
-        isDeleting ? "opacity-50 cursor-not-allowed" : ""
+      className={`text-red-500 hover:text-red-600 transition flex items-center justify-center p-1 rounded-md hover:bg-red-50 cursor-pointer ${
+        isDeleting ? "opacity-50 !cursor-not-allowed" : ""
       }`}
       title="Hapus Media"
     >
