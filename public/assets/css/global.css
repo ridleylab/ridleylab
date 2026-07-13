@@ -1,0 +1,817 @@
+/* ===========
+   MALDINI
+=========== */
+
+:root {
+
+    --ridley-blue: #2980B9;
+    --ridley-yellow: #FFCC4A;
+
+    --ridley-black: #000000;
+    --ridley-bg: #F7FAFC;
+    --ridley-text: #4B5563;
+
+    --font-ridley: 'Shippori Antique', sans-serif;
+}
+
+/* =========
+   PIRLO
+========= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========
+   NESTA
+========= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* =========
+   XAVI
+========= */
+
+body {
+
+    font-family: var(--font-ridley);
+
+    background: #ffffff;
+    color: var(--ridley-black);
+
+    overflow-x: hidden;
+
+    line-height: 1.5;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ===========
+   INIESTA
+=========== */
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ===========
+   BECKHAM
+=========== */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========
+   KAKÁ
+======== */
+
+.ridley-container {
+
+    width: 100%;
+    max-width: 1280px;
+
+    margin: 0 auto;
+
+    padding: 0 24px;
+}
+
+/* ===========
+   LAMPARD
+=========== */
+
+.ridley-section {
+
+    position: relative;
+
+    padding: 100px 0;
+}
+
+/* ===========
+   GERRARD
+=========== */
+
+.ridley-title {
+
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+
+    line-height: 1.1;
+
+    font-weight: 900;
+
+    letter-spacing: -0.03em;
+}
+
+/* ========
+   KROOS
+=========*/
+
+.ridley-text {
+
+    color: var(--ridley-text);
+
+    line-height: 1.8;
+}
+
+/* =========
+   ROONEY
+===========*/
+
+.ridley-badge {
+
+    display: inline-block;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.25em;
+
+    text-transform: uppercase;
+
+    color: var(--ridley-blue);
+}
+
+/* ========
+   XAVI
+======== */
+
+.ridley-check {
+
+    color: var(--ridley-blue);
+
+    font-weight: 900;
+
+    font-size: 14px;
+}
+
+/* ==========
+   ZIDANE
+========== */
+
+.ridley-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 16px 28px;
+
+    border-radius: 18px;
+
+    background: var(--ridley-blue);
+    color: white;
+
+    font-weight: 800;
+    font-size: 0.95rem;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
+
+    box-shadow:
+        0 10px 25px rgba(41, 128, 185, 0.18);
+
+    will-change: transform;
+
+    transform: translateZ(0);
+}
+
+.ridley-btn:hover {
+
+    transform: translateY(-6px) scale(1.01);
+
+    background: #216694;
+
+    box-shadow:
+        0 24px 50px rgba(41, 128, 185, 0.30);
+}
+
+/* =============
+   DEL PIERO
+============= */
+
+.ridley-outline-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 28px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(0,0,0,0.12);
+
+    background: white;
+    color: var(--ridley-black);
+
+    font-weight: 800;
+    font-size: 0.95rem;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        color 0.35s ease;
+
+    will-change: transform;
+
+    transform: translateZ(0);
+}
+
+.ridley-outline-btn:hover {
+
+    background: var(--ridley-black);
+
+    color: white;
+
+    transform: translateY(-4px);
+}
+
+/* ==========
+   NEYMAR
+========== */
+
+.ridley-btn--nav {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    background: var(--ridley-blue);
+    color: white;
+
+    font-weight: 700;
+    font-size: 0.85rem;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+
+    box-shadow:
+        0 6px 16px rgba(41, 128, 185, 0.18);
+}
+
+.ridley-btn--nav:hover {
+
+    transform: translateY(-2px);
+
+    background: #216694;
+}
+
+/* ==========
+   BUFFON
+========== */
+
+/* SAFE BASE */
+
+.ridley-image {
+
+    display: block;
+
+    max-width: 100%;
+}
+
+/* CARD / MOCKUP IMAGE */
+
+.ridley-image--card {
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.08);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+
+    will-change: transform;
+
+    transform: translateZ(0);
+}
+
+.ridley-image--card:hover {
+
+    transform: scale(1.01);
+
+    box-shadow:
+        0 28px 80px rgba(0,0,0,0.12);
+}
+
+/* ==========
+   MODRIC FIXED
+========== */
+
+.ridley-noise {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* noise layer */
+.ridley-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+
+    /* FIX: jangan pakai negative z-index */
+    z-index: 0;
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+
+
+/* =========
+   SILVA
+========= */
+
+.ridley-glass {
+
+    background: rgba(255,255,255,0.65);
+
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+/* ===========
+   BAMBANG
+=========== */
+
+.animate__animated {
+
+    animation-duration: 0.7s;
+
+    animation-fill-mode: both;
+
+    will-change:
+        opacity,
+        transform;
+}
+
+.animate__fadeInLeft {
+    animation-name: fadeInLeft;
+}
+
+.animate__fadeInRight {
+    animation-name: fadeInRight;
+}
+
+.animate__fadeInUp {
+    animation-name: fadeInUp;
+}
+
+.animate__fadeInDown {
+    animation-name: fadeInDown;
+}
+
+/* ==========
+   TSUBASA
+===========*/
+
+#ridleyHeader {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: all 0.35s ease;
+}
+
+/* ==========
+   MISAKI
+========== */
+
+#ridleyHeader.is-top {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* NAV BASE */
+#ridleyHeader nav a {
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+/* TOP TEXT */
+#ridleyHeader.is-top nav a {
+    color: #000;
+}
+
+/* SCROLL TEXT */
+#ridleyHeader.is-scrolled nav a {
+    color: #000;
+}
+
+/* HOVER */
+#ridleyHeader nav a:hover {
+    color: #2980B9;
+    text-shadow: 0 0 10px rgba(41,128,185,0.15);
+}
+
+/* underline hover base */
+#ridleyHeader nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #2980B9;
+    box-shadow: 0 0 10px rgba(41,128,185,0.25);
+    transition: width 0.3s ease;
+}
+
+/* hover underline */
+#ridleyHeader nav a:hover::after {
+    width: 100%;
+}
+
+/* ACTIVE STATE */
+#ridleyHeader nav a.active {
+    color: #2980B9;
+}
+
+/* active underline */
+#ridleyHeader nav a.active::after {
+    width: 100%;
+}
+
+/* =========
+   HYUGA
+========= */
+
+#ridleyHeader.is-top .ridley-btn--nav {
+    background: #2980B9;
+    color: white;
+    box-shadow: 0 6px 16px rgba(41,128,185,0.18);
+}
+
+#ridleyHeader.is-scrolled .ridley-btn--nav {
+    background: #2980B9;
+    color: white;
+}
+
+/* ===============
+   WAKABAYASHI
+=============== */
+
+#ridleyHeader.is-scrolled {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* ========
+   BALE
+======== */
+footer a {
+    transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+footer a:hover {
+    color: var(--ridley-blue);
+    opacity: 1;
+}
+
+
+/* =========================
+   RIDLEY PROOF
+========================= */
+
+.ridley-proof-top {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+
+    margin-bottom: 60px;
+}
+
+
+/* INFO BOX */
+
+.ridley-proof-box {
+
+    background:
+        linear-gradient(
+            180deg,
+            #F8FBFF,
+            #EEF5FB
+        );
+
+    border:
+        1px solid rgba(41,128,185,0.10);
+
+    border-radius: 30px;
+
+    padding: 34px;
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+}
+
+.ridley-proof-box:hover {
+
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(41,128,185,0.25);
+
+    box-shadow:
+        0 25px 60px rgba(41,128,185,0.08);
+}
+
+.ridley-proof-box h3 {
+
+    font-size: 1.1rem;
+
+    font-weight: 800;
+
+    margin-bottom: 18px;
+}
+
+.ridley-proof-box ul {
+
+    list-style: none;
+}
+
+.ridley-proof-box li {
+
+    color: #4B5563;
+
+    line-height: 1.8;
+
+    margin-bottom: 10px;
+}
+
+
+/* GRID */
+
+.ridley-proof-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 24px;
+}
+
+
+/* CARD */
+
+.ridley-proof-card {
+
+    position: relative;
+
+    isolation: isolate;
+
+    background: white;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(41,128,185,0.08);
+
+    transition:
+        transform 0.45s ease,
+        box-shadow 0.45s ease,
+        border-color 0.45s ease;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.04);
+}
+
+
+/* PREMIUM BORDER */
+
+.ridley-proof-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 30px;
+
+    border:
+        1px solid rgba(255,255,255,0.45);
+
+    opacity: 0.7;
+
+    pointer-events: none;
+}
+
+
+/* HOVER */
+
+.ridley-proof-card:hover {
+
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(41,128,185,0.22);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.10),
+        0 0 0 1px rgba(255,255,255,0.55) inset,
+        0 0 40px rgba(41,128,185,0.08);
+}
+
+
+/* IMAGE */
+
+.ridley-proof-image {
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: #F4F7FA;
+}
+
+.ridley-proof-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.8s ease;
+
+    backface-visibility: hidden;
+
+    transform: translateZ(0);
+}
+
+
+/* IMAGE HOVER */
+
+.ridley-proof-card:hover img {
+
+    transform:
+        scale(1.04);
+}
+
+
+/* CONTENT */
+
+.ridley-proof-content {
+
+    padding: 22px;
+
+    background: white;
+}
+
+.ridley-proof-content h4 {
+
+    font-size: 1rem;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+
+    letter-spacing: -0.02em;
+}
+
+.ridley-proof-content p {
+
+    font-size: 0.9rem;
+
+    color: #6B7280;
+
+    line-height: 1.6;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 1024px) {
+
+    .ridley-proof-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .ridley-proof-top {
+
+        grid-template-columns: 1fr;
+    }
+
+    .ridley-proof-grid {
+
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ===========
+   BALOTELI
+============ */
+
+@keyframes fadeInLeft {
+
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =============
+   BELLINGHAM
+==============*/
+
+@media (max-width: 768px) {
+
+    .ridley-section {
+        padding: 70px 0;
+    }
+
+    .ridley-container {
+        padding: 0 20px;
+    }
+
+    .ridley-title {
+        line-height: 1.15;
+    }
+
+    .ridley-btn,
+    .ridley-outline-btn {
+        width: 100%;
+    }
+}
