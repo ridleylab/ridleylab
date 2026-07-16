@@ -65,14 +65,35 @@ export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]
   try {
     const posts = await prisma.post.findMany({
       where: includeDrafts ? {} : { draft: false },
-      include: {
-        category: true,
+    
+      select: {
+        slug: true,
+        title: true,
+        description: true,
+        coverImage: true,
+        publishedAt: true,
+        createdAt: true,
+        draft: true,
+        authorName: true,
+        readingTime: true,
+    
+        category: {
+          select: {
+            name: true,
+          },
+        },
+    
         tags: {
-          include: {
-            tag: true,
+          select: {
+            tag: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
       },
+    
       orderBy: {
         publishedAt: "desc",
       },
@@ -88,7 +109,7 @@ export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]
       category: post.category?.name || "General",
       tags: post.tags.map((t) => t.tag.name),
       author: post.authorName,
-      readingTime: post.readingTime || calculateReadingTime(post.content),
+      readingTime: post.readingTime || "1 min read",
     }));
   } catch (error) {
     console.error("Error loading all posts from DB:", error);
