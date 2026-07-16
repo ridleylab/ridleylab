@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllPosts, getCategories, getTags } from "@/lib/posts";
+import { getAllPosts, getCategories } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
 import SearchBar from "@/components/blog/search-bar";
 import Pagination from "@/components/blog/pagination";
@@ -23,9 +23,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const searchVal = params.search || "";
   const pageVal = parseInt(params.page || "1", 10);
 
-  const posts = await getAllPosts();
-  const categories = await getCategories();
-  const tags = await getTags();
+  const [posts, categories] = await Promise.all([
+    getAllPosts(),
+    getCategories(),
+  ]);
 
   // Search logic
   const filteredPosts = posts.filter((post) => {
