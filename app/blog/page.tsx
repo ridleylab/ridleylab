@@ -23,10 +23,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const searchVal = params.search || "";
   const pageVal = parseInt(params.page || "1", 10);
 
+  console.time("loadData");
+  
   const [posts, categories] = await Promise.all([
     getAllPosts(),
     getCategories(),
   ]);
+
+  console.timeEnd("loadData");
 
   // Search logic
   const filteredPosts = posts.filter((post) => {
