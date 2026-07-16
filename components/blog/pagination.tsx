@@ -17,12 +17,22 @@ export default function Pagination({
 
   const createPageUrl = (page: number) => {
     const params = new URLSearchParams();
-    // Copy existing search params to retain filters
+  
+    // Pertahankan search params yang sudah ada
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value) params.set(key, value);
     });
-    params.set("page", page.toString());
-    return `${baseUrl}?${params.toString()}`;
+  
+    // Jangan tambahkan ?page=1
+    if (page > 1) {
+      params.set("page", page.toString());
+    } else {
+      params.delete("page");
+    }
+  
+    const query = params.toString();
+  
+    return query ? `${baseUrl}?${query}` : baseUrl;
   };
 
   return (
