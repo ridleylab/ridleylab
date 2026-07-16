@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/use-debounce";
 
@@ -10,8 +10,14 @@ export default function SearchBar() {
   const [query, setQuery] = useState(searchParams?.get("search") || "");
   const debouncedQuery = useDebounce(query, 300);
   const [isPending, startTransition] = useTransition();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    
     startTransition(() => {
       const params = new URLSearchParams(searchParams?.toString() || "");
       if (debouncedQuery) {
