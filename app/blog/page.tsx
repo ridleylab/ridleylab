@@ -4,6 +4,8 @@ import PostCard from "@/components/blog/post-card";
 import SearchBar from "@/components/blog/search-bar";
 import Pagination from "@/components/blog/pagination";
 
+export const revalidate = 600;
+
 export const metadata = {
   title: "Blog - Pelatihan AI Social Media Marketing",
   description: "Dapatkan wawasan terbaru tentang pemanfaatan AI untuk social media marketing, pembuatan konten, dan strategi scale up bisnis jasa Anda.",
