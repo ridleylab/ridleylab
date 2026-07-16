@@ -63,6 +63,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
 export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]> {
   try {
+    console.time("getAllPosts");
+    
     const posts = await prisma.post.findMany({
       where: includeDrafts ? {} : { draft: false },
     
@@ -99,6 +101,8 @@ export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]
       },
     });
 
+    console.timeEnd("getAllPosts");
+    
     return posts.map((post) => ({
       slug: post.slug,
       title: post.title,
