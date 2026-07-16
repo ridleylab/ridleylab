@@ -20,14 +20,20 @@ export default function SearchBar() {
     
     startTransition(() => {
       const params = new URLSearchParams(searchParams?.toString() || "");
+    
       if (debouncedQuery) {
         params.set("search", debouncedQuery);
+        params.set("page", "1");
       } else {
         params.delete("search");
+        params.delete("page");
       }
-      params.set("page", "1"); // Reset page to 1 on new search
-
-      router.push(`/blog?${params.toString()}`, { scroll: false });
+    
+      const query = params.toString();
+    
+      router.push(query ? `/blog?${query}` : "/blog", {
+        scroll: false,
+      });
     });
   }, [debouncedQuery, router, searchParams]);
 
