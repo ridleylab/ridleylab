@@ -225,7 +225,7 @@ export function getOfflineMentoringFAQSchema() {
         "name": "Berapa harga offline mentoring?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Program Offline Mentoring RIDLEY tersedia mulai dari Rp3.500.000."
+          "text": "Program Offline Mentoring RIDLEY tersedia mulai dari Rp4.500.000."
         }
       },
       {
