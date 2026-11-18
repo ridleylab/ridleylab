@@ -72,7 +72,7 @@ export default function HomeOffer() {
                   <div className="mb-8 flex items-end flex-wrap gap-1">
                     <span className="text-sm text-gray-400 mb-1">Rp</span>
                     <span className="text-[2.4rem] md:text-6xl leading-none font-medium text-ridley-yellow tracking-[-0.05em]">
-                      3.500.000
+                      4.500.000
                     </span>
                     <span className="text-sm text-gray-400 mb-1">/ tim</span>
                   </div>
