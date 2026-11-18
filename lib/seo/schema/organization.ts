@@ -10,7 +10,7 @@ export function getOrganizationSchema() {
     "telephone": "+6281210004453",
     "email": "labridley@gmail.com",
     "areaServed": "Indonesia",
-    "priceRange": "Rp199.000 - Rp3.500.000+",
+    "priceRange": "Rp199.000 - Rp4.500.000+",
     "description": "RIDLEY menyediakan Pelatihan AI Social Media Marketing untuk membantu bisnis jasa membangun sistem konten dan alur konversi otomatis.",
     "address": {
       "@type": "PostalAddress",
