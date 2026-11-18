@@ -40,7 +40,7 @@ export default function MentoringCTA() {
 
               <div className="mt-10 flex items-end gap-2">
                 <span className="text-ridley-yellow text-4xl md:text-5xl font-medium leading-none">
-                  Rp 3.500.000
+                  Rp 4.500.000
                 </span>
                 <span className="text-ridley-yellow/80 font-bold text-sm md:text-base mb-[4px]">
                   / Tim
