@@ -14,11 +14,9 @@ export function parseToc(content: string): TocItem[] {
     let text: string;
 
     if (match[1]) {
-      // Markdown match
       level = match[1].length;
       text = match[2].trim();
     } else {
-      // HTML match
       level = parseInt(match[3], 10);
       text = match[4].replace(/<[^>]*>?/gm, "").trim();
     }
@@ -44,19 +42,19 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (items.length === 0) return null;
 
   return (
-    <div className="bg-gray-50 border border-gray-150 p-6 rounded-2xl sticky top-28">
-      <h4 className="font-bold text-sm text-black mb-4 uppercase tracking-wider">
+    <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-6">
+      <h4 className="font-semibold text-xs text-zinc-950 dark:text-zinc-100 mb-4 uppercase tracking-[0.14em]">
         Daftar Isi
       </h4>
-      <nav className="space-y-2.5">
+      <nav aria-label="Daftar isi artikel" className="space-y-2.5">
         {items.map((item) => (
           <a
             key={item.id}
             href={`#${item.id}`}
-            className={`block text-sm transition duration-200 hover:text-ridley-blue ${
+            className={`block text-sm transition-colors hover:text-zinc-950 dark:hover:text-white leading-snug ${
               item.level === 3
-                ? "pl-4 text-gray-500 font-medium"
-                : "text-gray-700 font-semibold"
+                ? "pl-3.5 text-zinc-500 dark:text-zinc-400 border-l border-zinc-200 dark:border-zinc-800"
+                : "text-zinc-700 dark:text-zinc-300 font-medium"
             }`}
           >
             {item.text}

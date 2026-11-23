@@ -1,8 +1,10 @@
 import { programs } from "./programs";
+import { locations } from "./locations";
 
 export interface NavDropdownItem {
   name: string;
   path: string;
+  description?: string;
 }
 
 export interface NavLinkItem {
@@ -13,8 +15,6 @@ export interface NavLinkItem {
 
 /**
  * Header navigation links.
- * Note: `/services` hub and `/services/online-mentoring` will be added here
- * in Fase 3 once their routes are implemented.
  */
 export const headerNavLinks: NavLinkItem[] = [
   { name: "Home", path: "/" },
@@ -22,12 +22,24 @@ export const headerNavLinks: NavLinkItem[] = [
     name: "Services",
     dropdown: [
       {
-        name: programs.offlineMentoring.name,
-        path: programs.offlineMentoring.path,
+        name: "Semua Layanan",
+        path: "/services",
+        description: "Bandingkan 3 program pelatihan AI",
       },
       {
         name: programs.onlineCourse.name,
         path: programs.onlineCourse.path,
+        description: `${programs.onlineCourse.priceFormatted} · Belajar mandiri`,
+      },
+      {
+        name: programs.onlineMentoring.name,
+        path: programs.onlineMentoring.path,
+        description: `${programs.onlineMentoring.priceFormatted}/tim · 8x Google Meet`,
+      },
+      {
+        name: programs.offlineMentoring.name,
+        path: programs.offlineMentoring.path,
+        description: `${programs.offlineMentoring.priceFormatted}/tim · 8x tatap muka`,
       },
     ],
   },
@@ -38,15 +50,24 @@ export const headerNavLinks: NavLinkItem[] = [
 
 export const footerLinks = {
   services: [
-    {
-      name: programs.offlineMentoring.name,
-      path: programs.offlineMentoring.path,
-    },
+    { name: "Semua Layanan", path: "/services" },
     {
       name: programs.onlineCourse.name,
       path: programs.onlineCourse.path,
     },
+    {
+      name: programs.onlineMentoring.name,
+      path: programs.onlineMentoring.path,
+    },
+    {
+      name: programs.offlineMentoring.name,
+      path: programs.offlineMentoring.path,
+    },
   ],
+  locations: locations.map((loc) => ({
+    name: loc.city,
+    path: `/lokasi/${loc.slug}`,
+  })),
   company: [
     { name: "About Us", path: "/about" },
     { name: "Portfolio", path: "/portfolio" },

@@ -6,6 +6,10 @@ import { portfolioItems } from "@/config/portfolio";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getPortfolioSchemaGraph } from "@/lib/seo/schema";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 export const metadata: Metadata = buildMetadata({
   title: "Portfolio Klien Mentoring AI Marketing",
@@ -17,24 +21,40 @@ export default function PortfolioPage() {
   return (
     <>
       <JsonLd data={getPortfolioSchemaGraph(portfolioItems)} />
-      <div className="bg-white min-h-screen py-16">
-        <div className="ridley-container">
-          {/* HEADER BLOCK */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h1 className="text-4xl md:text-5xl font-medium text-black mt-4 mb-5 leading-tight">
+
+      <Section
+        variant="default"
+        spacing="none"
+        className="pt-8 pb-20 md:pt-12 md:pb-24"
+      >
+        <Container size="xl">
+          <Breadcrumb
+            items={[
+              { name: "Home", path: "/" },
+              { name: "Portfolio", path: "/portfolio" },
+            ]}
+            className="mb-8"
+          />
+
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <Badge variant="outline" className="mb-4">
+              Studi Kasus Klien
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
               Portfolio {siteConfig.name}
             </h1>
-            <p className="ridley-text text-gray-500 text-base">
-              Berikut adalah beberapa klien yang telah berkembang bersama mentoring {siteConfig.name}.
+            <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed">
+              Berikut adalah beberapa bisnis jasa yang telah mengikuti program
+              mentoring 8x pertemuan dan membangun sistem produksi konten
+              berbasis AI bersama {siteConfig.name}.
             </p>
           </div>
 
           <PortfolioContent items={portfolioItems} />
-        </div>
+        </Container>
 
-        {/* Script untuk TikTok Embed */}
         <Script src="https://www.tiktok.com/embed.js" strategy="lazyOnload" />
-      </div>
+      </Section>
     </>
   );
 }

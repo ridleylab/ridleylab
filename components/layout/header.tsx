@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, MessageCircle } from "lucide-react";
 import { siteConfig, getWhatsAppUrl } from "@/config/site";
 import { headerNavLinks } from "@/config/navigation";
+import { Container } from "@/components/ui/container";
+import { ButtonLink } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,97 +42,110 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 16);
     };
-
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isActive = (path: string) => {
-    if (path === "/") {
-      return pathname === "/";
-    }
-    return pathname?.startsWith(path);
+  const isLinkActive = (path: string) => {
+    if (path === "/") return pathname === "/";
+    if (path === "/services") return pathname === "/services";
+    return pathname === path || pathname?.startsWith(`${path}/`);
   };
 
-  const isDropdownActive = (dropdown?: { path: string }[]) => {
-    return dropdown?.some((item) => isActive(item.path));
-  };
-
+  const isServicesActive = Boolean(pathname?.startsWith("/services"));
   const whatsappUrl = getWhatsAppUrl();
 
   return (
     <header
-      id="ridleyHeader"
-      className={`w-full sticky top-0 z-50 transition-all duration-300 ${
+      className={cn(
+        "w-full sticky top-0 z-50 transition-all duration-200",
         isScrolled
-          ? "bg-white/85 backdrop-blur-md border-b border-black/6 shadow-sm"
-          : "bg-transparent border-b border-transparent"
-      }`}
+          ? "bg-white/85 dark:bg-zinc-950/85 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80"
+          : "bg-white/60 dark:bg-zinc-950/60 backdrop-blur-sm border-b border-transparent"
+      )}
     >
-      <div className="ridley-container">
-        <div className="flex items-center justify-between py-4 lg:py-5">
-          <Link href="/" className="relative h-9 w-32 lg:h-10 lg:w-36">
+      <Container size="xl">
+        <div className="flex items-center justify-between h-16 lg:h-[72px]">
+          <Link
+            href="/"
+            className="relative h-8 w-28 sm:h-9 sm:w-32 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 rounded-md"
+          >
             <Image
               src={siteConfig.brandAssets.logo}
               alt={`${siteConfig.name} Logo`}
               fill
               priority
-              className="object-contain object-left"
-              sizes="(max-width: 768px) 128px, 144px"
+              className="object-contain object-left dark:invert"
+              sizes="(max-width: 768px) 112px, 128px"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-10 text-sm font-bold">
+          <nav
+            aria-label="Navigasi utama"
+            className="hidden lg:flex items-center gap-8 text-sm font-medium"
+          >
             {headerNavLinks.map((link) => (
               <div key={link.name} className="relative group">
                 {link.dropdown ? (
                   <>
                     <button
-                      className={`flex items-center gap-1 transition py-1 ${
-                        isDropdownActive(link.dropdown)
-                          ? "text-ridley-blue"
-                          : "text-black hover:text-ridley-blue"
-                      }`}
+                      type="button"
+                      className={cn(
+                        "flex items-center gap-1 py-2 transition-colors cursor-pointer",
+                        isServicesActive
+                          ? "text-zinc-950 dark:text-white font-semibold"
+                          : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
+                      )}
                     >
-                      {link.name}
+                      <span>{link.name}</span>
                       <ChevronDown
-                        size={16}
-                        className="transition-transform group-hover:rotate-180"
+                        size={15}
+                        className="transition-transform duration-200 group-hover:rotate-180"
                       />
                     </button>
-                    <div className="absolute top-full left-0 pt-4 hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="bg-white border border-gray-100 shadow-xl rounded-xl py-3 w-48 flex flex-col">
-                        {link.dropdown.map((subLink) => (
-                          <Link
-                            key={subLink.name}
-                            href={subLink.path}
-                            className={`px-5 py-2 transition hover:bg-gray-50 ${
-                              isActive(subLink.path)
-                                ? "text-ridley-blue"
-                                : "text-black hover:text-ridley-blue"
-                            }`}
-                          >
-                            {subLink.name}
-                          </Link>
-                        ))}
+
+                    <div className="absolute top-full left-0 pt-2 hidden group-hover:block group-focus-within:block w-72">
+                      <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-xl p-2 flex flex-col gap-0.5">
+                        {link.dropdown.map((subLink) => {
+                          const active = isLinkActive(subLink.path);
+                          return (
+                            <Link
+                              key={subLink.path}
+                              href={subLink.path}
+                              className={cn(
+                                "rounded-xl px-3.5 py-2.5 transition-colors flex flex-col gap-0.5",
+                                active
+                                  ? "bg-zinc-100 dark:bg-zinc-900 text-zinc-950 dark:text-white"
+                                  : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 hover:text-zinc-950 dark:hover:text-white"
+                              )}
+                            >
+                              <span className="text-sm font-semibold">
+                                {subLink.name}
+                              </span>
+                              {subLink.description && (
+                                <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                                  {subLink.description}
+                                </span>
+                              )}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </>
                 ) : (
                   <Link
                     href={link.path!}
-                    className={`transition relative py-1 ${
-                      isActive(link.path!)
-                        ? "text-ridley-blue after:w-full"
-                        : "text-black hover:text-ridley-blue"
-                    }`}
+                    className={cn(
+                      "py-2 transition-colors relative",
+                      isLinkActive(link.path!)
+                        ? "text-zinc-950 dark:text-white font-semibold"
+                        : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
+                    )}
                   >
                     {link.name}
                   </Link>
@@ -137,70 +154,86 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3 lg:gap-4">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ridley-btn--nav hidden sm:flex"
-            >
-              Konsultasi
-            </a>
+          {/* Right Actions */}
+          <div className="flex items-center gap-2.5">
+            <ThemeToggle />
 
-            {/* Mobile Menu Button */}
+            <ButtonLink
+              href={whatsappUrl}
+              external
+              variant="primary"
+              size="sm"
+              className="hidden sm:inline-flex"
+            >
+              <MessageCircle size={15} />
+              <span>Konsultasi</span>
+            </ButtonLink>
+
             <button
-              className="lg:hidden p-2 text-black hover:text-ridley-blue transition-colors"
+              type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
+              className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
-      </div>
+      </Container>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-xl py-4 px-6 flex flex-col gap-4 animate-in slide-in-from-top-4 fade-in duration-200">
-          <nav className="flex flex-col gap-2 text-base font-bold">
+        <div className="lg:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-5 py-5 shadow-xl">
+          <nav
+            aria-label="Navigasi mobile"
+            className="flex flex-col divide-y divide-zinc-100 dark:divide-zinc-900 text-sm font-medium"
+          >
             {headerNavLinks.map((link) => (
-              <div
-                key={link.name}
-                className="flex flex-col border-b border-gray-50 last:border-0"
-              >
+              <div key={link.name} className="py-1">
                 {link.dropdown ? (
                   <>
                     <button
+                      type="button"
                       onClick={() =>
                         setIsMobileServicesOpen(!isMobileServicesOpen)
                       }
-                      className={`flex items-center justify-between py-3 transition ${
-                        isDropdownActive(link.dropdown)
-                          ? "text-ridley-blue"
-                          : "text-black"
-                      }`}
+                      aria-expanded={isMobileServicesOpen}
+                      className={cn(
+                        "w-full flex items-center justify-between py-3 text-left transition-colors cursor-pointer",
+                        isServicesActive
+                          ? "text-zinc-950 dark:text-white font-semibold"
+                          : "text-zinc-700 dark:text-zinc-300"
+                      )}
                     >
-                      {link.name}
+                      <span>{link.name}</span>
                       <ChevronDown
-                        size={20}
-                        className={`transition-transform ${
-                          isMobileServicesOpen ? "rotate-180" : ""
-                        }`}
+                        size={17}
+                        className={cn(
+                          "transition-transform duration-200",
+                          isMobileServicesOpen && "rotate-180"
+                        )}
                       />
                     </button>
                     {isMobileServicesOpen && (
-                      <div className="flex flex-col pl-4 pb-2 gap-1 animate-in slide-in-from-top-2">
+                      <div className="flex flex-col gap-1 pl-3 pb-3 border-l border-zinc-200 dark:border-zinc-800 ml-1">
                         {link.dropdown.map((subLink) => (
                           <Link
-                            key={subLink.name}
+                            key={subLink.path}
                             href={subLink.path}
-                            className={`py-2 transition text-sm font-semibold ${
-                              isActive(subLink.path)
-                                ? "text-ridley-blue"
-                                : "text-gray-600 hover:text-ridley-blue"
-                            }`}
+                            className={cn(
+                              "rounded-lg px-3 py-2 transition-colors",
+                              isLinkActive(subLink.path)
+                                ? "bg-zinc-100 dark:bg-zinc-900 text-zinc-950 dark:text-white font-semibold"
+                                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
+                            )}
                           >
-                            {subLink.name}
+                            <div className="text-sm font-medium">{subLink.name}</div>
+                            {subLink.description && (
+                              <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                                {subLink.description}
+                              </div>
+                            )}
                           </Link>
                         ))}
                       </div>
@@ -209,11 +242,12 @@ export default function Header() {
                 ) : (
                   <Link
                     href={link.path!}
-                    className={`transition block py-3 ${
-                      isActive(link.path!)
-                        ? "text-ridley-blue"
-                        : "text-black hover:text-ridley-blue"
-                    }`}
+                    className={cn(
+                      "block py-3 transition-colors",
+                      isLinkActive(link.path!)
+                        ? "text-zinc-950 dark:text-white font-semibold"
+                        : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white"
+                    )}
                   >
                     {link.name}
                   </Link>
@@ -221,14 +255,18 @@ export default function Header() {
               </div>
             ))}
           </nav>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ridley-btn--nav justify-center mt-2"
-          >
-            Konsultasi Sekarang
-          </a>
+
+          <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+            <ButtonLink
+              href={whatsappUrl}
+              external
+              variant="primary"
+              fullWidth
+            >
+              <MessageCircle size={16} />
+              <span>Konsultasi Sekarang</span>
+            </ButtonLink>
+          </div>
         </div>
       )}
     </header>

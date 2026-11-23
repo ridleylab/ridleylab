@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 export const metadata: Metadata = buildMetadata({
   title: "Privacy Policy",
@@ -10,49 +13,79 @@ export const metadata: Metadata = buildMetadata({
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-white min-h-screen py-16 md:py-24">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl md:text-5xl font-bold text-black mb-6">Privacy Policy</h1>
-        <p className="text-gray-500 mb-10">Last updated: {siteConfig.legalLastUpdated}</p>
+    <Section
+      variant="default"
+      spacing="none"
+      className="pt-8 pb-20 md:pt-12 md:pb-24"
+    >
+      <Container size="md">
+        <Breadcrumb
+          items={[
+            { name: "Home", path: "/" },
+            { name: "Privacy Policy", path: "/privacy-policy" },
+          ]}
+          className="mb-8"
+        />
 
-        <div className="prose prose-lg text-gray-700 max-w-none space-y-6">
+        <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4">
+          Privacy Policy
+        </h1>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-10 pb-8 border-b border-zinc-200 dark:border-zinc-800">
+          Terakhir diperbarui: {siteConfig.legalLastUpdated}
+        </p>
+
+        <div className="prose prose-zinc dark:prose-invert prose-lg max-w-none">
           <p>
-            Di {siteConfig.name}, privasi pengunjung kami adalah salah satu prioritas utama kami. Dokumen Kebijakan Privasi ini berisi jenis informasi yang dikumpulkan dan dicatat oleh {siteConfig.name} dan bagaimana kami menggunakannya.
+            Di {siteConfig.name}, privasi pengunjung kami adalah salah satu
+            prioritas utama kami. Dokumen Kebijakan Privasi ini berisi jenis
+            informasi yang dikumpulkan dan dicatat oleh {siteConfig.name} serta
+            bagaimana kami menggunakannya.
           </p>
 
-          <h2 className="text-2xl font-bold text-black mt-8 mb-4">Informasi yang Kami Kumpulkan</h2>
+          <h2>Informasi yang Kami Kumpulkan</h2>
           <p>
-            Informasi pribadi yang Anda diminta untuk berikan, dan alasan mengapa Anda diminta untuk memberikannya, akan dijelaskan kepada Anda pada saat kami meminta Anda untuk memberikan informasi pribadi Anda.
+            Informasi pribadi yang diminta untuk Anda berikan, beserta alasan
+            mengapa Anda diminta memberikannya, akan dijelaskan kepada Anda
+            pada saat pengumpulan data berlangsung.
           </p>
           <p>
-            Jika Anda menghubungi kami secara langsung, kami mungkin menerima informasi tambahan tentang Anda seperti nama Anda, alamat email, nomor telepon, isi pesan dan/atau lampiran yang mungkin Anda kirimkan kepada kami, dan informasi lain yang mungkin Anda pilih untuk berikan.
+            Jika Anda menghubungi kami secara langsung (misalnya melalui
+            WhatsApp atau email), kami dapat menerima informasi tambahan tentang
+            Anda seperti nama, alamat email, nomor telepon, isi pesan, dan
+            informasi lain yang Anda pilih untuk dibagikan.
           </p>
 
-          <h2 className="text-2xl font-bold text-black mt-8 mb-4">Bagaimana Kami Menggunakan Informasi Anda</h2>
+          <h2>Bagaimana Kami Menggunakan Informasi Anda</h2>
           <p>
-            Kami menggunakan informasi yang kami kumpulkan dengan berbagai cara, termasuk untuk:
+            Kami menggunakan informasi yang kami kumpulkan dengan berbagai cara,
+            termasuk untuk:
           </p>
-          <ul className="list-disc pl-6 space-y-2">
+          <ul>
             <li>Menyediakan, mengoperasikan, dan memelihara situs web kami</li>
-            <li>Meningkatkan, mempersonalisasi, dan memperluas situs web kami</li>
-            <li>Memahami dan menganalisis bagaimana Anda menggunakan situs web kami</li>
-            <li>Mengembangkan produk, layanan, fitur, dan fungsionalitas baru</li>
-            <li>Berkomunikasi dengan Anda, baik secara langsung maupun melalui salah satu mitra kami</li>
-            <li>Mengirimi Anda email</li>
-            <li>Menemukan dan mencegah penipuan</li>
+            <li>Meningkatkan, mempersonalisasi, dan memperluas layanan kami</li>
+            <li>Memahami dan menganalisis bagaimana pengunjung menggunakan situs web</li>
+            <li>Mengembangkan materi pelatihan dan fitur layanan baru</li>
+            <li>Berkomunikasi dengan Anda terkait konsultasi dan layanan</li>
+            <li>Mengirimkan pembaruan materi yang relevan</li>
+            <li>Mencegah aktivitas penyalahgunaan atau penipuan</li>
           </ul>
 
-          <h2 className="text-2xl font-bold text-black mt-8 mb-4">Log Files</h2>
+          <h2>Log Files</h2>
           <p>
-            {siteConfig.name} mengikuti prosedur standar menggunakan file log. File-file ini mencatat pengunjung saat mereka mengunjungi situs web. Semua perusahaan hosting melakukan ini dan merupakan bagian dari analitik layanan hosting.
+            {siteConfig.name} mengikuti prosedur standar penggunaan file log.
+            File log mencatat aktivitas teknis standar saat pengunjung mengakses
+            situs web untuk kebutuhan analitik performa dan keamanan layanan
+            hosting.
           </p>
 
-          <h2 className="text-2xl font-bold text-black mt-8 mb-4">Hubungi Kami</h2>
+          <h2>Hubungi Kami</h2>
           <p>
-            Jika Anda memiliki pertanyaan atau saran tentang Kebijakan Privasi kami, jangan ragu untuk menghubungi kami melalui <strong>{siteConfig.contact.email}</strong>.
+            Jika Anda memiliki pertanyaan mengenai Kebijakan Privasi ini,
+            silakan hubungi kami melalui email di{" "}
+            <strong>{siteConfig.contact.email}</strong>.
           </p>
         </div>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

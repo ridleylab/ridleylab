@@ -1,4 +1,7 @@
+import { MapPin } from "lucide-react";
 import TikTokEmbed from "./tiktok-embed";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 
 interface ClientSectionProps {
   name: string;
@@ -16,19 +19,29 @@ export default function ClientSection({
   videoIds,
 }: ClientSectionProps) {
   return (
-    <div className="mb-10 pb-8 border-b border-gray-100 last:border-0">
-      <div className="mb-8 text-center sm:text-left">
-        <h2 className="text-3xl font-bold text-ridley-black mb-2">{name}</h2>
-        <p className="text-lg text-ridley-blue font-semibold mb-2">
-          {businessType} - {location}
+    <Card variant="subtle" padding="lg">
+      <div className="mb-8">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <Badge variant="default">{businessType}</Badge>
+          <Badge variant="outline">
+            <MapPin size={11} />
+            <span>{location}</span>
+          </Badge>
+        </div>
+
+        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-2">
+          {name}
+        </h2>
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-3xl leading-relaxed">
+          {mentoringDetails}
         </p>
-        <p className="text-gray-600 max-w-3xl">{mentoringDetails}</p>
       </div>
+
       <div className="flex flex-wrap justify-center sm:justify-start gap-6">
         {videoIds.map((id) => (
           <TikTokEmbed key={id} videoId={id} />
         ))}
       </div>
-    </div>
+    </Card>
   );
 }

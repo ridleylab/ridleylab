@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Search } from "lucide-react";
 import ClientSection from "./client-section";
 import type { PortfolioItem } from "@/config/portfolio";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export type { PortfolioItem };
 
@@ -13,23 +16,23 @@ interface PortfolioContentProps {
 export default function PortfolioContent({ items }: PortfolioContentProps) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("Semua");
-  const [visibleCount, setVisibleCount] = useState(2);
+  const [visibleCount, setVisibleCount] = useState(4);
 
-  // Extract unique categories
   const categories = useMemo(() => {
     const cats = new Set(items.map((item) => item.category));
     return Array.from(cats);
   }, [items]);
 
-  // Filter items based on query and activeCategory
   const filteredItems = useMemo(() => {
+    const normalizedQuery = query.toLowerCase();
     return items.filter((item) => {
       const matchCategory =
         activeCategory === "Semua" || item.category === activeCategory;
       const matchQuery =
-        item.name.toLowerCase().includes(query.toLowerCase()) ||
-        item.businessType.toLowerCase().includes(query.toLowerCase()) ||
-        item.category.toLowerCase().includes(query.toLowerCase());
+        item.name.toLowerCase().includes(normalizedQuery) ||
+        item.businessType.toLowerCase().includes(normalizedQuery) ||
+        item.category.toLowerCase().includes(normalizedQuery) ||
+        item.location.toLowerCase().includes(normalizedQuery);
 
       return matchCategory && matchQuery;
     });
@@ -37,84 +40,57 @@ export default function PortfolioContent({ items }: PortfolioContentProps) {
 
   const displayedItems = filteredItems.slice(0, visibleCount);
 
-  const handleSeeMore = () => {
-    setVisibleCount((prev) => prev + 2);
-  };
-
   return (
     <div>
       {/* SEARCH AND FILTERS */}
-      <div className="mb-12 space-y-6">
-        {/* Search Bar */}
+      <div className="mb-12 space-y-5">
         <div className="relative w-full max-w-md mx-auto">
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-400">
+            <Search size={17} />
           </div>
           <input
             type="text"
-            placeholder="Cari bisnis..."
+            placeholder="Cari bisnis atau kota..."
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
-              setVisibleCount(2); // reset on search
+              setVisibleCount(4);
             }}
-            className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 focus:border-ridley-blue focus:bg-white text-black placeholder-gray-400 rounded-2xl outline-none transition duration-300 text-sm"
+            className="w-full pl-11 pr-4 py-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 focus:border-zinc-950 dark:focus:border-zinc-400 focus:bg-white dark:focus:bg-zinc-950 text-zinc-950 dark:text-zinc-50 placeholder-zinc-400 rounded-xl outline-none transition-colors text-sm"
           />
         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+          <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mr-1">
             Kategori:
           </span>
-          <button
-            onClick={() => {
-              setActiveCategory("Semua");
-              setVisibleCount(2);
-            }}
-            className={`px-4 py-1.5 rounded-full text-xs font-bold transition ${
-              activeCategory === "Semua"
-                ? "bg-ridley-blue text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            }`}
-          >
-            Semua
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                setVisibleCount(2);
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition ${
-                activeCategory === cat
-                  ? "bg-ridley-blue text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {["Semua", ...categories].map((cat) => {
+            const active = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setVisibleCount(4);
+                }}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer",
+                  active
+                    ? "bg-zinc-950 text-white dark:bg-zinc-50 dark:text-zinc-950"
+                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                )}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* CONTENT GRID */}
+      {/* CONTENT LIST */}
       {displayedItems.length > 0 ? (
-        <div className="px-4">
+        <div className="space-y-8">
           {displayedItems.map((item) => (
             <ClientSection
               key={item.id}
@@ -127,32 +103,32 @@ export default function PortfolioContent({ items }: PortfolioContentProps) {
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 border border-dashed border-gray-200 rounded-3xl">
-          <p className="text-gray-400 text-lg font-bold">
+        <div className="text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
+          <p className="text-zinc-500 dark:text-zinc-400 text-base font-medium">
             Tidak ada bisnis yang cocok dengan pencarian Anda.
           </p>
           <button
+            type="button"
             onClick={() => {
               setQuery("");
               setActiveCategory("Semua");
-              setVisibleCount(2);
+              setVisibleCount(4);
             }}
-            className="inline-block mt-4 text-sm font-bold text-ridley-blue hover:underline"
+            className="inline-block mt-3 text-sm font-semibold text-zinc-950 dark:text-zinc-100 underline underline-offset-4 cursor-pointer"
           >
             Reset Pencarian
           </button>
         </div>
       )}
 
-      {/* See More Button */}
       {visibleCount < filteredItems.length && (
-        <div className="mt-12 text-center">
-          <button
-            onClick={handleSeeMore}
-            className="px-8 py-3 bg-ridley-blue text-white font-bold rounded-xl hover:bg-blue-700 transition"
+        <div className="mt-10 text-center">
+          <Button
+            variant="outline"
+            onClick={() => setVisibleCount((prev) => prev + 4)}
           >
-            See more
-          </button>
+            Tampilkan Lebih Banyak
+          </Button>
         </div>
       )}
     </div>

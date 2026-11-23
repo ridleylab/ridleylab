@@ -7,6 +7,10 @@ import Pagination from "@/components/blog/pagination";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogIndexSchemaGraph } from "@/lib/seo/schema";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 export const revalidate = 600;
 
@@ -17,7 +21,9 @@ interface BlogPageProps {
   }>;
 }
 
-export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: BlogPageProps): Promise<Metadata> {
   const params = await searchParams;
   const searchVal = (params.search || "").trim();
   const pageNum = Math.max(1, parseInt(params.page || "1", 10) || 1);
@@ -32,9 +38,10 @@ export async function generateMetadata({ searchParams }: BlogPageProps): Promise
   }
 
   return buildMetadata({
-    title: pageNum > 1
-      ? `Blog Pelatihan AI Social Media Marketing - Halaman ${pageNum}`
-      : "Blog Pelatihan AI Social Media Marketing",
+    title:
+      pageNum > 1
+        ? `Blog Pelatihan AI Social Media Marketing - Halaman ${pageNum}`
+        : "Blog Pelatihan AI Social Media Marketing",
     description:
       "Dapatkan wawasan terbaru tentang pemanfaatan AI untuk social media marketing, pembuatan konten, SOP tim, dan strategi scale up bisnis jasa Anda.",
     path: pageNum > 1 ? `/blog?page=${pageNum}` : "/blog",
@@ -51,7 +58,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     getCategoryList(),
   ]);
 
-  // Search logic
   const filteredPosts = posts.filter((post) => {
     const query = searchVal.toLowerCase();
     return (
@@ -63,7 +69,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     );
   });
 
-  // Pagination parameters
   const limit = 6;
   const totalPosts = filteredPosts.length;
   const totalPages = Math.ceil(totalPosts / limit);
@@ -76,33 +81,47 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <>
       <JsonLd data={getBlogIndexSchemaGraph(paginatedPosts)} />
-      <div className="bg-white min-h-screen py-16">
-        <div className="ridley-container">
-          {/* HEADER BLOCK */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h1 className="text-4xl md:text-5xl font-medium text-black mt-4 mb-5 leading-tight">
-              Wawasan & Panduan Marketing Berbasis AI
+
+      <Section
+        variant="default"
+        spacing="none"
+        className="pt-8 pb-20 md:pt-12 md:pb-24"
+      >
+        <Container size="xl">
+          <Breadcrumb
+            items={[
+              { name: "Home", path: "/" },
+              { name: "Blog", path: "/blog" },
+            ]}
+            className="mb-8"
+          />
+
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <Badge variant="outline" className="mb-4">
+              Blog &amp; Panduan
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
+              Wawasan &amp; Panduan Marketing Berbasis AI
             </h1>
-            <p className="ridley-text text-gray-500 text-base">
-              Pelajari alur taktis penerapan AI untuk konten social media, mempercepat operasional, dan mendatangkan klien untuk bisnis jasa Anda.
+            <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed">
+              Alur taktis penerapan AI untuk konten social media, efisiensi SOP
+              tim, dan konversi leads untuk bisnis jasa Anda.
             </p>
           </div>
 
-          {/* SEARCH AND FILTERS */}
-          <div className="mb-12 space-y-6">
+          <div className="mb-12 space-y-5">
             <SearchBar />
 
-            {/* Categories bar */}
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+              <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mr-1">
                 Kategori:
               </span>
               <Link
                 href="/blog"
-                className={`px-4 py-1.5 rounded-full text-xs font-bold transition ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
                   !searchVal
-                    ? "bg-ridley-blue text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-zinc-950 text-white dark:bg-zinc-50 dark:text-zinc-950"
+                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
                 }`}
               >
                 Semua
@@ -111,7 +130,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 <Link
                   key={cat.slug}
                   href={`/blog/category/${cat.slug}`}
-                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition"
+                  className="px-4 py-1.5 rounded-full text-xs font-semibold bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors"
                 >
                   {cat.name}
                 </Link>
@@ -119,10 +138,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </div>
           </div>
 
-          {/* CONTENT GRID */}
           {paginatedPosts.length > 0 ? (
             <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {paginatedPosts.map((post) => (
                   <PostCard key={post.slug} post={post} />
                 ))}
@@ -136,20 +154,20 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               />
             </>
           ) : (
-            <div className="text-center py-20 border border-dashed border-gray-200 rounded-3xl">
-              <p className="text-gray-400 text-lg font-bold">
+            <div className="text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
+              <p className="text-zinc-500 dark:text-zinc-400 text-base font-medium">
                 Tidak ada artikel yang cocok dengan pencarian Anda.
               </p>
               <Link
                 href="/blog"
-                className="inline-block mt-4 text-sm font-bold text-ridley-blue hover:underline"
+                className="inline-block mt-3 text-sm font-semibold text-zinc-950 dark:text-zinc-100 underline underline-offset-4"
               >
                 Reset Pencarian
               </Link>
             </div>
           )}
-        </div>
-      </div>
+        </Container>
+      </Section>
     </>
   );
 }

@@ -1,131 +1,100 @@
-import Image from "next/image";
+import {
+  CheckSquare,
+  ClipboardList,
+  Infinity as InfinityIcon,
+  PlayCircle,
+  RefreshCw,
+  Sparkles,
+} from "lucide-react";
 import { programs } from "@/config/programs";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Badge } from "@/components/ui/badge";
+
+const deliverables = [
+  {
+    icon: PlayCircle,
+    title: "10+ Video Pembelajaran",
+    desc: "Materi terstruktur yang bisa dipelajari ulang kapan saja sesuai jadwal Anda.",
+  },
+  {
+    icon: Sparkles,
+    title: "Template Prompt AI",
+    desc: "Prompt siap adaptasi untuk riset ide, penulisan skrip, dan optimasi penawaran.",
+  },
+  {
+    icon: ClipboardList,
+    title: "SOP Tim Konten",
+    desc: "Membantu workflow harian tim lebih rapi dan konsisten.",
+  },
+  {
+    icon: CheckSquare,
+    title: "Bonus Checklist",
+    desc: "Checklist audit akun dan fondasi profil agar siap menerima leads.",
+  },
+  {
+    icon: InfinityIcon,
+    title: "Sekali Bayar",
+    desc: "Tidak ada tagihan langganan bulanan untuk mengakses materi course.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Update Materi Baru",
+    desc: "Penyesuaian materi sesuai perkembangan tren konten dan tools AI.",
+  },
+];
 
 export default function CourseOffer() {
   const program = programs.onlineCourse;
 
   return (
-    <>{/* SECTION 5 — THE OFFER */}
-      <section className="bg-ridley-blue relative overflow-hidden py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-medium text-white leading-tight max-w-5xl mx-auto">
-              Semua Materi Pelatihan AI Ini
-              <br className="hidden md:block" />
-              Bisa Kamu Akses Sekali Bayar
-            </h2>
-            <p className="text-white/70 mt-6 max-w-2xl mx-auto text-sm md:text-base">
-              Dirancang untuk membantu bisnis melatih tim marketing agar lebih rapi, cepat beradaptasi, dan siap berkembang.
-            </p>
-          </div>
+    <Section variant="inverted">
+      <Container size="xl">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <Badge variant="inverted" className="mb-4">
+            Investasi Terjangkau
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white mb-5 leading-tight">
+            Semua Materi Pelatihan AI Ini Bisa Anda Akses Sekali Bayar
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed mb-8">
+            Dirancang untuk membantu bisnis membangun fondasi tim marketing yang
+            lebih rapi, cepat beradaptasi, dan siap berkembang.
+          </p>
 
-          <div className="flex justify-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-ridley-yellow text-black px-7 py-4 rounded-full shadow-2xl">
-              <span className="text-sm font-bold uppercase tracking-[0.15em]">Dengan Harga</span>
-              <span className="text-2xl md:text-3xl font-medium">{program.priceFormatted}</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
-            {/* item 1 */}
-            <div className="group text-center hover:-translate-y-3 transition duration-500">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-ridley-yellow transition duration-500">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=106753&format=png&color=2980b9"
-                    alt="Icon"
-                    fill
-                    unoptimized
-                    className="group-hover:brightness-0 group-hover:invert-0 transition duration-500"
-                  />
-                </div>
-              </div>
-              <h3 className="text-white font-bold leading-relaxed text-sm">10+ Video Pembelajaran</h3>
-              <p className="text-white/60 text-xs mt-2">Bisa dipelajari ulang kapan saja sesuai kebutuhan bisnis.</p>
-            </div>
-
-            {/* item 2 */}
-            <div className="group text-center hover:-translate-y-3 transition duration-500">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-ridley-yellow transition duration-500">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=112370&format=png&color=2980b9"
-                    alt="Icon"
-                    fill
-                    unoptimized
-                  />
-                </div>
-              </div>
-              <h3 className="text-white font-bold leading-relaxed text-sm">Template Prompt AI</h3>
-              <p className="text-white/60 text-xs mt-2">Tinggal adaptasi dan gunakan untuk mempercepat produksi konten.</p>
-            </div>
-
-            {/* item 3 */}
-            <div className="group text-center hover:-translate-y-3 transition duration-500">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-ridley-yellow transition duration-500">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=5MUSl821ydGh&format=png&color=2980b9"
-                    alt="Icon"
-                    fill
-                    unoptimized
-                  />
-                </div>
-              </div>
-              <h3 className="text-white font-bold leading-relaxed text-sm">SOP Tim Konten</h3>
-              <p className="text-white/60 text-xs mt-2">Membantu workflow tim lebih rapi dan tidak berantakan.</p>
-            </div>
-
-            {/* item 4 */}
-            <div className="group text-center hover:-translate-y-3 transition duration-500">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-ridley-yellow transition duration-500">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=113061&format=png&color=2980b9"
-                    alt="Icon"
-                    fill
-                    unoptimized
-                  />
-                </div>
-              </div>
-              <h3 className="text-white font-bold leading-relaxed text-sm">Bonus Checklist</h3>
-              <p className="text-white/60 text-xs mt-2">Persiapan akun dan fondasi konten agar lebih siap jualan.</p>
-            </div>
-
-            {/* item 5 */}
-            <div className="group text-center hover:-translate-y-3 transition duration-500">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-ridley-yellow transition duration-500">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=9430&format=png&color=2980b9"
-                    alt="Icon"
-                    fill
-                    unoptimized
-                  />
-                </div>
-              </div>
-              <h3 className="text-white font-bold leading-relaxed text-sm">Akses Selamanya</h3>
-              <p className="text-white/60 text-xs mt-2">Tidak ada biaya bulanan untuk mengakses materi course.</p>
-            </div>
-
-            {/* item 6 */}
-            <div className="group text-center hover:-translate-y-3 transition duration-500">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-ridley-yellow transition duration-500">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=21866&format=png&color=2980b9"
-                    alt="Icon"
-                    fill
-                    unoptimized
-                  />
-                </div>
-              </div>
-              <h3 className="text-white font-bold leading-relaxed text-sm">Update Materi Baru</h3>
-              <p className="text-white/60 text-xs mt-2">Mendapatkan tambahan materi jika ada update trend terbaru.</p>
-            </div>
+          <div className="inline-flex items-baseline gap-3 rounded-full bg-white text-zinc-950 px-7 py-3.5 shadow-lg">
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-600">
+              Investasi
+            </span>
+            <span className="text-2xl sm:text-3xl font-semibold tracking-tight">
+              {program.priceFormatted}
+            </span>
+            <span className="text-xs text-zinc-600">{program.priceUnit}</span>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          {deliverables.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5 text-center flex flex-col items-center hover:border-zinc-600 transition-colors"
+              >
+                <div className="w-12 h-12 rounded-xl bg-zinc-800 border border-zinc-700 text-white flex items-center justify-center mb-4">
+                  <Icon size={20} />
+                </div>
+                <h3 className="text-sm font-semibold text-white mb-1.5">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </Section>
   );
 }

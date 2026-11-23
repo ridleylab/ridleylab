@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface PaginationProps {
   currentPage: number;
@@ -17,53 +18,54 @@ export default function Pagination({
 
   const createPageUrl = (page: number) => {
     const params = new URLSearchParams();
-  
-    // Pertahankan search params yang sudah ada
+
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value) params.set(key, value);
     });
-  
-    // Jangan tambahkan ?page=1
+
     if (page > 1) {
       params.set("page", page.toString());
     } else {
       params.delete("page");
     }
-  
+
     const query = params.toString();
-  
     return query ? `${baseUrl}?${query}` : baseUrl;
   };
 
   return (
-    <div className="flex items-center justify-center gap-6 mt-14">
+    <div className="flex flex-wrap items-center justify-center gap-4 mt-14">
       {currentPage > 1 ? (
         <Link
           href={createPageUrl(currentPage - 1)}
-          className="inline-flex items-center justify-center py-3 px-6 rounded-xl border border-gray-200 bg-white font-bold text-sm hover:bg-gray-50 transition"
+          className="inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 font-semibold text-sm text-zinc-950 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
         >
-          &larr; Halaman Sebelumnya
+          <ArrowLeft size={15} />
+          <span>Sebelumnya</span>
         </Link>
       ) : (
-        <span className="inline-flex items-center justify-center py-3 px-6 rounded-xl border border-gray-100 bg-gray-50/50 font-bold text-sm text-gray-300 cursor-not-allowed">
-          &larr; Halaman Sebelumnya
+        <span className="inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl border border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-900/40 font-semibold text-sm text-zinc-300 dark:text-zinc-700 cursor-not-allowed">
+          <ArrowLeft size={15} />
+          <span>Sebelumnya</span>
         </span>
       )}
 
-      <span className="text-sm font-bold text-gray-500">
+      <span className="text-xs sm:text-sm font-medium text-zinc-500 dark:text-zinc-400">
         Halaman {currentPage} dari {totalPages}
       </span>
 
       {currentPage < totalPages ? (
         <Link
           href={createPageUrl(currentPage + 1)}
-          className="inline-flex items-center justify-center py-3 px-6 rounded-xl border border-gray-200 bg-white font-bold text-sm hover:bg-gray-50 transition"
+          className="inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 font-semibold text-sm text-zinc-950 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
         >
-          Halaman Berikutnya &rarr;
+          <span>Berikutnya</span>
+          <ArrowRight size={15} />
         </Link>
       ) : (
-        <span className="inline-flex items-center justify-center py-3 px-6 rounded-xl border border-gray-100 bg-gray-50/50 font-bold text-sm text-gray-300 cursor-not-allowed">
-          Halaman Berikutnya &rarr;
+        <span className="inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl border border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-900/40 font-semibold text-sm text-zinc-300 dark:text-zinc-700 cursor-not-allowed">
+          <span>Berikutnya</span>
+          <ArrowRight size={15} />
         </span>
       )}
     </div>

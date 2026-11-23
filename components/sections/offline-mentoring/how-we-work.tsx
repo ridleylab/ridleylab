@@ -1,89 +1,74 @@
-import Image from "next/image";
-import Link from "next/link";
+import { CalendarCheck, Cpu, Target, TrendingUp } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Badge } from "@/components/ui/badge";
+
+const pillars = [
+  {
+    icon: CalendarCheck,
+    title: "Pendampingan Offline Terstruktur",
+    description:
+      "8 sesi tatap muka intensif di lokasi untuk memastikan seluruh implementasi berjalan tanpa hambatan teknis.",
+  },
+  {
+    icon: Target,
+    title: "Strategi Spesifik Bisnis Anda",
+    description:
+      "Analisis funnel, positioning jasa, dan target pasar sebelum menyusun blueprint konten bisnis Anda.",
+  },
+  {
+    icon: Cpu,
+    title: "Training Tim Berbasis AI",
+    description:
+      "Tim dilatih langsung menggunakan template prompt AI dan SOP produksi agar rutinitas harian jauh lebih efisien.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Evaluasi & Scale-up Rutin",
+    description:
+      "Audit performa berkala untuk memastikan sistem konten menghasilkan leads dan closing yang terukur.",
+  },
+];
 
 export default function MentoringHowWeWork() {
   return (
-    <>{/* SECTION 3 — HOW WE WORK */}
-      <section className="ridley-section bg-black relative overflow-hidden py-20">
-        <div className="ridley-container relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="ridley-title text-white mb-6">
-              Bukan Sekadar Pelatihan. <br />
-              Ini Transformasi Tim Anda <span className="text-ridley-yellow">dengan AI.</span>
-            </h2>
-            <p className="ridley-text text-white/60 max-w-3xl mx-auto">
-              Kami membantu bisnis membangun workflow AI yang bisa mempercepat produksi konten, dari ide hingga closing.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {/* Card 1 */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow hover:-translate-y-2 transition-all duration-500">
-              <div className="relative w-8 h-8 mb-5">
-                <Image
-                  src="https://img.icons8.com/?size=100&id=n0trbwvkiG7r&format=png&color=FFCC4A"
-                  alt="Icon"
-                  fill
-                  unoptimized
-                />
-              </div>
-              <h3 className="font-bold text-sm text-white">Pendampingan Offline Terstruktur</h3>
-              <p className="text-sm text-white/60 mt-3 leading-relaxed">
-                8 sesi tatap muka intensif untuk memastikan implementasi berjalan tanpa hambatan teknis.
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow hover:-translate-y-2 transition-all duration-500">
-              <div className="relative w-8 h-8 mb-5">
-                <Image
-                  src="https://img.icons8.com/?size=100&id=IN7yfpVTPRzI&format=png&color=FFCC4A"
-                  alt="Icon"
-                  fill
-                  unoptimized
-                />
-              </div>
-              <h3 className="font-bold text-sm text-white">Strategi Spesifik Bisnis Anda</h3>
-              <p className="text-sm text-white/60 mt-3 leading-relaxed">
-                Analisis funnel, positioning, dan target market sebelum menyusun blueprint konten bisnis Anda.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow hover:-translate-y-2 transition-all duration-500">
-              <div className="relative w-8 h-8 mb-5">
-                <Image
-                  src="https://img.icons8.com/?size=100&id=wxIQffEFAs2d&format=png&color=FFCC4A"
-                  alt="Icon"
-                  fill
-                  unoptimized
-                />
-              </div>
-              <h3 className="font-bold text-sm text-white">Training Tim Berbasis AI</h3>
-              <p className="text-sm text-white/60 mt-3 leading-relaxed">
-                Tim dilatih menggunakan template prompt AI dan workflow produksi agar proses harian lebih efisien.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow hover:-translate-y-2 transition-all duration-500">
-              <div className="relative w-8 h-8 mb-5">
-                <Image
-                  src="https://img.icons8.com/?size=100&id=79644&format=png&color=FFCC4A"
-                  alt="Icon"
-                  fill
-                  unoptimized
-                />
-              </div>
-              <h3 className="font-bold text-sm text-white">Evaluasi & Scale-up Rutin</h3>
-              <p className="text-sm text-white/60 mt-3 leading-relaxed">
-                Audit performa berkala untuk memastikan sistem menghasilkan ROI yang terukur bagi bisnis.
-              </p>
-            </div>
-          </div>
+    <Section variant="inverted">
+      <Container size="xl">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <Badge variant="inverted" className="mb-4">
+            Metode Transformasi
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white mb-5 leading-tight">
+            Bukan Sekadar Pelatihan. Ini Transformasi Tim Anda dengan AI.
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+            Kami turun mendampingi bisnis Anda membangun workflow AI yang
+            mempercepat seluruh proses dari ide konten hingga closing admin.
+          </p>
         </div>
-      </section>
-    </>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+          {pillars.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 hover:border-zinc-600 transition-colors"
+              >
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 text-white flex items-center justify-center mb-5">
+                  <Icon size={18} />
+                </div>
+                <h3 className="font-semibold text-base text-white mb-2.5">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </Section>
   );
 }
-

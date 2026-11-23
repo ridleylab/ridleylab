@@ -1,113 +1,90 @@
 import Image from "next/image";
-import Link from "next/link";
+import { EyeOff, Sparkles, TrendingDown, UserMinus } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+
+const painPoints = [
+  {
+    icon: TrendingDown,
+    text: "Konten terus jalan, tapi respon market masih dingin dan minim inquiry.",
+  },
+  {
+    icon: EyeOff,
+    text: "Views bisa tinggi dan engagement ramai, tapi chat masuk dan penjualan tidak ikut naik.",
+  },
+  {
+    icon: UserMinus,
+    text: "Followers bertambah, namun bisnis tetap sulit tumbuh secara konsisten.",
+  },
+];
 
 export default function CourseProblem() {
   return (
-    <>{/* SECTION 2 — THE PROBLEM */}
-      <section className="ridley-section py-20 md:py-28 bg-[#F0F5FA]">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-medium text-black leading-tight max-w-4xl mx-auto">
-              Udah Konsisten Upload Konten,
-              <br className="hidden md:block" />
-              Tapi Closing Tetap Seret?
-            </h2>
-            <p className="text-gray-500 mt-6 max-w-2xl mx-auto text-sm md:text-base">
-              Banyak UMKM terjebak dalam kondisi &quot;viral&quot; - konten jalan dan FYP terus, tapi omzet nggak ikut tumbuh.
-            </p>
+    <Section variant="subtle" borderTop>
+      <Container size="xl">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
+            Sudah Konsisten Upload Konten, Tapi Closing Tetap Seret?
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Banyak UMKM terjebak dalam kondisi &ldquo;viral tanpa konversi&rdquo;
+            — konten berjalan, namun omzet tidak ikut bertumbuh.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* IMAGE */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="relative w-full max-w-[460px] aspect-square rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 overflow-hidden">
+              <Image
+                src="/images/services/online-course-problem.png"
+                alt="Ilustrasi konten ramai namun belum menghasilkan konversi bisnis"
+                fill
+                className="object-contain p-4"
+                sizes="(max-width: 1024px) 100vw, 460px"
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-            {/* IMAGE */}
-            <div className="flex justify-center">
-              <div className="relative w-full max-w-[520px] h-[350px] md:h-[450px]">
-                <div className="absolute inset-0 bg-ridley-blue/10 blur-3xl rounded-full scale-90"></div>
-                <Image
-                  src="/images/services/online-course-problem.png"
-                  alt="Online course problem illustration"
-                  fill
-                  className="object-contain drop-shadow-2xl"
-                  sizes="(max-width: 768px) 100vw, 500px"
-                />
-              </div>
+          {/* CONTENT */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="space-y-4">
+              {painPoints.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.text}
+                    className="flex items-start gap-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-950 dark:text-zinc-50 shrink-0">
+                      <Icon size={18} />
+                    </div>
+                    <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed pt-1">
+                      {item.text}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* CONTENT */}
-            <div>
-              <div className="space-y-7 mb-10">
-                <div className="group flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-ridley-blue/10 flex items-center justify-center flex-shrink-0">
-                    <div className="relative w-6 h-6">
-                      <Image
-                        src="https://img.icons8.com/?size=100&id=113109&format=png&color=2980b9"
-                        alt="Icon"
-                        fill
-                        unoptimized
-                      />
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed font-medium pt-2">
-                    Konten terus jalan, tapi respon market masih dingin dan minim inquiry.
-                  </p>
-                </div>
-
-                <div className="group flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-ridley-blue/10 flex items-center justify-center flex-shrink-0">
-                    <div className="relative w-6 h-6">
-                      <Image
-                        src="https://img.icons8.com/?size=100&id=78339&format=png&color=2980b9"
-                        alt="Icon"
-                        fill
-                        unoptimized
-                      />
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed font-medium pt-2">
-                    Views bisa tinggi, engagement ramai, tapi chat masuk dan penjualan tidak ikut naik.
-                  </p>
-                </div>
-
-                <div className="group flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-ridley-blue/10 flex items-center justify-center flex-shrink-0">
-                    <div className="relative w-6 h-6">
-                      <Image
-                        src="https://img.icons8.com/?size=100&id=jlko-Y4NyP5B&format=png&color=2980b9"
-                        alt="Icon"
-                        fill
-                        unoptimized
-                      />
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed font-medium pt-2">
-                    Followers bertambah, namun bisnis tetap sulit tumbuh secara konsisten.
-                  </p>
-                </div>
+            <div className="rounded-2xl border border-zinc-950 dark:border-zinc-700 bg-zinc-950 dark:bg-zinc-900 text-zinc-100 p-6 flex items-start gap-4">
+              <div className="w-11 h-11 rounded-xl bg-white text-zinc-950 flex items-center justify-center shrink-0">
+                <Sparkles size={19} />
               </div>
-
-              <div className="relative overflow-hidden rounded-3xl border border-ridley-blue/15 bg-white/80 backdrop-blur-sm p-6 md:p-7 shadow-xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-ridley-blue/5 to-transparent pointer-events-none"></div>
-                <div className="relative flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-ridley-blue flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <div className="relative w-7 h-7">
-                      <Image
-                        src="https://img.icons8.com/?size=100&id=111453&format=png&color=FFFFFF"
-                        alt="Icon"
-                        fill
-                        unoptimized
-                      />
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed text-sm md:text-base">
-                    Masalah utamanya bukan di <span className="font-bold text-black">kualitas konten</span>,
-                    tapi karena tim Anda <span className="font-bold text-ridley-blue">belum memanfaatkan AI</span> untuk meriset target pasar dan membuat alur konversi yang tepat.
-                  </p>
-                </div>
-              </div>
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+                Masalah utamanya bukan di{" "}
+                <span className="font-semibold text-white">kualitas kamera</span>
+                , tapi karena tim Anda{" "}
+                <span className="font-semibold text-white">
+                  belum memanfaatkan AI
+                </span>{" "}
+                untuk meriset sudut pandang target pasar dan merangkai alur
+                konversi yang tepat.
+              </p>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }
-

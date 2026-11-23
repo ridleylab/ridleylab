@@ -1,11 +1,16 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 import { getAllPosts, getCategoryList } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogCategorySchemaGraph } from "@/lib/seo/schema";
 import { siteConfig } from "@/config/site";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -26,7 +31,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
   const categories = await getCategoryList();
   const matched = categories.find((c) => c.slug === slug);
@@ -57,55 +64,75 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const categoryName =
     matchedCategory?.name ||
-    (filteredPosts.length > 0 ? filteredPosts[0].category : formatFallbackName(slug));
+    (filteredPosts.length > 0
+      ? filteredPosts[0].category
+      : formatFallbackName(slug));
 
   return (
     <>
-      <JsonLd data={getBlogCategorySchemaGraph(categoryName, slug, filteredPosts)} />
-      <div className="bg-white min-h-screen py-16">
-        <div className="ridley-container">
-          {/* HEADER BLOCK */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h1 className="text-4xl md:text-5xl font-medium text-black mt-4 mb-5 leading-tight">
+      <JsonLd
+        data={getBlogCategorySchemaGraph(categoryName, slug, filteredPosts)}
+      />
+
+      <Section
+        variant="default"
+        spacing="none"
+        className="pt-8 pb-20 md:pt-12 md:pb-24"
+      >
+        <Container size="xl">
+          <Breadcrumb
+            items={[
+              { name: "Home", path: "/" },
+              { name: "Blog", path: "/blog" },
+              { name: categoryName, path: `/blog/category/${slug}` },
+            ]}
+            className="mb-8"
+          />
+
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <Badge variant="outline" className="mb-4">
+              Kategori Artikel
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
               Kategori: {categoryName}
             </h1>
-            <p className="ridley-text text-gray-500">
-              Menampilkan panduan taktis untuk membantu scale up operasional bisnis Anda di bawah topik {categoryName}.
+            <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed">
+              Menampilkan panduan taktis untuk membantu scale up operasional
+              bisnis jasa Anda di bawah topik {categoryName}.
             </p>
           </div>
 
-          {/* BACK TO BLOG */}
           <div className="mb-8">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-ridley-blue hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-950 dark:text-zinc-100 hover:underline"
             >
-              &larr; Kembali ke Semua Artikel
+              <ArrowLeft size={15} />
+              <span>Kembali ke Semua Artikel</span>
             </Link>
           </div>
 
-          {/* CONTENT GRID */}
           {filteredPosts.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredPosts.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 border border-dashed border-gray-200 rounded-3xl">
-              <p className="text-gray-400 text-lg font-bold">
+            <div className="text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
+              <p className="text-zinc-500 dark:text-zinc-400 text-base font-medium">
                 Tidak ada artikel di kategori ini.
               </p>
               <Link
                 href="/blog"
-                className="inline-block mt-4 text-sm font-bold text-ridley-blue hover:underline"
+                className="inline-block mt-3 text-sm font-semibold text-zinc-950 dark:text-zinc-100 underline underline-offset-4"
               >
                 Lihat Kategori Lain
               </Link>
             </div>
           )}
-        </div>
-      </div>
+        </Container>
+      </Section>
     </>
   );
 }

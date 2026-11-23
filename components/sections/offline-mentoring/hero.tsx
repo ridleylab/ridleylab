@@ -1,96 +1,116 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Check, MessageCircle } from "lucide-react";
 import { siteConfig, getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+
+const checklist = [
+  "8x sesi tatap muka langsung",
+  "SOP Produksi Konten",
+  "Workflow Tim Terstruktur",
+  "Template Prompt AI",
+  "SOP Closing Admin",
+  "Evaluasi & Scale-up",
+];
 
 export default function MentoringHero() {
-  const whatsappUrl = getWhatsAppUrl(programs.offlineMentoring.whatsappMessage);
+  const program = programs.offlineMentoring;
+  const whatsappUrl = getWhatsAppUrl(program.whatsappMessage);
 
   return (
-    <>{/* SECTION 1 — HERO */}
-      <section className="ridley-section overflow-hidden !pt-4 !lg:pt-10 bg-white">
-        <div className="ridley-container">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            {/* LEFT CONTENT */}
-            <div>
-              <div className="mb-4">
-              </div>
+    <Section variant="default" spacing="none" className="pt-8 pb-16 md:pt-12 md:pb-24">
+      <Container size="xl">
+        <Breadcrumb
+          items={[
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: program.name, path: program.path },
+          ]}
+          className="mb-8"
+        />
 
-              <h1 className="text-4xl lg:text-[3.25rem] font-medium leading-[1.15] text-black tracking-tight mb-6">
-                Offline Mentoring{" "}
-                <span className="bg-gradient-to-r from-ridley-blue to-ridley-yellow bg-clip-text text-transparent">
-                  AI Social Media Marketing
-                </span>{" "}
-                di Lokasi Bisnis Anda.
-              </h1>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-6">
+            <Badge variant="outline" className="mb-5">
+              {program.badge} · {program.priceFormatted} {program.priceUnit}
+            </Badge>
 
-              <p className="ridley-text text-lg mb-10 max-w-xl">
-                Offline Mentoring - Workshop di lokasi yang mengajarkan tim Anda cara pakai AI untuk bikin konten & closing secara efektif. Kurikulum khusus, latihan kasus nyata, & hasil terukur.
-              </p>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
+              Offline Mentoring AI Social Media Marketing di Lokasi Bisnis Anda.
+            </h1>
 
-              {/* Checklist */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
-                <div className="flex items-center gap-2">
-                  <span className="ridley-check text-ridley-blue font-bold">✔</span>
-                  <span className="ridley-text text-gray-700">8x sesi tatap muka</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="ridley-check text-ridley-blue font-bold">✔</span>
-                  <span className="ridley-text text-gray-700">SOP Produksi Konten</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="ridley-check text-ridley-blue font-bold">✔</span>
-                  <span className="ridley-text text-gray-700">Workflow Tim</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="ridley-check text-ridley-blue font-bold">✔</span>
-                  <span className="ridley-text text-gray-700">Template Prompt AI</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="ridley-check text-ridley-blue font-bold">✔</span>
-                  <span className="ridley-text text-gray-700">SOP Closing Admin</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="ridley-check text-ridley-blue font-bold">✔</span>
-                  <span className="ridley-text text-gray-700">Evaluasi & Scale-up</span>
-                </div>
-              </div>
+            <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mb-8">
+              Workshop tatap muka di lokasi yang melatih tim Anda menggunakan
+              AI untuk produksi konten dan closing secara efektif. Kurikulum
+              khusus, latihan kasus nyata, dan hasil terukur.
+            </p>
 
-              <div>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ridley-btn text-white w-full sm:w-auto"
+            <div className="grid sm:grid-cols-2 gap-3 mb-8">
+              {checklist.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2.5 text-sm text-zinc-800 dark:text-zinc-200"
                 >
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=ZeQPTbzIF4jw&format=png&color=FFFFFF"
-                      alt="WhatsApp"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <span>Cek Ketersediaan Jadwal</span>
-                </a>
-              </div>
-
-              <div className="mt-4 text-xs uppercase tracking-widest text-gray-500">
-                Respon cepat | Terjadwal | Terbatas
-              </div>
+                  <Check
+                    size={16}
+                    className="shrink-0 text-zinc-950 dark:text-zinc-50"
+                  />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
 
-            {/* RIGHT IMAGE */}
-            <div className="relative w-full aspect-square rounded-[13px] overflow-hidden shadow-2xl border border-black/5">
-              <img
+            <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
+              <ButtonLink href={whatsappUrl} external variant="primary" size="lg">
+                <MessageCircle size={17} />
+                <span>{program.ctaLabel}</span>
+              </ButtonLink>
+              <ButtonLink href="/services/online-mentoring" variant="outline" size="lg">
+                Luar Kota? Pakai Google Meet
+              </ButtonLink>
+            </div>
+
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Respon cepat · Terjadwal · Slot terbatas. Area luar Yogyakarta
+              tersedia{" "}
+              <Link
+                href={programs.onlineMentoring.path}
+                className="underline underline-offset-4 hover:text-zinc-950 dark:hover:text-zinc-200"
+              >
+                Online Mentoring (Rp4.000.000)
+              </Link>{" "}
+              maupun{" "}
+              <Link
+                href="/lokasi/jakarta"
+                className="underline underline-offset-4 hover:text-zinc-950 dark:hover:text-zinc-200"
+              >
+                In-House Workshop
+              </Link>
+              .
+            </p>
+          </div>
+
+          {/* RIGHT IMAGE */}
+          <div className="lg:col-span-6">
+            <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
+              <Image
                 src="/images/services/offline-mentoring-hero.jpg"
-                alt={`Offline Mentoring ${siteConfig.name}`}
-                className="w-full h-full object-cover object-top"
+                alt={`Offline Mentoring ${siteConfig.name} sesi tatap muka langsung di kantor klien`}
+                fill
+                priority
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }
-

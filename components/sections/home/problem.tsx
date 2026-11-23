@@ -1,94 +1,91 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Clock, FileText, RefreshCw, Workflow } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Badge } from "@/components/ui/badge";
+
+const problems = [
+  {
+    icon: Clock,
+    title: "Proses riset konten lambat karena serba manual",
+    detail:
+      "Ide konten dikumpulkan tanpa sistem sehingga tim menghabiskan jam kerja hanya untuk mencari bahan.",
+  },
+  {
+    icon: FileText,
+    title: "Tim bingung cara menulis script yang menarik",
+    detail:
+      "Hook video kurang menggigit dan narasi belum mengarah pada ketertarikan calon klien bisnis jasa.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Produksi tidak konsisten dan boros waktu",
+    detail:
+      "Upload sering berhenti di tengah jalan karena tidak ada template kerja dan SOP produksi harian.",
+  },
+  {
+    icon: Workflow,
+    title: "Tahu ada AI, tapi bingung integrasi ke workflow",
+    detail:
+      "AI hanya dipakai sesekali untuk tanya jawab acak, belum terpasang menjadi pipeline tim marketing.",
+  },
+];
 
 export default function HomeProblem() {
   return (
-    <>{/* SECTION 2 — PROBLEM */}
-      <section className="ridley-section bg-black text-white relative overflow-hidden">
-        <div className="ridley-container relative z-10">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-            {/* TITLE */}
-            <div>
-              <h2 className="text-3xl lg:text-[2.75rem] font-medium text-white mt-2 mb-6 leading-[1.15]">
-                Masalahnya Bukan di Kreativitas, Tapi Tim Belum <span className="text-ridley-yellow">Memaksimalkan AI.</span>
-              </h2>
+    <Section variant="inverted">
+      <Container size="xl">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          {/* LEFT */}
+          <div className="lg:col-span-5">
+            <Badge variant="inverted" className="mb-5">
+              Akar Masalah
+            </Badge>
+            <h2 className="text-3xl lg:text-[2.65rem] font-semibold tracking-tight leading-[1.12] text-white mb-6">
+              Masalahnya Bukan di Kreativitas, Tapi Tim Belum Memaksimalkan AI.
+            </h2>
+            <p className="text-zinc-400 text-base leading-relaxed">
+              Banyak bisnis sebenarnya sudah punya tim. Namun proses riset,
+              produksi konten, hingga tindak lanjut chat masih berjalan manual
+              dan bergantung penuh pada keputusan owner.
+            </p>
+          </div>
 
-              <p className="ridley-text text-gray-300 max-w-xl">
-                Banyak bisnis sebenarnya sudah punya tim. Tapi proses produksi konten,
-                distribusi, dan workflow masih dilakukan secara manual dan bergantung penuh pada owner.
-              </p>
+          {/* RIGHT */}
+          <div className="lg:col-span-7 space-y-5">
+            <div className="grid sm:grid-cols-2 gap-4">
+              {problems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 hover:border-zinc-600 transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-white mb-5">
+                      <Icon size={18} />
+                    </div>
+                    <h3 className="font-semibold text-sm sm:text-base text-white leading-snug mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      {item.detail}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* CARD */}
-            <div>
-              <div className="grid grid-cols-2 gap-5 mb-6">
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative w-8 h-8 mb-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=d9nXV3Ae3NNX&format=png&color=ffcc4a"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <h3 className="font-bold text-sm leading-relaxed text-gray-100">
-                    Proses riset konten lambat karena serba manual
-                  </h3>
-                </div>
-
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative w-8 h-8 mb-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=9542&format=png&color=ffcc4a"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <h3 className="font-bold text-sm leading-relaxed text-gray-100">
-                    Tim bingung cara menulis script yang menarik
-                  </h3>
-                </div>
-
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative w-8 h-8 mb-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=118638&format=png&color=ffcc4a"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <h3 className="font-bold text-sm leading-relaxed text-gray-100">
-                    Produksi tidak konsisten dan boros waktu
-                  </h3>
-                </div>
-
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-ridley-yellow transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative w-8 h-8 mb-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=goboorUpTkAE&format=png&color=ffcc4a"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <h3 className="font-bold text-sm leading-relaxed text-gray-100">
-                    Tau ada AI, tapi bingung cara integrasi ke workflow
-                  </h3>
-                </div>
-              </div>
-
-              <div className="border border-white/15 rounded-2xl p-6 bg-white/[0.03]">
-                <p className="text-sm text-gray-300 leading-relaxed">
-                  Selama semuanya masih manual dan bergantung pada owner, bisnis akan membuang banyak waktu. <span className="text-ridley-yellow font-bold">Tim butuh skill AI.</span>
-                </p>
-              </div>
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 px-6 py-5">
+              <p className="text-sm text-zinc-300 leading-relaxed">
+                Selama semuanya masih manual dan bergantung pada owner, bisnis
+                akan terus membuang banyak waktu.{" "}
+                <span className="font-semibold text-white">
+                  Tim Anda membutuhkan skill dan sistem kerja berbasis AI.
+                </span>
+              </p>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }
-

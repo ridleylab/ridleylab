@@ -1,9 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 import { getAllPosts, getTags } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 interface TagPageProps {
   params: Promise<{ slug: string }>;
@@ -16,7 +21,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: TagPageProps): Promise<Metadata> {
   const { slug } = await params;
   const name = slug
     .split("-")
@@ -39,7 +46,6 @@ export default async function TagPage({ params }: TagPageProps) {
     p.tags.some((tag) => tag.toLowerCase().replace(/\s+/g, "-") === slug)
   );
 
-  // Find actual tag capitalized name
   let tagName = slug
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -53,49 +59,63 @@ export default async function TagPage({ params }: TagPageProps) {
   }
 
   return (
-    <div className="bg-white min-h-screen py-16">
-      <div className="ridley-container">
-        {/* HEADER BLOCK */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <h1 className="text-4xl md:text-5xl font-medium text-black mt-4 mb-5 leading-tight">
+    <Section
+      variant="default"
+      spacing="none"
+      className="pt-8 pb-20 md:pt-12 md:pb-24"
+    >
+      <Container size="xl">
+        <Breadcrumb
+          items={[
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: `#${tagName}`, path: `/blog/tag/${slug}` },
+          ]}
+          className="mb-8"
+        />
+
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <Badge variant="outline" className="mb-4">
+            Arsip Tag
+          </Badge>
+          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
             Tag: #{tagName}
           </h1>
-          <p className="ridley-text text-gray-500">
+          <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed">
             Menampilkan panduan taktis yang berfokus pada topik #{tagName}.
           </p>
         </div>
 
-        {/* BACK TO BLOG */}
         <div className="mb-8">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-ridley-blue hover:underline"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-950 dark:text-zinc-100 hover:underline"
           >
-            &larr; Kembali ke Semua Artikel
+            <ArrowLeft size={15} />
+            <span>Kembali ke Semua Artikel</span>
           </Link>
         </div>
 
-        {/* CONTENT GRID */}
         {filteredPosts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPosts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 border border-dashed border-gray-200 rounded-3xl">
-            <p className="text-gray-400 text-lg font-bold">
+          <div className="text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
+            <p className="text-zinc-500 dark:text-zinc-400 text-base font-medium">
               Tidak ada artikel dengan tag ini.
             </p>
             <Link
               href="/blog"
-              className="inline-block mt-4 text-sm font-bold text-ridley-blue hover:underline"
+              className="inline-block mt-3 text-sm font-semibold text-zinc-950 dark:text-zinc-100 underline underline-offset-4"
             >
               Lihat Tag Lain
             </Link>
           </div>
         )}
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

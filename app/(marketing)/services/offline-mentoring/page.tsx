@@ -36,6 +36,7 @@ export default function Page() {
       <ProgramFaqSection
         title="Pertanyaan Seputar Offline Mentoring"
         faqs={program.faqs}
+        variant="subtle"
       />
       <MentoringCTA />
     </>

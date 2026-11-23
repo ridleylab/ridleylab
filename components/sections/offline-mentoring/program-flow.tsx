@@ -1,81 +1,89 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Badge } from "@/components/ui/badge";
+
+const steps = [
+  {
+    num: "01",
+    title: "Audit & Diagnosa",
+    description:
+      "Memetakan kondisi bisnis, target market, serta bottleneck operasional yang menghambat pertumbuhan.",
+  },
+  {
+    num: "02",
+    title: "AI Strategy & Workflow",
+    description:
+      "Menyusun SOP kerja tim, template prompt AI khusus brand Anda, dan alur produksi yang efisien.",
+  },
+  {
+    num: "03",
+    title: "Implementasi AI Tools",
+    description:
+      "Melatih tim menerapkan AI dalam riset konten, scripting harian, hingga SOP balasan admin closing.",
+  },
+  {
+    num: "04",
+    title: "Optimasi & Scale Up",
+    description:
+      "Evaluasi eksekusi nyata di lapangan agar output leads semakin stabil dan siap ditingkatkan.",
+  },
+];
 
 export default function MentoringProgramFlow() {
   return (
-    <>{/* SECTION 4 — PROGRAM FLOW */}
-      <section className="ridley-section bg-[#F0F5FA] relative overflow-hidden py-24">
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-medium text-black leading-[1.1] mb-5">
-              Dari Operasional Acak Menjadi Sistem Konten yang Bisa Jalan Bersama Tim
-            </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto mt-6 leading-relaxed">
-              Proses pendampingan dirancang agar tim ngonten tidak hanya belajar, tetapi benar-benar memiliki sistem yang bisa dijalankan.
-            </p>
-            <div className="w-16 h-1.5 bg-ridley-yellow mx-auto mt-6 rounded-full"></div>
-          </div>
+    <Section variant="subtle" borderTop>
+      <Container size="lg">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <Badge variant="outline" className="mb-4">
+            Tahapan Program
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-4">
+            Dari Operasional Acak Menjadi Sistem Konten yang Bisa Jalan Bersama
+            Tim
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Proses pendampingan dirancang agar tim tidak hanya memahami teori,
+            tetapi memiliki SOP nyata yang berjalan setiap minggu.
+          </p>
+        </div>
 
-          {/* timeline */}
-          <div className="relative max-w-4xl mx-auto">
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden md:block"></div>
-            <div className="absolute left-5 top-0 bottom-0 w-px bg-black/10 md:hidden"></div>
+        <div className="relative max-w-4xl mx-auto">
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-zinc-200 dark:bg-zinc-800" />
+          <div className="md:hidden absolute left-5 top-0 bottom-0 w-px bg-zinc-200 dark:bg-zinc-800" />
 
-            {/* STEP 1 */}
-            <div className="relative flex flex-col md:flex-row items-start md:items-center mb-16">
-              <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-11 h-11 rounded-full bg-ridley-blue text-white flex items-center justify-center font-bold z-10 shadow-lg">
-                01
-              </div>
-              <div className="pl-16 md:pl-0 md:w-1/2 md:pr-16 md:text-right">
-                <h3 className="text-2xl font-bold mb-3 text-black">Audit & Diagnosa</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Memetakan kondisi bisnis, target market, serta bottleneck yang menghambat pertumbuhan.
-                </p>
-              </div>
-            </div>
-
-            {/* STEP 2 */}
-            <div className="relative flex flex-col md:flex-row-reverse items-start md:items-center mb-16">
-              <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-11 h-11 rounded-full bg-ridley-blue text-white flex items-center justify-center font-bold z-10 shadow-lg">
-                02
-              </div>
-              <div className="pl-16 md:pl-0 md:w-1/2 md:pl-16">
-                <h3 className="text-2xl font-bold mb-3 text-black">AI Strategy & Workflow</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Menyusun SOP, template prompt AI, dan alur kerja yang lebih cepat dan efisien.
-                </p>
-              </div>
-            </div>
-
-            {/* STEP 3 */}
-            <div className="relative flex flex-col md:flex-row items-start md:items-center mb-16">
-              <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-11 h-11 rounded-full bg-ridley-blue text-white flex items-center justify-center font-bold z-10 shadow-lg">
-                03
-              </div>
-              <div className="pl-16 md:pl-0 md:w-1/2 md:pr-16 md:text-right">
-                <h3 className="text-2xl font-bold mb-3 text-black">Implementasi AI Tools</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Melatih tim menggunakan AI dalam rutinitas produksi harian dan proses closing.
-                </p>
-              </div>
-            </div>
-
-            {/* STEP 4 */}
-            <div className="relative flex flex-col md:flex-row-reverse items-start md:items-center">
-              <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-11 h-11 rounded-full bg-ridley-blue text-white flex items-center justify-center font-bold z-10 shadow-lg">
-                04
-              </div>
-              <div className="pl-16 md:pl-0 md:w-1/2 md:pl-16">
-                <h3 className="text-2xl font-bold mb-3 text-black">Optimasi & Scale Up</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Evaluasi rutin agar hasil dari penggunaan AI semakin akurat dan relevan.
-                </p>
-              </div>
-            </div>
+          <div className="space-y-10">
+            {steps.map((step, idx) => {
+              const isReversed = idx % 2 === 1;
+              return (
+                <div
+                  key={step.num}
+                  className={`relative flex flex-col md:flex-row ${
+                    isReversed ? "md:flex-row-reverse" : ""
+                  } items-start md:items-center`}
+                >
+                  <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-10 h-10 rounded-full bg-zinc-950 dark:bg-zinc-50 text-white dark:text-zinc-950 flex items-center justify-center text-xs font-semibold z-10 border-4 border-zinc-50 dark:border-zinc-950">
+                    {step.num}
+                  </div>
+                  <div
+                    className={`pl-14 md:pl-0 md:w-1/2 ${
+                      isReversed ? "md:pl-14 text-left" : "md:pr-14 md:text-right"
+                    }`}
+                  >
+                    <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6">
+                      <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }
-

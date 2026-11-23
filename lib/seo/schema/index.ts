@@ -319,6 +319,38 @@ export function getHomeSchemaGraph() {
   ]);
 }
 
+export function getServicesHubSchemaGraph() {
+  const allPrograms = [
+    programs.onlineCourse,
+    programs.onlineMentoring,
+    programs.offlineMentoring,
+  ];
+
+  return createSchemaGraph([
+    buildOrganizationNode(),
+    buildWebsiteNode(),
+    buildWebPageNode({
+      path: "/services",
+      name: `Program Pelatihan AI Social Media Marketing | ${siteConfig.name}`,
+      description:
+        "Bandingkan 3 program pelatihan AI Social Media Marketing RidleyLab: Online Course mandiri Rp199.000, Online Mentoring Google Meet Rp4.000.000/tim, dan Offline Mentoring tatap muka Rp4.500.000/tim.",
+      pageType: "CollectionPage",
+    }),
+    buildBreadcrumbNode("/services", [
+      { name: "Home", path: "/" },
+      { name: "Services", path: "/services" },
+    ]),
+    buildItemListNode(
+      "/services",
+      `Program Pelatihan ${siteConfig.name}`,
+      allPrograms.map((prog) => ({
+        name: `${prog.name} (${prog.priceFormatted} ${prog.priceUnit})`,
+        url: prog.path,
+      }))
+    ),
+  ]);
+}
+
 export function getProgramSchemaGraph(program: ProgramItem) {
   return createSchemaGraph([
     buildOrganizationNode(),
@@ -330,6 +362,7 @@ export function getProgramSchemaGraph(program: ProgramItem) {
     }),
     buildBreadcrumbNode(program.path, [
       { name: "Home", path: "/" },
+      { name: "Services", path: "/services" },
       { name: program.name, path: program.path },
     ]),
     ...buildCourseAndServiceNodes(program),

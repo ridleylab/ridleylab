@@ -1,96 +1,83 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, Globe, PlayCircle } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 export default function CourseCTA() {
-  const whatsappUrl = getWhatsAppUrl(programs.onlineCourse.whatsappMessage);
+  const program = programs.onlineCourse;
+  const whatsappUrl = getWhatsAppUrl(program.whatsappMessage);
 
   return (
-    <>{/* SECTION 6 — CTA CLOSING */}
-      <section className="bg-white relative overflow-hidden py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-            {/* CONTENT */}
-            <div className="text-center lg:text-left">
-              <h2 className="text-4xl md:text-6xl font-medium text-black leading-tight mb-6">
-                Saatnya Latih Tim Anda Menggunakan <span className="text-ridley-blue">AI</span> Agar Bisnis Tumbuh Konsisten
-              </h2>
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-10">
-                Berhenti capek produksi konten manual. Mulai terapkan AI untuk workflow yang lebih rapi, scalable, dan bisa menghasilkan closing secara lebih terukur.
-              </p>
+    <Section variant="subtle" borderTop>
+      <Container size="xl">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* CONTENT */}
+          <div className="lg:col-span-7">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-5">
+              Saatnya Latih Tim Anda Menggunakan AI Agar Bisnis Tumbuh
+              Konsisten
+            </h2>
+            <p className="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
+              Berhenti menghabiskan jam kerja dengan produksi konten manual.
+              Mulai bangun workflow AI yang lebih rapi dan menghasilkan closing
+              secara terukur.
+            </p>
 
-              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-10">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-4 bg-ridley-blue text-white font-bold px-8 md:px-10 py-4 rounded-2xl transition duration-300 hover:-translate-y-1 shadow-lg shadow-[#2980B9]/20 w-full sm:w-auto"
-                >
-                  <span>Download Sekarang</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
+            <div className="flex flex-col sm:flex-row gap-3.5 mb-8">
+              <ButtonLink href={whatsappUrl} external variant="primary" size="lg">
+                <span>Akses Online Course ({program.priceFormatted})</span>
+                <ArrowRight size={17} />
+              </ButtonLink>
+              <ButtonLink href="/services/online-mentoring" variant="outline" size="lg">
+                Ingin Pendampingan Tim Live?
+              </ButtonLink>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+              <div className="inline-flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-zinc-950 dark:text-zinc-100" />
+                <span>Akses materi fleksibel</span>
               </div>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4">
-                <div className="flex items-center gap-3 text-sm text-gray-500">
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=106753&format=png&color=2980b9"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <span>Akses selamanya</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-gray-500">
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=59850&format=png&color=2980b9"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <span>Belajar dari mana saja</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-gray-500">
-                  <div className="relative w-5 h-5">
-                    <Image
-                      src="https://img.icons8.com/?size=100&id=82767&format=png&color=2980b9"
-                      alt="Icon"
-                      fill
-                      unoptimized
-                    />
-                  </div>
-                  <span>Bisa diputar ulang</span>
-                </div>
+              <div className="inline-flex items-center gap-2">
+                <Globe size={16} className="text-zinc-950 dark:text-zinc-100" />
+                <span>Belajar dari mana saja</span>
+              </div>
+              <div className="inline-flex items-center gap-2">
+                <PlayCircle size={16} className="text-zinc-950 dark:text-zinc-100" />
+                <span>Bisa diputar ulang</span>
               </div>
             </div>
 
-            {/* IMAGE */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[620px] h-[300px] md:h-[400px]">
-                <Image
-                  src="/images/services/online-course-cta.png"
-                  alt="CTA Online Course Illustration"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 600px"
-                />
-              </div>
+            <p className="mt-6 text-xs text-zinc-500 dark:text-zinc-400">
+              Punya tim konten yang ingin dibimbing langsung 8x sesi? Pelajari{" "}
+              <Link
+                href={programs.onlineMentoring.path}
+                className="font-semibold text-zinc-950 dark:text-zinc-200 underline underline-offset-4"
+              >
+                Online Mentoring via Google Meet
+              </Link>
+              .
+            </p>
+          </div>
+
+          {/* IMAGE */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[520px] aspect-[4/3] rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden p-4">
+              <Image
+                src="/images/services/online-course-cta.png"
+                alt="Preview materi Online Course AI Social Media Marketing RidleyLab"
+                fill
+                className="object-contain p-4"
+                sizes="(max-width: 1024px) 100vw, 500px"
+              />
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }

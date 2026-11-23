@@ -1,85 +1,87 @@
 import Image from "next/image";
+import { Check, MessageCircle } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
+import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+
+const summaryBullets = [
+  "8x Sesi Tatap Muka Intensif",
+  "Implementasi Sistem Bersama Tim",
+  "Full SOP & Template Prompt AI",
+];
 
 export default function MentoringCTA() {
   const program = programs.offlineMentoring;
   const whatsappUrl = getWhatsAppUrl(program.whatsappMessage);
 
   return (
-    <>{/* SECTION 8 — CTA CLOSING */}
-      <section id="ridley-final-cta" className="ridley-section bg-[#050505] relative overflow-hidden py-24 text-white">
-        <div className="ridley-container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* LEFT */}
-            <div className="flex flex-col justify-center">
-              <h2 className="text-3xl md:text-5xl font-medium leading-[1.05] mb-6 max-w-[650px]">
-                Siap Mentransformasi Tim Marketing Anda dengan AI?
-              </h2>
-              <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-xl mb-7">
-                Ajukan sesi konsultasi untuk mengevaluasi kebutuhan bisnis Anda. Kami akan cek apakah workshop AI ini cocok untuk scale up bisnis Anda.
-              </p>
+    <Section variant="inverted" spacing="lg">
+      <Container size="xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* LEFT */}
+          <div className="lg:col-span-7">
+            <Badge variant="inverted" className="mb-5">
+              Slot Bulanan Terbatas
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.08] text-white mb-5">
+              Siap Mentransformasi Tim Marketing Anda dengan AI?
+            </h2>
+            <p className="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl mb-8">
+              Ajukan sesi konsultasi awal untuk memetakan kebutuhan tim Anda.
+              Kami akan mengecek kecocokan format workshop tatap muka maupun
+              online untuk scale up bisnis Anda.
+            </p>
 
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#C0392B] hover:bg-ridley-yellow hover:text-black hover:shadow-[0_0_20px_rgba(255,204,74,0.2)] active:scale-[0.98] transition-all duration-300 rounded-2xl py-4 px-10 text-xs md:text-sm font-bold uppercase"
-              >
-                <div className="relative w-4 h-4 shrink-0">
-                  <Image
-                    src="https://img.icons8.com/?size=100&id=16733&format=png&color=FFFFFF"
-                    alt="WhatsApp"
-                    fill
-                    unoptimized
-                  />
-                </div>
-                <span>Daftar & Kurasi Sekarang</span>
-              </a>
-
-              <div className="mt-4 flex items-start gap-2 text-[11px] text-white/40 italic">
-                <span className="text-ridley-yellow mt-[3px] text-[10px]">•</span>
-                <p>Slot terbatas untuk menjaga kualitas mentoring</p>
-              </div>
-
-              <div className="mt-10 flex items-end gap-2">
-                <span className="text-ridley-yellow text-4xl md:text-5xl font-medium leading-none">
-                  {program.priceFormatted}
-                </span>
-                <span className="text-ridley-yellow/80 font-bold text-sm md:text-base mb-[4px]">
-                  {program.priceUnit}
-                </span>
-              </div>
-
-              <div className="mt-8 flex flex-wrap lg:flex-nowrap gap-x-5 gap-y-2 text-[12px] md:text-sm text-white/70">
-                <div className="flex items-center gap-1.5 whitespace-nowrap">
-                  <span className="text-ridley-yellow text-[10px]">•</span>
-                  <span>8x Sesi Tatap Muka Intensif</span>
-                </div>
-                <div className="flex items-center gap-1.5 whitespace-nowrap">
-                  <span className="text-ridley-yellow text-[10px]">•</span>
-                  <span>Implementasi Sistem Bersama Tim</span>
-                </div>
-                <div className="flex items-center gap-1.5 whitespace-nowrap">
-                  <span className="text-ridley-yellow text-[10px]">•</span>
-                  <span>Full SOP & Template Prompt AI</span>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-3.5 mb-5">
+              <ButtonLink href={whatsappUrl} external variant="inverted" size="lg">
+                <MessageCircle size={17} />
+                <span>Daftar &amp; Kurasi Sekarang</span>
+              </ButtonLink>
+              <ButtonLink href="/services/online-mentoring" variant="inverted-outline" size="lg">
+                Cek Online Mentoring (Rp4jt)
+              </ButtonLink>
             </div>
 
-            {/* RIGHT */}
-            <div className="flex justify-center lg:justify-end w-full">
-              <div className="relative w-full max-w-[450px]">
-                <img
-                  src="/images/services/offline-mentoring-cta.png"
-                  alt="Offline Mentoring CTA"
-                  className="w-full h-auto block"
-                />
-              </div>
+            <p className="text-xs text-zinc-500 italic mb-8">
+              *Slot dibatasi agar mentor tetap fokus membimbing setiap tim klien.
+            </p>
+
+            <div className="flex items-baseline gap-2 mb-6">
+              <span className="text-white text-4xl sm:text-5xl font-semibold tracking-tight">
+                {program.priceFormatted}
+              </span>
+              <span className="text-zinc-400 text-sm sm:text-base">
+                {program.priceUnit}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-zinc-300">
+              {summaryBullets.map((item) => (
+                <div key={item} className="inline-flex items-center gap-2">
+                  <Check size={15} className="text-white shrink-0" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT IMAGE */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[440px] aspect-square rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900">
+              <Image
+                src="/images/services/offline-mentoring-cta.png"
+                alt="Preview implementasi sistem Offline Mentoring RidleyLab"
+                fill
+                className="object-contain p-4"
+                sizes="(max-width: 1024px) 100vw, 440px"
+              />
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }

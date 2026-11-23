@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { getAllPosts, getCategoryList } from "@/lib/posts";
 import { siteConfig } from "@/config/site";
 import { programs } from "@/config/programs";
+import { locations } from "@/config/locations";
 
 const STATIC_LAST_UPDATED = new Date("2026-11-23T00:00:00Z");
 
@@ -15,10 +16,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { path: "", priority: 1.0, changeFrequency: "weekly" as const },
+    { path: "/services", priority: 0.9, changeFrequency: "weekly" as const },
     { path: programs.onlineCourse.path, priority: 0.9, changeFrequency: "weekly" as const },
+    { path: programs.onlineMentoring.path, priority: 0.9, changeFrequency: "weekly" as const },
     { path: programs.offlineMentoring.path, priority: 0.9, changeFrequency: "weekly" as const },
-    // Note: `/services`, `/services/online-mentoring`, and `/lokasi/[city]` routes
-    // will be added here in Fase 3 once their pages are live.
     { path: "/portfolio", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/blog", priority: 0.8, changeFrequency: "daily" as const },
@@ -29,6 +30,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: STATIC_LAST_UPDATED,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
+  }));
+
+  const locationRoutes: MetadataRoute.Sitemap = locations.map((loc) => ({
+    url: `${siteUrl}/lokasi/${loc.slug}`,
+    lastModified: STATIC_LAST_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
   }));
 
   const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
@@ -45,5 +53,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...postRoutes];
+  return [...staticRoutes, ...locationRoutes, ...categoryRoutes, ...postRoutes];
 }

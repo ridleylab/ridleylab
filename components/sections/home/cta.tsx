@@ -1,63 +1,61 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Layers, MessageCircle, SlidersHorizontal, Users } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
-import { programs } from "@/config/programs";
+import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 
 export default function HomeCTA() {
   const whatsappUrl = getWhatsAppUrl();
 
   return (
-    <>{/* SECTION 6 — CTA CLOSING */}
-      <section className="ridley-section bg-black relative overflow-hidden text-white">
-        <div className="ridley-container relative z-10 text-center py-20 md:py-24">
-          <span className="inline-block text-xs font-bold text-ridley-yellow border border-ridley-yellow/40 px-5 py-2 rounded-full tracking-[0.25em] mb-6">
-            KESEMPATAN TERBATAS
-          </span>
+    <Section variant="inverted" spacing="lg">
+      <Container size="lg" className="text-center">
+        <Badge variant="inverted" className="mb-6">
+          Mulai Implementasi
+        </Badge>
 
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-5 max-w-4xl mx-auto">
-            Mau Lanjut <span className="line-through text-gray-500">Kerja Manual</span>,
-            Atau Bangun <span className="text-ridley-yellow">Tim Marketing Berbasis AI</span> Sekarang?
-          </h2>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight text-white max-w-3xl mx-auto mb-5">
+          Mau Lanjut Kerja Manual, atau Bangun Tim Marketing Berbasis AI
+          Sekarang?
+        </h2>
 
-          <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Setiap hari tanpa adaptasi AI = potensi pertumbuhan yang hilang karena kalah cepat dari kompetitor.
-          </p>
+        <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Setiap minggu tanpa sistem kerja berbasis AI membuat produksi konten
+          tetap berat di owner dan tim tertinggal dari kompetitor yang bergerak
+          lebih cepat.
+        </p>
 
-          <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
-            <Link
-              href={programs.offlineMentoring.path}
-              className="bg-ridley-blue text-white px-10 py-5 rounded-[14px] font-bold hover:scale-105 hover:bg-ridley-yellow hover:text-black transition"
-            >
-              Pelajari {programs.offlineMentoring.name}
-            </Link>
+        <div className="flex flex-col sm:flex-row gap-3.5 justify-center mb-12">
+          <ButtonLink href="/services" variant="inverted" size="lg">
+            Bandingkan Program
+          </ButtonLink>
+          <ButtonLink
+            href={whatsappUrl}
+            external
+            variant="inverted-outline"
+            size="lg"
+          >
+            <MessageCircle size={17} />
+            <span>Tanya dulu via WhatsApp</span>
+          </ButtonLink>
+        </div>
 
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-[#25D366]/40 text-white px-8 py-5 rounded-[14px] font-bold flex items-center justify-center gap-3 hover:bg-[#25D366] transition"
-            >
-              <div className="relative w-6 h-6">
-                <Image
-                  src="https://img.icons8.com/color/48/whatsapp--v1.png"
-                  alt="WhatsApp"
-                  fill
-                  unoptimized
-                />
-              </div>
-              Tanya dulu via WA
-            </a>
+        <div className="border-t border-zinc-800 pt-8 grid sm:grid-cols-3 gap-6 text-zinc-400 text-sm">
+          <div className="flex items-center justify-center gap-2">
+            <Layers size={16} className="text-zinc-300" />
+            <span>Kurikulum Berbasis Kasus Nyata</span>
           </div>
-
-          <div className="border-t border-white/10 pt-8">
-            <div className="grid md:grid-cols-3 gap-8 text-white/60 text-sm font-medium">
-              <div className="flex items-center justify-center gap-2">🔒 Akses Selamanya</div>
-              <div className="flex items-center justify-center gap-2">🔄 Free Update Materi</div>
-              <div className="flex items-center justify-center gap-2">👥 Support Komunitas</div>
-            </div>
+          <div className="flex items-center justify-center gap-2">
+            <SlidersHorizontal size={16} className="text-zinc-300" />
+            <span>SOP &amp; Template Prompt Siap Pakai</span>
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <Users size={16} className="text-zinc-300" />
+            <span>Untuk Owner &amp; Tim Bisnis Jasa</span>
           </div>
         </div>
-      </section>
-    </>
+      </Container>
+    </Section>
   );
 }

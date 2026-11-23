@@ -26,19 +26,28 @@ export async function GET() {
     "## Program Utama",
     "",
     `- **${programs.onlineCourse.name} (${programs.onlineCourse.priceFormatted} ${programs.onlineCourse.priceUnit})**: ${programs.onlineCourse.description} (${siteConfig.url}${programs.onlineCourse.path})`,
-    `- **${programs.onlineMentoring.name} (${programs.onlineMentoring.priceFormatted} ${programs.onlineMentoring.priceUnit})**: ${programs.onlineMentoring.description}`,
+    `- **${programs.onlineMentoring.name} (${programs.onlineMentoring.priceFormatted} ${programs.onlineMentoring.priceUnit})**: ${programs.onlineMentoring.description} (${siteConfig.url}${programs.onlineMentoring.path})`,
     `- **${programs.offlineMentoring.name} (${programs.offlineMentoring.priceFormatted} ${programs.offlineMentoring.priceUnit})**: ${programs.offlineMentoring.description} (${siteConfig.url}${programs.offlineMentoring.path})`,
     "",
     "## Halaman Utama",
     "",
     `- [Homepage](${siteConfig.url}/)`,
-    `- [${programs.offlineMentoring.name}](${siteConfig.url}${programs.offlineMentoring.path})`,
+    `- [Semua Layanan](${siteConfig.url}/services)`,
     `- [${programs.onlineCourse.name}](${siteConfig.url}${programs.onlineCourse.path})`,
+    `- [${programs.onlineMentoring.name}](${siteConfig.url}${programs.onlineMentoring.path})`,
+    `- [${programs.offlineMentoring.name}](${siteConfig.url}${programs.offlineMentoring.path})`,
     `- [Portfolio Klien](${siteConfig.url}/portfolio)`,
     `- [Tentang RidleyLab](${siteConfig.url}/about)`,
     `- [Blog & Panduan AI Marketing](${siteConfig.url}/blog)`,
     `- [RSS Feed Blog](${siteConfig.url}/blog/rss)`,
     `- [Sitemap XML](${siteConfig.url}/sitemap.xml)`,
+    "",
+    "## Lokasi Layanan",
+    "",
+    ...locations.map(
+      (loc) =>
+        `- [Pelatihan AI ${loc.city}](${siteConfig.url}/lokasi/${loc.slug}): ${loc.metaDescription}`
+    ),
     "",
     ...(posts.length > 0
       ? [

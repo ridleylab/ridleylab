@@ -32,6 +32,7 @@ export default function Page() {
       <ProgramFaqSection
         title="Pertanyaan Seputar Online Course"
         faqs={program.faqs}
+        variant="default"
       />
       <CourseCTA />
     </>
