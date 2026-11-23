@@ -1,7 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { getWhatsAppUrl } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default function MentoringCTA() {
+  const program = programs.offlineMentoring;
+  const whatsappUrl = getWhatsAppUrl(program.whatsappMessage);
+
   return (
     <>{/* SECTION 8 — CTA CLOSING */}
       <section id="ridley-final-cta" className="ridley-section bg-[#050505] relative overflow-hidden py-24 text-white">
@@ -17,7 +21,7 @@ export default function MentoringCTA() {
               </p>
 
               <a
-                href="https://wa.me/6281210004453"
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#C0392B] hover:bg-ridley-yellow hover:text-black hover:shadow-[0_0_20px_rgba(255,204,74,0.2)] active:scale-[0.98] transition-all duration-300 rounded-2xl py-4 px-10 text-xs md:text-sm font-bold uppercase"
@@ -40,10 +44,10 @@ export default function MentoringCTA() {
 
               <div className="mt-10 flex items-end gap-2">
                 <span className="text-ridley-yellow text-4xl md:text-5xl font-medium leading-none">
-                  Rp 4.500.000
+                  {program.priceFormatted}
                 </span>
                 <span className="text-ridley-yellow/80 font-bold text-sm md:text-base mb-[4px]">
-                  / Tim
+                  {program.priceUnit}
                 </span>
               </div>
 
@@ -67,7 +71,7 @@ export default function MentoringCTA() {
             <div className="flex justify-center lg:justify-end w-full">
               <div className="relative w-full max-w-[450px]">
                 <img
-                  src="/assets/images/offline-mentoring/OM-section8.png"
+                  src="/images/services/offline-mentoring-cta.png"
                   alt="Offline Mentoring CTA"
                   className="w-full h-auto block"
                 />
@@ -79,4 +83,3 @@ export default function MentoringCTA() {
     </>
   );
 }
-

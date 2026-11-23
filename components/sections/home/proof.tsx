@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export default function HomeProof() {
   return (
@@ -47,7 +46,7 @@ export default function HomeProof() {
             <div className="ridley-proof-card">
               <div className="relative w-full aspect-[4/5]">
                 <Image
-                  src="/assets/images/homepage/HP-section4.1.png"
+                  src="/images/home/proof-1.png"
                   alt="Jasa Interior"
                   fill
                   className="object-cover"
@@ -63,7 +62,7 @@ export default function HomeProof() {
             <div className="ridley-proof-card">
               <div className="relative w-full aspect-[4/5]">
                 <Image
-                  src="/assets/images/homepage/HP-section4.2.png"
+                  src="/images/home/proof-2.png"
                   alt="Fashion"
                   fill
                   className="object-cover"
@@ -79,7 +78,7 @@ export default function HomeProof() {
             <div className="ridley-proof-card">
               <div className="relative w-full aspect-[4/5]">
                 <Image
-                  src="/assets/images/homepage/HP-section4.3.png"
+                  src="/images/home/proof-3.png"
                   alt="Skincare"
                   fill
                   className="object-cover"
@@ -95,7 +94,7 @@ export default function HomeProof() {
             <div className="ridley-proof-card">
               <div className="relative w-full aspect-[4/5]">
                 <Image
-                  src="/assets/images/homepage/HP-section4.4.png"
+                  src="/images/home/proof-4.png"
                   alt="MUA"
                   fill
                   className="object-cover"
@@ -113,4 +112,3 @@ export default function HomeProof() {
     </>
   );
 }
-

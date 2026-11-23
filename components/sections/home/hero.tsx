@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { siteConfig } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default function HomeHero() {
   return (
@@ -23,11 +25,11 @@ export default function HomeHero() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/services/offline-mentoring" className="ridley-btn text-white w-full sm:w-auto">
-                  Offline Mentoring
+                <Link href={programs.offlineMentoring.path} className="ridley-btn text-white w-full sm:w-auto">
+                  {programs.offlineMentoring.name}
                 </Link>
-                <Link href="/services/online-course" className="ridley-outline-btn w-full sm:w-auto">
-                  Online Course
+                <Link href={programs.onlineCourse.path} className="ridley-outline-btn w-full sm:w-auto">
+                  {programs.onlineCourse.name}
                 </Link>
               </div>
             </div>
@@ -35,8 +37,8 @@ export default function HomeHero() {
             {/* RIGHT */}
             <div className="relative w-full h-[450px] lg:h-[600px] xl:h-[650px]">
               <Image
-                src="/assets/images/homepage/HP-section1.png"
-                alt="RIDLEY Hero"
+                src="/images/home/hero.png"
+                alt={`${siteConfig.name} Hero`}
                 fill
                 priority
                 className="object-contain"
@@ -49,4 +51,3 @@ export default function HomeHero() {
     </>
   );
 }
-

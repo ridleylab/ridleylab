@@ -1,13 +1,18 @@
 import "dotenv/config";
 import { prisma } from "@/lib/db/prisma";
 import bcrypt from "bcryptjs";
+import { siteConfig } from "@/config/site";
+import { programs } from "@/config/programs";
 
 async function main() {
   console.log("Seeding database...");
 
-  // 1. Create Default Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || "labridley@gmail.com";
-  const adminPassword = process.env.ADMIN_PASSWORD || "Aka05457!@#$";
+  // 1. Create Default Admin User (credentials must come from environment variables)
+  const adminEmail = process.env.ADMIN_EMAIL || siteConfig.contact.email;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    throw new Error("ADMIN_PASSWORD environment variable is required to run seed.");
+  }
   const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
   const admin = await prisma.user.upsert({
@@ -15,7 +20,7 @@ async function main() {
     update: {},
     create: {
       email: adminEmail,
-      name: "RIDLEY Admin",
+      name: `${siteConfig.name} Admin`,
       password: hashedPassword,
     },
   });
@@ -73,7 +78,7 @@ async function main() {
       slug: firstPostSlug,
       title: "Cara Membangun Workflow Konten yang Bisa Scale dengan AI",
       description: "Pelajari bagaimana menyusun SOP, workflow, dan implementasi prompt AI di bisnis Anda agar tim dapat memproduksi konten secara konsisten.",
-      coverImage: "/assets/images/online-course/OC-OG.jpg",
+      coverImage: programs.onlineCourse.ogImage,
       content: `<h2>Mengapa SOP Konten itu Penting?</h2>
 <p>Banyak pemilik bisnis merasa lelah karena harus mengawasi proses produksi konten setiap hari. Mulai dari ide, penulisan script, editing video, hingga membalas komentar.</p>
 <p>Solusinya adalah membangun <strong>workflow terstruktur</strong> dan memanfaatkan <strong>AI (Artificial Intelligence)</strong>.</p>
@@ -102,7 +107,6 @@ Buat 5 ide konten edukatif yang membahas masalah utama calon customer yang ingin
         title: postData.title,
         description: postData.description,
         coverImage: postData.coverImage,
-        // @ts-ignore
         content: postData.content,
         readingTime: postData.readingTime,
         draft: postData.draft,
@@ -110,7 +114,6 @@ Buat 5 ide konten edukatif yang membahas masalah utama calon customer yang ingin
         categoryId: postData.categoryId,
         authorName: postData.authorName,
       },
-      // @ts-ignore
       create: postData,
     });
 

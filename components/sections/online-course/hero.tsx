@@ -1,7 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { siteConfig, getWhatsAppUrl } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default function CourseHero() {
+  const program = programs.onlineCourse;
+  const whatsappUrl = getWhatsAppUrl(program.whatsappMessage);
+
   return (
     <>{/* SECTION 1 — HERO */}
       <section className="ridley-section !pt-0 lg:!pt-0 bg-white">
@@ -24,7 +28,7 @@ export default function CourseHero() {
 
               <div>
                 <a
-                  href="https://wa.me/6281210004453"
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ridley-btn text-white w-full sm:w-auto"
@@ -37,14 +41,14 @@ export default function CourseHero() {
                       unoptimized
                     />
                   </div>
-                  <span>Download Online Course</span>
+                  <span>{program.ctaLabel}</span>
                 </a>
               </div>
 
               <div className="mt-4 flex items-center gap-3">
                 <div className="relative w-14 h-14 shrink-0">
                   <Image
-                    src="/assets/images/online-course/OC-section1.2.png"
+                    src="/images/services/online-course-proof-avatars.png"
                     alt="Social proof - 1200+ business owners"
                     fill
                     className="object-contain"
@@ -60,8 +64,8 @@ export default function CourseHero() {
             {/* RIGHT IMAGE */}
             <div className="relative w-full h-[450px] lg:h-[600px] xl:h-[650px]">
               <Image
-                src="/assets/images/online-course/OC-section1.1.png"
-                alt="Online Course RIDLEY dashboard preview"
+                src="/images/services/online-course-hero.png"
+                alt={`Online Course ${siteConfig.name} dashboard preview`}
                 fill
                 priority
                 className="object-contain"
@@ -74,4 +78,3 @@ export default function CourseHero() {
     </>
   );
 }
-

@@ -1,7 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { siteConfig, getWhatsAppUrl } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default function MentoringHero() {
+  const whatsappUrl = getWhatsAppUrl(programs.offlineMentoring.whatsappMessage);
+
   return (
     <>{/* SECTION 1 — HERO */}
       <section className="ridley-section overflow-hidden !pt-4 !lg:pt-10 bg-white">
@@ -52,7 +55,7 @@ export default function MentoringHero() {
 
               <div>
                 <a
-                  href="https://wa.me/6281210004453"
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ridley-btn text-white w-full sm:w-auto"
@@ -77,8 +80,8 @@ export default function MentoringHero() {
             {/* RIGHT IMAGE */}
             <div className="relative w-full aspect-square rounded-[13px] overflow-hidden shadow-2xl border border-black/5">
               <img
-                src="/assets/images/offline-mentoring/OMhero.jpg"
-                alt="Offline Mentoring RIDLEY"
+                src="/images/services/offline-mentoring-hero.jpg"
+                alt={`Offline Mentoring ${siteConfig.name}`}
                 className="w-full h-full object-cover object-top"
               />
             </div>

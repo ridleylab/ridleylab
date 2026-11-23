@@ -2,16 +2,9 @@
 
 import { useState, useMemo } from "react";
 import ClientSection from "./client-section";
+import type { PortfolioItem } from "@/config/portfolio";
 
-export interface PortfolioItem {
-  id: string;
-  name: string;
-  category: string;
-  businessType: string;
-  location: string;
-  mentoringDetails: string;
-  videoIds: string[];
-}
+export type { PortfolioItem };
 
 interface PortfolioContentProps {
   items: PortfolioItem[];

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { savePost, deletePost } from "@/app/admin/posts/actions";
+import React, { useState } from "react";
+import { savePost, deletePost } from "@/app/(admin)/admin/posts/actions";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import RichTextEditor from "./rich-text-editor";
-import { generateSEO, generateFullArticle } from "@/app/admin/posts/ai-actions";
+import { generateSEO, generateFullArticle } from "@/app/(admin)/admin/posts/ai-actions";
+import { siteConfig } from "@/config/site";
 
 interface PostFormProps {
   categories: { id: string; name: string }[];
@@ -44,7 +44,7 @@ export default function PostForm({
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>(
     initialPost?.tags.map((t) => t.tagId) || []
   );
-  const [authorName, setAuthorName] = useState(initialPost?.authorName || "Thofhan Zaka Anshori");
+  const [authorName, setAuthorName] = useState(initialPost?.authorName || siteConfig.founder.name);
 
   // UI States
   const [isSlugLocked, setIsSlugLocked] = useState(true);
@@ -56,18 +56,19 @@ export default function PostForm({
 
   const [isMediaDrawerOpen, setIsMediaDrawerOpen] = useState(false);
 
-  // Auto-generate slug from title
-  useEffect(() => {
+  // Auto-generate slug when title changes
+  const handleTitleChange = (nextTitle: string) => {
+    setTitle(nextTitle);
     if (isSlugLocked && !initialPost) {
-      const generatedSlug = title
+      const generatedSlug = nextTitle
         .toLowerCase()
         .trim()
-        .replace(/[^a-z0-9\s-]/g, "") // remove special chars
-        .replace(/\s+/g, "-") // replace spaces with hyphens
-        .replace(/-+/g, "-"); // remove duplicate hyphens
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
       setSlug(generatedSlug);
     }
-  }, [title, isSlugLocked, initialPost]);
+  };
 
   // Toggle tag selection
   const handleTagToggle = (tagId: string) => {
@@ -220,7 +221,7 @@ export default function PostForm({
               <input
                 type="text"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="Masukkan judul artikel..."
                 required
                 className="w-full px-4 py-3 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 border border-white/60 backdrop-blur-sm focus:border-ridley-blue focus:bg-white text-black font-bold placeholder-gray-400 rounded-xl outline-none transition text-base"

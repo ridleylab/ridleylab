@@ -1,23 +1,28 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { UploadThingError } from "uploadthing/server";
 import { prisma } from "@/lib/db/prisma";
+import { auth } from "@/lib/auth";
 
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  // Define as many FileRoutes as you like, each with a unique routeSlug
   imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
+    .middleware(async () => {
+      const session = await auth();
+      if (!session?.user?.email) {
+        throw new UploadThingError("Unauthorized");
+      }
+      return { userEmail: session.user.email };
+    })
     .onUploadComplete(async ({ metadata, file }) => {
-      // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete:", file.name);
-      console.log("file url", file.url);
+      console.log("Upload complete:", file.name, "by", metadata.userEmail);
 
-      // Save to database
       try {
         await prisma.media.create({
           data: {
             filename: file.name,
             url: file.url,
-            mimeType: "image/jpeg", // or any default
+            mimeType: file.type || "image/jpeg",
             size: file.size,
           },
         });
@@ -25,7 +30,7 @@ export const ourFileRouter = {
         console.error("Failed to save media to database:", err);
       }
 
-      return { uploadedBy: "admin", fileUrl: file.url };
+      return { uploadedBy: metadata.userEmail, fileUrl: file.url };
     }),
 } satisfies FileRouter;
 

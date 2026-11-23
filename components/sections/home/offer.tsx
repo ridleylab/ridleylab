@@ -1,7 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
+import { programs } from "@/config/programs";
 
 export default function HomeOffer() {
+  const { onlineCourse, offlineMentoring } = programs;
+
   return (
     <>{/* SECTION 5 — OFFER / PRICING */}
       <section className="ridley-section bg-[#F7FAFC] relative overflow-hidden pt-14">
@@ -23,26 +25,27 @@ export default function HomeOffer() {
               <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(circle_at_top,rgba(41,128,185,0.05),transparent_60%)] pointer-events-none"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <span className="inline-block text-xs font-bold text-ridley-blue border border-ridley-blue/20 px-4 py-1 rounded-full w-fit mb-5">
-                  BELAJAR MANDIRI
+                  {onlineCourse.badge}
                 </span>
                 <h3 className="text-3xl font-bold mb-2 tracking-[-0.03em] text-black">
-                  Online Course
+                  {onlineCourse.name}
                 </h3>
                 <p className="text-sm text-gray-600 mb-6 leading-relaxed">
                   Cara bangun mesin akuisisi via TikTok & Instagram
                 </p>
                 <div className="mb-8">
                   <span className="text-sm text-gray-500">Rp</span>
-                  <span className="text-5xl font-bold text-black tracking-[-0.04em]">199.000</span>
+                  <span className="text-5xl font-bold text-black tracking-[-0.04em]">
+                    {onlineCourse.priceDisplayNumber}
+                  </span>
                 </div>
                 <ul className="space-y-3 text-sm text-gray-600 mb-10 leading-relaxed">
-                  <li>✔ 10+ modul video terstruktur</li>
-                  <li>✔ Template & struktur AI konten</li>
-                  <li>✔ Funnel & conversion system</li>
-                  <li>✔ SOP dasar tim konten</li>
+                  {onlineCourse.features.map((feat) => (
+                    <li key={feat}>✔ {feat}</li>
+                  ))}
                 </ul>
                 <Link
-                  href="/services/online-course"
+                  href={onlineCourse.path}
                   className="mt-auto bg-ridley-blue text-white text-center py-4 rounded-[16px] font-bold hover:scale-[1.02] hover:bg-[#216694] transition-all duration-300 shadow-lg shadow-[#2980B9]/20"
                 >
                   Pelajari Selengkapnya
@@ -61,10 +64,10 @@ export default function HomeOffer() {
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FFE08A] to-transparent opacity-70"></div>
                 <div className="relative z-10 flex flex-col h-full">
                   <span className="inline-block text-xs font-bold bg-ridley-yellow text-black px-4 py-1 rounded-full w-fit mb-5 shadow-md">
-                    DONE-WITH-YOU
+                    {offlineMentoring.badge}
                   </span>
                   <h3 className="text-3xl md:text-4xl font-bold mb-2 tracking-[-0.04em]">
-                    Offline Mentoring
+                    {offlineMentoring.name}
                   </h3>
                   <p className="text-sm text-gray-300 mb-6 leading-relaxed">
                     Implementasi & instalasi sistem langsung ke bisnis Anda
@@ -72,19 +75,19 @@ export default function HomeOffer() {
                   <div className="mb-8 flex items-end flex-wrap gap-1">
                     <span className="text-sm text-gray-400 mb-1">Rp</span>
                     <span className="text-[2.4rem] md:text-6xl leading-none font-medium text-ridley-yellow tracking-[-0.05em]">
-                      4.500.000
+                      {offlineMentoring.priceDisplayNumber}
                     </span>
-                    <span className="text-sm text-gray-400 mb-1">/ tim</span>
+                    <span className="text-sm text-gray-400 mb-1">
+                      {offlineMentoring.priceUnit}
+                    </span>
                   </div>
                   <ul className="space-y-3 text-sm text-gray-300 mb-10 leading-relaxed">
-                    <li>✔ Kurikulum custom sesuai bisnis</li>
-                    <li>✔ 8x tatap muka, implementasi langsung</li>
-                    <li>✔ SOP + AI system setup</li>
-                    <li>✔ Training admin closing</li>
-                    <li>✔ Evaluasi eksekusi real</li>
+                    {offlineMentoring.features.map((feat) => (
+                      <li key={feat}>✔ {feat}</li>
+                    ))}
                   </ul>
                   <Link
-                    href="/services/offline-mentoring"
+                    href={offlineMentoring.path}
                     className="mt-auto bg-[#C0392B] text-white text-center py-4 rounded-[16px] font-bold hover:scale-[1.02] hover:bg-[#A93226] transition-all duration-300 shadow-xl shadow-[#C0392B]/30"
                   >
                     Pelajari Selengkapnya

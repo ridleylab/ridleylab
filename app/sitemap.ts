@@ -1,8 +1,10 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
+import { siteConfig } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = "https://www.ridleylab.com";
+  const siteUrl = siteConfig.url;
 
   // Get dynamic blog lists
   const posts = await getAllPosts();
@@ -12,12 +14,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Setup static marketing routes
-  const routes = ["", "/services/online-course", "/services/offline-mentoring", "/blog"].map(
-    (route) => ({
-      url: `${siteUrl}${route}`,
-      lastModified: new Date(),
-    })
-  );
+  const routes = [
+    "",
+    programs.onlineCourse.path,
+    programs.offlineMentoring.path,
+    "/blog",
+  ].map((route) => ({
+    url: `${siteUrl}${route}`,
+    lastModified: new Date(),
+  }));
 
   return [...routes, ...postUrls];
 }

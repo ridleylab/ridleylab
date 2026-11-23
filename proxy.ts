@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
 import { NextResponse } from "next/server";
 
 const authConfig = {
@@ -6,21 +6,21 @@ const authConfig = {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }: any) {
-      if (token && session.user) {
-        session.user.id = token.sub as string;
+    async session({ session, token }) {
+      if (token && session.user && token.sub) {
+        session.user.id = token.sub;
       }
       return session;
     },
-    async jwt({ token, user }: any) {
-      if (user) {
+    async jwt({ token, user }) {
+      if (user?.id) {
         token.sub = user.id;
       }
       return token;
     },
   },
   providers: [],
-};
+} satisfies NextAuthConfig;
 
 const { auth } = NextAuth(authConfig);
 

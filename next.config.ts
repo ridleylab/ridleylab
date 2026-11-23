@@ -26,6 +26,21 @@ const nextConfig: NextConfig = {
         destination: '/services/offline-mentoring',
         permanent: true, // 301 redirect
       },
+      {
+        source: '/assets/images/online-course/OC-OG.jpg',
+        destination: '/images/og/online-course.jpg',
+        permanent: true,
+      },
+      {
+        source: '/assets/images/homepage/homepage-OG.jpg',
+        destination: '/images/og/home.jpg',
+        permanent: true,
+      },
+      {
+        source: '/assets/images/offline-mentoring/OM-OG.jpg',
+        destination: '/images/og/offline-mentoring.jpg',
+        permanent: true,
+      },
     ];
   },
 };

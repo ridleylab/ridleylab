@@ -36,7 +36,7 @@ export default function MentoringResults() {
               </div>
               <div className="relative w-full aspect-[16/9] mb-6 rounded-2xl overflow-hidden border border-black/5">
                 <Image
-                  src="/assets/images/offline-mentoring/OM-section6.1.png"
+                  src="/images/services/offline-mentoring-result-1.png"
                   alt="result 1"
                   fill
                   className="object-cover"
@@ -69,7 +69,7 @@ export default function MentoringResults() {
               </div>
               <div className="relative w-full aspect-[16/9] mb-6 rounded-2xl overflow-hidden border border-black/5">
                 <Image
-                  src="/assets/images/offline-mentoring/OM-section6.2.png"
+                  src="/images/services/offline-mentoring-result-2.png"
                   alt="result 2"
                   fill
                   className="object-cover"
@@ -102,7 +102,7 @@ export default function MentoringResults() {
               </div>
               <div className="relative w-full aspect-[16/9] mb-6 rounded-2xl overflow-hidden border border-black/5">
                 <Image
-                  src="/assets/images/offline-mentoring/OM-section6.3.png"
+                  src="/images/services/offline-mentoring-result-3.png"
                   alt="result 3"
                   fill
                   className="object-cover"
@@ -135,7 +135,7 @@ export default function MentoringResults() {
               </div>
               <div className="relative w-full aspect-[16/9] mb-6 rounded-2xl overflow-hidden border border-black/5">
                 <Image
-                  src="/assets/images/offline-mentoring/OM-section6.4.png"
+                  src="/images/services/offline-mentoring-result-4.png"
                   alt="result 4"
                   fill
                   className="object-cover"

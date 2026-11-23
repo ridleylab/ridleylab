@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getWhatsAppUrl } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default function HomeCTA() {
+  const whatsappUrl = getWhatsAppUrl();
+
   return (
     <>{/* SECTION 6 — CTA CLOSING */}
       <section className="ridley-section bg-black relative overflow-hidden text-white">
@@ -21,14 +25,14 @@ export default function HomeCTA() {
 
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
             <Link
-              href="/services/offline-mentoring"
+              href={programs.offlineMentoring.path}
               className="bg-ridley-blue text-white px-10 py-5 rounded-[14px] font-bold hover:scale-105 hover:bg-ridley-yellow hover:text-black transition"
             >
-              Pelajari Offline Mentoring
+              Pelajari {programs.offlineMentoring.name}
             </Link>
 
             <a
-              href="https://wa.me/6281210004453"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-[#25D366]/40 text-white px-8 py-5 rounded-[14px] font-bold flex items-center justify-center gap-3 hover:bg-[#25D366] transition"
@@ -57,4 +61,3 @@ export default function HomeCTA() {
     </>
   );
 }
-

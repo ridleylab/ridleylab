@@ -2,8 +2,21 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import {
+  Menu,
+  X,
+  LayoutDashboard,
+  FileText,
+  Folder,
+  Tag,
+  Image as ImageIcon,
+  User,
+  Settings,
+  BookOpen,
+  Lightbulb,
+} from "lucide-react";
+import { useState } from "react";
+import { siteConfig } from "@/config/site";
 
 interface AdminSidebarProps {
   userEmail?: string | null;
@@ -12,27 +25,24 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps) {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [openForPath, setOpenForPath] = useState<string | null>(null);
+  const isOpen = openForPath === pathname;
+  const setIsOpen = (open: boolean) => setOpenForPath(open ? pathname : null);
 
   const navItems = [
-    { name: "Dashboard", href: "/admin", icon: "/assets/images/admin/dashboard.svg" },
-    { name: "Posts", href: "/admin/posts", icon: "/assets/images/admin/posts.svg" },
-    { name: "Categories", href: "/admin/categories", icon: "/assets/images/admin/categories.svg" },
-    { name: "Tags", href: "/admin/tags", icon: "/assets/images/admin/tags.svg" },
-    { name: "Media", href: "/admin/media", icon: "/assets/images/admin/media.svg" },
-    { name: "Profile", href: "/admin/profile", icon: "/assets/images/admin/profile.svg" },
-    { name: "Settings", href: "/admin/settings", icon: "/assets/images/admin/settings.svg" },
+    { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    { name: "Posts", href: "/admin/posts", icon: FileText },
+    { name: "Categories", href: "/admin/categories", icon: Folder },
+    { name: "Tags", href: "/admin/tags", icon: Tag },
+    { name: "Media", href: "/admin/media", icon: ImageIcon },
+    { name: "Profile", href: "/admin/profile", icon: User },
+    { name: "Settings", href: "/admin/settings", icon: Settings },
   ];
 
   const navDocs = [
-    { name: "Panduan", href: "/admin/docs/panduan", icon: "/assets/images/admin/panduan.svg" },
-    { name: "List Topik", href: "/admin/docs/topik", icon: "/assets/images/admin/list-topik.svg" },
+    { name: "Panduan", href: "/admin/docs/panduan", icon: BookOpen },
+    { name: "List Topik", href: "/admin/docs/topik", icon: Lightbulb },
   ];
-
-  // Close sidebar on route change on mobile
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     <>
@@ -40,7 +50,7 @@ export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps
       <div className="lg:hidden flex items-center justify-between bg-[#0B0B0B] text-white p-4 sticky top-0 z-40 border-b border-white/5">
         <Link href="/admin" className="flex items-center gap-2">
           <span className="text-xl font-black text-ridley-yellow tracking-wider">
-            RIDLEY
+            {siteConfig.name}
           </span>
           <span className="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/70">
             Admin
@@ -72,7 +82,7 @@ export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps
         <div className="hidden lg:block p-6 border-b border-white/5">
           <Link href="/admin" className="flex items-center gap-2">
             <span className="text-xl font-black text-ridley-yellow tracking-wider">
-              RIDLEY
+              {siteConfig.name}
             </span>
             <span className="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/70">
               Admin
@@ -84,6 +94,7 @@ export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps
         <nav className="flex-grow p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href !== "/admin" && pathname?.startsWith(item.href));
+            const Icon = item.icon;
             return (
               <Link
                 key={item.name}
@@ -92,7 +103,7 @@ export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps
                   isActive ? "bg-white/10 backdrop-blur-md border-white/10 text-ridley-yellow shadow-lg" : "border-transparent text-gray-300 hover:bg-white/5 hover:text-white"
                 }`}
               >
-                <img src={item.icon} alt={item.name} className={`w-5 h-5 transition ${isActive ? "opacity-100" : "opacity-60 group-hover:opacity-100"}`} />
+                <Icon size={20} className={`transition shrink-0 ${isActive ? "opacity-100" : "opacity-60 group-hover:opacity-100"}`} />
                 <span>{item.name}</span>
               </Link>
             );
@@ -100,19 +111,22 @@ export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps
 
           <div className="pt-4 mt-4 border-t border-white/5">
             <p className="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">Dokumentasi</p>
-            {navDocs.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm font-semibold text-gray-300 hover:text-white transition group"
-              >
-                <img src={item.icon} alt={item.name} className="w-5 h-5 opacity-60 group-hover:opacity-100 transition" />
-                <span>{item.name}</span>
-                <span className="ml-auto opacity-0 group-hover:opacity-100 transition text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-gray-300">↗</span>
-              </Link>
-            ))}
+            {navDocs.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm font-semibold text-gray-300 hover:text-white transition group"
+                >
+                  <Icon size={20} className="opacity-60 group-hover:opacity-100 transition shrink-0" />
+                  <span>{item.name}</span>
+                  <span className="ml-auto opacity-0 group-hover:opacity-100 transition text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-gray-300">↗</span>
+                </Link>
+              );
+            })}
           </div>
         </nav>
 

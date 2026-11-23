@@ -1,7 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { getWhatsAppUrl } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export default function CourseCTA() {
+  const whatsappUrl = getWhatsAppUrl(programs.onlineCourse.whatsappMessage);
+
   return (
     <>{/* SECTION 6 — CTA CLOSING */}
       <section className="bg-white relative overflow-hidden py-20 md:py-28">
@@ -18,7 +21,7 @@ export default function CourseCTA() {
 
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-10">
                 <a
-                  href="https://wa.me/6281210004453"
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-4 bg-ridley-blue text-white font-bold px-8 md:px-10 py-4 rounded-2xl transition duration-300 hover:-translate-y-1 shadow-lg shadow-[#2980B9]/20 w-full sm:w-auto"
@@ -77,7 +80,7 @@ export default function CourseCTA() {
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[620px] h-[300px] md:h-[400px]">
                 <Image
-                  src="/assets/images/online-course/OC-section6.png"
+                  src="/images/services/online-course-cta.png"
                   alt="CTA Online Course Illustration"
                   fill
                   className="object-contain"
@@ -91,4 +94,3 @@ export default function CourseCTA() {
     </>
   );
 }
-

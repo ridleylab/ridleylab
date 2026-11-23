@@ -16,7 +16,7 @@ import {
   UploadCloud, Link2, AlignLeft, AlignCenter, AlignRight, 
   AlignJustify, Highlighter, Type, SquareDashedBottom
 } from "lucide-react";
-import { editWithAI } from "@/app/admin/posts/ai-actions";
+import { editWithAI } from "@/app/(admin)/admin/posts/ai-actions";
 import { uploadFiles } from "@/utils/uploadthing";
 
 // Custom Button Node Extension
@@ -54,13 +54,13 @@ interface RichTextEditorProps {
 }
 
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
-  if (!editor) {
-    return null;
-  }
-
   const [isAILoading, setIsAILoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (!editor) {
+    return null;
+  }
 
   const setLink = () => {
     const previousUrl = editor.getAttributes("link").href;
@@ -130,8 +130,9 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       } else {
         alert(res.error || "Gagal memanggil AI");
       }
-    } catch (e: any) {
-      alert("Error: " + e.message);
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Terjadi kesalahan";
+      alert("Error: " + msg);
     } finally {
       setIsAILoading(false);
     }

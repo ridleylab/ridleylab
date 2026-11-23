@@ -1,14 +1,14 @@
 {
-  "name": "RIDLEY",
-  "short_name": "RIDLEY",
+  "name": "RidleyLab",
+  "short_name": "RidleyLab",
   "description": "Pelatihan AI untuk Social Media Marketing Bisnis Jasa",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2980B9",
+  "theme_color": "#09090b",
   "icons": [
     {
-      "src": "/assets/images/favicon.png",
+      "src": "/images/brand/icon.png",
       "sizes": "32x32",
       "type": "image/png"
     }

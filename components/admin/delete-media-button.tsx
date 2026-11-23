@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
-import { deleteMediaAction } from "@/app/admin/media/actions";
+import { deleteMediaAction } from "@/app/(admin)/admin/media/actions";
 
 export default function DeleteMediaButton({ id, url }: { id: string; url: string }) {
   const [isDeleting, setIsDeleting] = useState(false);

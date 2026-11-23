@@ -1,7 +1,9 @@
 import { PostMetadata } from "@/lib/posts";
+import { siteConfig } from "@/config/site";
+import { programs } from "@/config/programs";
 
 export function getArticleSchema(post: PostMetadata) {
-  const siteUrl = "https://www.ridleylab.com";
+  const siteUrl = siteConfig.url;
   const url = `${siteUrl}/blog/${post.slug}`;
   return {
     "@context": "https://schema.org",
@@ -13,7 +15,7 @@ export function getArticleSchema(post: PostMetadata) {
     },
     "headline": post.title,
     "description": post.description,
-    "image": post.coverImage || `${siteUrl}/assets/images/online-course/OC-OG.jpg`,
+    "image": post.coverImage || `${siteUrl}${programs.onlineCourse.ogImage}`,
     "datePublished": post.publishedAt,
     "dateModified": post.publishedAt,
     "author": {
@@ -21,7 +23,7 @@ export function getArticleSchema(post: PostMetadata) {
       "name": post.author,
     },
     "publisher": {
-      "@id": "https://www.ridleylab.com/#organization",
+      "@id": `${siteUrl}/#organization`,
     },
     "mainEntityOfPage": url,
   };

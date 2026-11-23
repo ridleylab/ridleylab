@@ -13,7 +13,7 @@ export default function CourseProblem() {
               Tapi Closing Tetap Seret?
             </h2>
             <p className="text-gray-500 mt-6 max-w-2xl mx-auto text-sm md:text-base">
-              Banyak UMKM terjebak dalam kondisi "viral" - konten jalan dan FYP terus, tapi omzet nggak ikut tumbuh.
+              Banyak UMKM terjebak dalam kondisi &quot;viral&quot; - konten jalan dan FYP terus, tapi omzet nggak ikut tumbuh.
             </p>
           </div>
 
@@ -23,7 +23,7 @@ export default function CourseProblem() {
               <div className="relative w-full max-w-[520px] h-[350px] md:h-[450px]">
                 <div className="absolute inset-0 bg-ridley-blue/10 blur-3xl rounded-full scale-90"></div>
                 <Image
-                  src="/assets/images/online-course/OC-section2.png"
+                  src="/images/services/online-course-problem.png"
                   alt="Online course problem illustration"
                   fill
                   className="object-contain drop-shadow-2xl"

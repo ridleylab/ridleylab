@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PostMetadata } from "@/lib/posts";
+import { programs } from "@/config/programs";
 
 interface PostCardProps {
   post: PostMetadata;
@@ -17,7 +18,7 @@ export default function PostCard({ post }: PostCardProps) {
     <article className="ridley-proof-card flex flex-col h-full group bg-white border border-black/5 hover:-translate-y-2 hover:shadow-xl transition duration-500 rounded-[28px] overflow-hidden">
       <Link href={`/blog/${post.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-gray-150">
         <Image
-          src={post.coverImage || "/assets/images/online-course/OC-OG.jpg"}
+          src={post.coverImage || programs.onlineCourse.ogImage}
           alt={post.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"

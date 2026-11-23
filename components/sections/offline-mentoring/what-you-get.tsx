@@ -17,7 +17,7 @@ export default function MentoringWhatYouGet() {
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-black/5">
                 <img
-                  src="/assets/images/offline-mentoring/OM-section5-desktop version.png"
+                  src="/images/services/offline-mentoring-output.png"
                   alt="Output Program Desktop"
                   className="w-full h-auto block"
                 />

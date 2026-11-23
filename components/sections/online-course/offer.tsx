@@ -1,7 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
+import { programs } from "@/config/programs";
 
 export default function CourseOffer() {
+  const program = programs.onlineCourse;
+
   return (
     <>{/* SECTION 5 — THE OFFER */}
       <section className="bg-ridley-blue relative overflow-hidden py-20 md:py-28">
@@ -20,7 +22,7 @@ export default function CourseOffer() {
           <div className="flex justify-center mb-16">
             <div className="inline-flex items-center gap-3 bg-ridley-yellow text-black px-7 py-4 rounded-full shadow-2xl">
               <span className="text-sm font-bold uppercase tracking-[0.15em]">Dengan Harga</span>
-              <span className="text-2xl md:text-3xl font-medium">Rp199.000</span>
+              <span className="text-2xl md:text-3xl font-medium">{program.priceFormatted}</span>
             </div>
           </div>
 
@@ -127,4 +129,3 @@ export default function CourseOffer() {
     </>
   );
 }
-

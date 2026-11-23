@@ -1,19 +1,21 @@
+import { siteConfig } from "@/config/site";
+
 export function getWebSiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://www.ridleylab.com/#website",
-    "name": "RIDLEY",
-    "url": "https://www.ridleylab.com/",
+    "@id": `${siteConfig.url}/#website`,
+    "name": siteConfig.name,
+    "url": `${siteConfig.url}/`,
     "description": "Pelatihan AI Social Media Marketing, sistem konten, dan implementasi AI untuk scale up bisnis jasa.",
-    "inLanguage": "id-ID",
+    "inLanguage": siteConfig.language,
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://www.ridleylab.com/blog?search={search_term_string}"
+        "urlTemplate": `${siteConfig.url}/blog?search={search_term_string}`,
       },
-      "query-input": "required name=search_term_string"
-    }
+      "query-input": "required name=search_term_string",
+    },
   };
 }
