@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Check, MessageCircle } from "lucide-react";
+import { Check } from "lucide-react";
 import { siteConfig, getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -37,18 +37,18 @@ export default function MentoringHero() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* LEFT CONTENT */}
           <div className="lg:col-span-6">
-            <Badge variant="outline" className="mb-5">
-              {program.badge} · {program.priceFormatted} {program.priceUnit}
-            </Badge>
-
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
               Offline Mentoring AI Social Media Marketing di Lokasi Bisnis Anda.
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mb-8">
-              Workshop tatap muka di lokasi yang melatih tim Anda menggunakan
-              AI untuk produksi konten dan closing secara efektif. Kurikulum
-              khusus, latihan kasus nyata, dan hasil terukur.
+              Workshop tatap muka di lokasi (
+              <span className="font-semibold text-zinc-950 dark:text-zinc-100">
+                {program.priceFormatted} {program.priceUnit}
+              </span>
+              ) yang melatih tim Anda menggunakan AI untuk produksi konten dan
+              closing secara efektif. Kurikulum khusus, latihan kasus nyata,
+              dan hasil terukur.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
@@ -68,7 +68,7 @@ export default function MentoringHero() {
 
             <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
               <ButtonLink href={whatsappUrl} external variant="primary" size="lg">
-                <MessageCircle size={17} />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>{program.ctaLabel}</span>
               </ButtonLink>
               <ButtonLink href="/services/online-mentoring" variant="outline" size="lg">
@@ -98,14 +98,14 @@ export default function MentoringHero() {
 
           {/* RIGHT IMAGE */}
           <div className="lg:col-span-6">
-            <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
+            <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto aspect-[4/5] rounded-3xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
               <Image
                 src="/images/services/offline-mentoring-hero.jpg"
                 alt={`Offline Mentoring ${siteConfig.name} sesi tatap muka langsung di kantor klien`}
                 fill
                 priority
                 className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 460px"
               />
             </div>
           </div>

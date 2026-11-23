@@ -1,6 +1,5 @@
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 
 const steps = [
   {
@@ -34,9 +33,6 @@ export default function MentoringProgramFlow() {
     <Section variant="subtle" borderTop>
       <Container size="lg">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge variant="outline" className="mb-4">
-            Tahapan Program
-          </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-4">
             Dari Operasional Acak Menjadi Sistem Konten yang Bisa Jalan Bersama
             Tim

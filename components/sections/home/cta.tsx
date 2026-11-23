@@ -1,7 +1,7 @@
-import { Layers, MessageCircle, SlidersHorizontal, Users } from "lucide-react";
+import { Layers, SlidersHorizontal, Users } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
-import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -11,10 +11,6 @@ export default function HomeCTA() {
   return (
     <Section variant="inverted" spacing="lg">
       <Container size="lg" className="text-center">
-        <Badge variant="inverted" className="mb-6">
-          Mulai Implementasi
-        </Badge>
-
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight text-white max-w-3xl mx-auto mb-5">
           Mau Lanjut Kerja Manual, atau Bangun Tim Marketing Berbasis AI
           Sekarang?
@@ -36,7 +32,7 @@ export default function HomeCTA() {
             variant="inverted-outline"
             size="lg"
           >
-            <MessageCircle size={17} />
+            <WhatsAppIcon className="w-4 h-4" />
             <span>Tanya dulu via WhatsApp</span>
           </ButtonLink>
         </div>

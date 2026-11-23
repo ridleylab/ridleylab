@@ -10,7 +10,6 @@ import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogPostSchemaGraph } from "@/lib/seo/schema";
 import { programs } from "@/config/programs";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -190,9 +189,9 @@ export default async function PostPage({ params }: PostPageProps) {
 
                 {/* SOFT CONVERSION BANNER */}
                 <div className="mt-12 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/70 p-7 sm:p-8">
-                  <Badge variant="outline" className="mb-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">
                     Implementasi Bersama Tim
-                  </Badge>
+                  </p>
                   <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-2">
                     Ingin Memasang Sistem Konten &amp; Prompt AI Ini ke Tim
                     Marketing Anda?

@@ -3,7 +3,6 @@ import { ArrowRight, Check } from "lucide-react";
 import { programs } from "@/config/programs";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 
 export default function HomeOffer() {
@@ -32,9 +31,6 @@ export default function HomeOffer() {
     <Section variant="subtle" borderTop>
       <Container size="xl">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <Badge variant="outline" className="mb-4">
-            3 Pilihan Program
-          </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-5 leading-tight">
             Program Pelatihan AI Marketing
           </h2>
@@ -56,9 +52,15 @@ export default function HomeOffer() {
               }
             >
               <div className="flex items-center justify-between gap-2 mb-5">
-                <Badge variant={highlighted ? "inverted" : "default"}>
+                <span
+                  className={
+                    highlighted
+                      ? "text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400"
+                      : "text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400"
+                  }
+                >
                   {program.badge}
-                </Badge>
+                </span>
                 {highlighted && (
                   <span className="text-[11px] font-medium text-zinc-400">
                     Tanpa Biaya Transport

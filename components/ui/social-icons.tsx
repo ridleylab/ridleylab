@@ -1,4 +1,24 @@
 import type { SVGProps } from "react";
+import { cn } from "@/lib/utils";
+
+export function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn("inline-block shrink-0 bg-current", className)}
+      style={{
+        maskImage: "url('/wa.svg')",
+        WebkitMaskImage: "url('/wa.svg')",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+      }}
+    />
+  );
+}
 
 export function InstagramIcon({ className = "w-4 h-4", ...props }: SVGProps<SVGSVGElement>) {
   return (

@@ -1,7 +1,6 @@
 import { Search, PenTool, Cpu, MessageSquareCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
 const solutions = [
@@ -36,9 +35,6 @@ export default function HomeSolution() {
     <Section variant="subtle" borderTop>
       <Container size="xl">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <Badge variant="outline" className="mb-4">
-            Pendekatan Praktis
-          </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-5 leading-tight">
             Pelatihan AI Praktis untuk Tim Marketing Anda
           </h2>

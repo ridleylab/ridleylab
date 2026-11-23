@@ -7,7 +7,6 @@ import Pagination from "@/components/blog/pagination";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogIndexSchemaGraph } from "@/lib/seo/schema";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -97,9 +96,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           />
 
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <Badge variant="outline" className="mb-4">
-              Blog &amp; Panduan
-            </Badge>
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
               Wawasan &amp; Panduan Marketing Berbasis AI
             </h1>

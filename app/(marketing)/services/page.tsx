@@ -1,15 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, Check, MapPin, MessageCircle } from "lucide-react";
-import { siteConfig, getWhatsAppUrl } from "@/config/site";
+import { ArrowRight, Check, MapPin } from "lucide-react";
+import { getWhatsAppUrl } from "@/config/site";
 import { programs, programComparisonRows } from "@/config/programs";
 import { locations } from "@/config/locations";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getServicesHubSchemaGraph } from "@/lib/seo/schema";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -47,9 +47,6 @@ export default function ServicesHubPage() {
           />
 
           <div className="max-w-3xl">
-            <Badge variant="outline" className="mb-5">
-              Layanan {siteConfig.name}
-            </Badge>
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-zinc-950 dark:text-zinc-50 mb-5">
               Pilih Program Pelatihan AI yang Paling Tepat untuk Tim Anda
             </h1>
@@ -78,9 +75,15 @@ export default function ServicesHubPage() {
                   }
                 >
                   <div className="flex items-center justify-between gap-2 mb-5">
-                    <Badge variant={isHighlighted ? "inverted" : "default"}>
+                    <span
+                      className={
+                        isHighlighted
+                          ? "text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400"
+                          : "text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400"
+                      }
+                    >
                       {prog.badge}
-                    </Badge>
+                    </span>
                     {prog.sessions && (
                       <span className="text-xs text-zinc-400">{prog.sessions}</span>
                     )}
@@ -145,7 +148,7 @@ export default function ServicesHubPage() {
                       fullWidth
                       size="sm"
                     >
-                      <MessageCircle size={15} />
+                      <WhatsAppIcon className="w-3.5 h-3.5" />
                       <span>Konsultasi via WA</span>
                     </ButtonLink>
                   </div>
@@ -317,7 +320,7 @@ export default function ServicesHubPage() {
             Kami bantu rekomendasikan skema belajar atau mentoring yang tepat.
           </p>
           <ButtonLink href={whatsappUrl} external variant="inverted" size="lg">
-            <MessageCircle size={17} />
+            <WhatsAppIcon className="w-4 h-4" />
             <span>Konsultasi Gratis via WhatsApp</span>
           </ButtonLink>
         </Container>

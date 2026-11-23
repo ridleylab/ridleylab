@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Globe, PlayCircle } from "lucide-react";
+import { CheckCircle2, Globe, PlayCircle } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -29,8 +30,8 @@ export default function CourseCTA() {
 
             <div className="flex flex-col sm:flex-row gap-3.5 mb-8">
               <ButtonLink href={whatsappUrl} external variant="primary" size="lg">
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>Akses Online Course ({program.priceFormatted})</span>
-                <ArrowRight size={17} />
               </ButtonLink>
               <ButtonLink href="/services/online-mentoring" variant="outline" size="lg">
                 Ingin Pendampingan Tim Live?

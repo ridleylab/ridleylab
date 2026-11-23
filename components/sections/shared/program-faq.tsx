@@ -1,13 +1,11 @@
 import type { ProgramFaq } from "@/config/programs";
 import { Accordion } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
 interface ProgramFaqSectionProps {
   title?: string;
   subtitle?: string;
-  badge?: string;
   faqs: ProgramFaq[];
   variant?: "default" | "subtle";
 }
@@ -18,7 +16,6 @@ interface ProgramFaqSectionProps {
 export default function ProgramFaqSection({
   title = "Pertanyaan yang Sering Diajukan",
   subtitle = "Jawaban ringkas seputar materi, mekanisme sesi, dan implementasi program bersama RidleyLab.",
-  badge = "FAQ",
   faqs,
   variant = "default",
 }: ProgramFaqSectionProps) {
@@ -28,11 +25,6 @@ export default function ProgramFaqSection({
     <Section variant={variant} borderTop>
       <Container size="md">
         <div className="text-center mb-12">
-          {badge && (
-            <Badge variant="outline" className="mb-4">
-              {badge}
-            </Badge>
-          )}
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4">
             {title}
           </h2>

@@ -1,6 +1,5 @@
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 
 const phases = [
   {
@@ -34,9 +33,6 @@ export default function OnlineMentoringFlow() {
     <Section variant="default" borderTop>
       <Container size="lg">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <Badge variant="outline" className="mb-4">
-            Alur 8x Pertemuan
-          </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
             Roadmap Implementasi via Google Meet
           </h2>

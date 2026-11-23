@@ -5,7 +5,6 @@ import { getAllPosts, getTags } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -75,9 +74,6 @@ export default async function TagPage({ params }: TagPageProps) {
         />
 
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <Badge variant="outline" className="mb-4">
-            Arsip Tag
-          </Badge>
           <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
             Tag: #{tagName}
           </h1>

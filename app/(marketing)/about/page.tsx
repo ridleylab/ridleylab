@@ -17,7 +17,6 @@ import { InstagramIcon, TikTokIcon } from "@/components/ui/social-icons";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getAboutSchemaGraph } from "@/lib/seo/schema";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -75,9 +74,6 @@ export default function AboutPage() {
           />
 
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <Badge variant="outline" className="mb-4">
-              Tentang Kami
-            </Badge>
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-5 leading-tight">
               Tentang {siteConfig.name}
             </h1>

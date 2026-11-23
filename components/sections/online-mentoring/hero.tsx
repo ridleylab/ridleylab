@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   Check,
-  MessageCircle,
   Mic,
   Monitor,
   Users,
@@ -9,9 +8,9 @@ import {
 } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -43,19 +42,18 @@ export default function OnlineMentoringHero() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* LEFT */}
           <div className="lg:col-span-6">
-            <Badge variant="outline" className="mb-5">
-              {program.badge} · {program.priceFormatted} {program.priceUnit}
-            </Badge>
-
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
               Online Mentoring AI Social Media Marketing Live via Google Meet.
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mb-8">
-              Pendampingan intensif 8x pertemuan untuk tim bisnis jasa di
-              seluruh Indonesia. Bab materi, setup SOP, prompt AI, hingga
-              training admin closing sama persis dengan Offline Mentoring —
-              tanpa biaya akomodasi ke luar kota.
+              Pendampingan intensif 8x pertemuan (
+              <span className="font-semibold text-zinc-950 dark:text-zinc-100">
+                {program.priceFormatted} {program.priceUnit}
+              </span>
+              ) untuk tim bisnis jasa di seluruh Indonesia. Bab materi, setup
+              SOP, prompt AI, hingga training admin closing sama persis dengan
+              Offline Mentoring — tanpa biaya akomodasi ke luar kota.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
@@ -75,7 +73,7 @@ export default function OnlineMentoringHero() {
 
             <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
               <ButtonLink href={whatsappUrl} external variant="primary" size="lg">
-                <MessageCircle size={17} />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>{program.ctaLabel}</span>
               </ButtonLink>
               <ButtonLink

@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { Download, Play, Sparkles, Terminal } from "lucide-react";
+import { Play, Sparkles, Terminal } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -34,10 +34,6 @@ export default function CourseHero() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* LEFT CONTENT */}
           <div className="lg:col-span-6">
-            <Badge variant="outline" className="mb-5">
-              {program.badge} · {program.priceFormatted}
-            </Badge>
-
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-zinc-950 dark:text-zinc-50 mb-6">
               Online Course AI Social Media Marketing untuk TikTok &amp; Instagram.
             </h1>
@@ -45,12 +41,16 @@ export default function CourseHero() {
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mb-8">
               Belajar mandiri cara memakai AI untuk riset pasar, menulis skrip
               konten, dan membangun alur konversi yang rapi — lengkap dengan
-              template prompt dan SOP dasar tim konten.
+              template prompt dan SOP dasar tim konten. Investasi{" "}
+              <span className="font-semibold text-zinc-950 dark:text-zinc-100">
+                {program.priceFormatted} ({program.priceUnit})
+              </span>
+              .
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3.5 mb-7">
               <ButtonLink href={whatsappUrl} external variant="primary" size="lg">
-                <Download size={17} />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>{program.ctaLabel}</span>
               </ButtonLink>
               <ButtonLink href="/services/online-mentoring" variant="outline" size="lg">

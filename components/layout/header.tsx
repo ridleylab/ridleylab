@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, MessageCircle } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { siteConfig, getWhatsAppUrl } from "@/config/site";
 import { headerNavLinks } from "@/config/navigation";
 import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -165,7 +166,7 @@ export default function Header() {
               size="sm"
               className="hidden sm:inline-flex"
             >
-              <MessageCircle size={15} />
+              <WhatsAppIcon className="w-4 h-4" />
               <span>Konsultasi</span>
             </ButtonLink>
 
@@ -263,7 +264,7 @@ export default function Header() {
               variant="primary"
               fullWidth
             >
-              <MessageCircle size={16} />
+              <WhatsAppIcon className="w-4 h-4" />
               <span>Konsultasi Sekarang</span>
             </ButtonLink>
           </div>

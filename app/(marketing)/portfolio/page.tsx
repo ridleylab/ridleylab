@@ -6,7 +6,6 @@ import { portfolioItems } from "@/config/portfolio";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getPortfolioSchemaGraph } from "@/lib/seo/schema";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -37,9 +36,6 @@ export default function PortfolioPage() {
           />
 
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <Badge variant="outline" className="mb-4">
-              Studi Kasus Klien
-            </Badge>
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 mb-4 leading-tight">
               Portfolio {siteConfig.name}
             </h1>

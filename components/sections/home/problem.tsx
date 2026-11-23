@@ -1,7 +1,6 @@
 import { Clock, FileText, RefreshCw, Workflow } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 
 const problems = [
   {
@@ -37,9 +36,6 @@ export default function HomeProblem() {
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* LEFT */}
           <div className="lg:col-span-5">
-            <Badge variant="inverted" className="mb-5">
-              Akar Masalah
-            </Badge>
             <h2 className="text-3xl lg:text-[2.65rem] font-semibold tracking-tight leading-[1.12] text-white mb-6">
               Masalahnya Bukan di Kreativitas, Tapi Tim Belum Memaksimalkan AI.
             </h2>

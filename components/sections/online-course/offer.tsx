@@ -9,7 +9,6 @@ import {
 import { programs } from "@/config/programs";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
 
 const deliverables = [
   {
@@ -51,9 +50,6 @@ export default function CourseOffer() {
     <Section variant="inverted">
       <Container size="xl">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <Badge variant="inverted" className="mb-4">
-            Investasi Terjangkau
-          </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white mb-5 leading-tight">
             Semua Materi Pelatihan AI Ini Bisa Anda Akses Sekali Bayar
           </h2>

@@ -6,7 +6,6 @@ import {
   Building2,
   Check,
   MapPin,
-  MessageCircle,
 } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
@@ -16,9 +15,9 @@ import ProgramFaqSection from "@/components/sections/shared/program-faq";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getLocationSchemaGraph } from "@/lib/seo/schema";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -99,12 +98,12 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
           <div className="grid lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-8">
-              <Badge variant="outline" className="mb-5">
-                <MapPin size={12} />
+              <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400 mb-3">
+                <MapPin size={13} />
                 <span>
                   {location.city} · {location.region}
                 </span>
-              </Badge>
+              </p>
 
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-5">
                 {location.heroHeadline}
@@ -129,7 +128,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
                   variant="outline"
                   size="lg"
                 >
-                  <MessageCircle size={17} />
+                  <WhatsAppIcon className="w-4 h-4" />
                   <span>Konsultasi Tim {location.city}</span>
                 </ButtonLink>
               </div>
@@ -221,9 +220,15 @@ export default async function LocationPage({ params }: LocationPageProps) {
                   }
                 >
                   <div className="flex items-center justify-between gap-2 mb-4">
-                    <Badge variant={isRec ? "inverted" : "default"}>
+                    <span
+                      className={
+                        isRec
+                          ? "text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-400"
+                          : "text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400"
+                      }
+                    >
                       {isRec ? `Rekomendasi ${location.city}` : prog.badge}
-                    </Badge>
+                    </span>
                   </div>
 
                   <h3 className="text-xl font-semibold mb-1.5">{prog.name}</h3>
@@ -295,9 +300,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <div className="grid md:grid-cols-2 gap-5">
               {relevantPortfolio.map((item) => (
                 <Card key={item.id} variant="default" padding="lg">
-                  <Badge variant="outline" className="mb-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">
                     {item.location}
-                  </Badge>
+                  </p>
                   <h3 className="text-xl font-semibold text-zinc-950 dark:text-zinc-50 mb-1">
                     {item.name}
                   </h3>
@@ -346,7 +351,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
               variant="inverted"
               size="lg"
             >
-              <MessageCircle size={17} />
+              <WhatsAppIcon className="w-4 h-4" />
               <span>Jadwalkan Konsultasi {location.city}</span>
             </ButtonLink>
           </div>

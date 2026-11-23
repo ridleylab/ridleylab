@@ -1,39 +1,40 @@
-# RIDLEY
+# RidleyLab
 
-Platform resmi RIDLEY (Pelatihan AI Social Media Marketing) untuk membantu bisnis jasa membangun sistem konten dan alur konversi otomatis berbasis AI.
+Platform resmi **RidleyLab** (Pelatihan AI Social Media Marketing Bisnis Jasa) untuk membantu pemilik bisnis dan tim internal membangun sistem riset konten, SOP kerja, serta alur konversi terukur berbasis Artificial Intelligence.
 
-## Pages
+## Halaman Utama (Canonical: `https://ridleylab.com`)
 
-- **Homepage**: [https://www.ridleylab.com/](https://www.ridleylab.com/)
-- **Online Course**: [https://www.ridleylab.com/online-course/](https://www.ridleylab.com/online-course/)
-- **Offline Mentoring**: [https://www.ridleylab.com/offline-mentoring/](https://www.ridleylab.com/offline-mentoring/)
-- **Blog**: [https://www.ridleylab.com/blog](https://www.ridleylab.com/blog)
-- **Admin Dashboard**: `/admin` (Protected)
+- **Homepage**: [https://ridleylab.com](https://ridleylab.com)
+- **Semua Layanan**: [https://ridleylab.com/services](https://ridleylab.com/services)
+- **Online Course (Rp199.000)**: [https://ridleylab.com/services/online-course](https://ridleylab.com/services/online-course)
+- **Online Mentoring via Google Meet (Rp4.000.000 / tim)**: [https://ridleylab.com/services/online-mentoring](https://ridleylab.com/services/online-mentoring)
+- **Offline Mentoring Tatap Muka (Rp4.500.000 / tim)**: [https://ridleylab.com/services/offline-mentoring](https://ridleylab.com/services/offline-mentoring)
+- **Layanan per Kota (`/lokasi/[city]`)**: `yogyakarta`, `jakarta`, `bandung`, `semarang`, `surabaya`, `malang`
+- **Portfolio**: [https://ridleylab.com/portfolio](https://ridleylab.com/portfolio)
+- **About**: [https://ridleylab.com/about](https://ridleylab.com/about)
+- **Blog**: [https://ridleylab.com/blog](https://ridleylab.com/blog)
+- **Feeds & Discovery**: [`/sitemap.xml`](https://ridleylab.com/sitemap.xml), [`/robots.txt`](https://ridleylab.com/robots.txt), [`/llms.txt`](https://ridleylab.com/llms.txt), [`/blog/rss`](https://ridleylab.com/blog/rss)
+- **Admin CMS**: `/admin` (Protected)
 
 ---
 
 ## Tech Stack
 
-Proyek ini telah direstrukturisasi dari HTML statis menjadi aplikasi React modern berkinerja tinggi:
-
-- **Framework**: Next.js 14+ (App Router)
-- **Styling**: Tailwind CSS & Global CSS
-- **Database**: SQLite (via Prisma ORM)
-- **Authentication**: NextAuth.js
-- **Content**: MDX (untuk artikel blog)
-- **Editor**: Custom Rich Text Editor (Tiptap)
+- **Framework**: Next.js 16 (App Router, Turbopack) + TypeScript
+- **Styling**: Tailwind CSS v4 + `@tailwindcss/typography` (Adaptive Light & Dark Mode)
+- **Database**: PostgreSQL (Neon) via Prisma ORM 7 (`@prisma/adapter-pg`)
+- **Authentication**: NextAuth v5
+- **Editor & Media**: Tiptap Rich Text Editor & UploadThing
+- **AI Integration**: Google Gemini (`@google/genai`)
 
 ---
 
 ## Features
 
-- **Responsive Design**: Mendukung layar Desktop, Tablet, dan Mobile.
-- **Dynamic SEO & Metadata**: Implementasi metadata dinamis untuk setiap halaman dan artikel.
-- **Rich Schema.org (JSON-LD)**: 
-  - Struktur SEO modular (`WebPage`, `Service`, `FAQPage`, `Organization`, `WebSite`) untuk mesin pencari.
-- **Open Graph**: Teroptimasi penuh untuk *sharing* ke WhatsApp, Facebook, Instagram, dsb.
-- **Admin Panel**: Sistem CMS internal untuk membuat, mengedit, dan menerbitkan artikel blog (`/admin`).
-- **Markdown & MDX Support**: Penulisan artikel interaktif menggunakan MDX.
+- **Adaptive Monochrome UI**: Tema terang/gelap otomatis mengikuti OS browser dengan toggle manual dan pencegahan FOUC.
+- **Technical SEO & Schema.org `@graph`**: Canonical non-`www` (`https://ridleylab.com`), redirect 301 dari `www.ridleylab.com`, OpenGraph/Twitter metadata, `Organization`, `WebSite`, `Course`, `Service`, `FAQPage`, `BlogPosting`, dan `BreadcrumbList`.
+- **AI Discovery & Feeds**: Endpoint dinamis `/sitemap.xml`, `/robots.txt`, `/llms.txt`, dan `/blog/rss`.
+- **Blog & Internal CMS**: Manajemen artikel, kategori, tag, serta galeri media di `/admin`.
 
 ---
 
@@ -41,53 +42,54 @@ Proyek ini telah direstrukturisasi dari HTML statis menjadi aplikasi React moder
 
 ```txt
 ridleylab/
- ├─ app/                     # Next.js App Router (Halaman dan Rute API)
- │   ├─ admin/               # Panel Admin (Terlindungi)
- │   ├─ api/                 # Endpoint API (Autentikasi, Gambar, dll)
- │   ├─ blog/                # Halaman Blog & Artikel
- │   ├─ offline-mentoring/   # Halaman Offline Mentoring
- │   ├─ online-course/       # Halaman Online Course
- │   └─ page.tsx             # Homepage
+ ├─ app/
+ │   ├─ (marketing)/         # Halaman publik, layanan, lokasi, portfolio, about, blog, legal
+ │   ├─ (admin)/admin/       # Panel CMS internal (terlindungi auth)
+ │   ├─ (auth)/login/        # Halaman login admin (noindex)
+ │   ├─ api/                 # NextAuth & UploadThing endpoints
+ │   ├─ layout.tsx           # Root layout, font Manrope & ThemeProvider
+ │   ├─ opengraph-image.tsx  # Dynamic OG card fallback
+ │   ├─ robots.ts            # Robots policy -> https://ridleylab.com
+ │   ├─ sitemap.ts           # Sitemap XML seluruh route kanonis
+ │   └─ llms.txt/            # Ringkasan layanan & konten untuk AI crawlers
  │
- ├─ components/              # Komponen React yang dapat digunakan ulang
- │   ├─ admin/               # Komponen spesifik untuk Panel Admin
- │   ├─ layout/              # Navbar, Footer, Container
- │   └─ sections/            # Blok antarmuka yang sudah diekstrak:
- │       ├─ home/            # (Hero, Problem, CTA, dll)
- │       ├─ offline-mentoring/
- │       └─ online-course/
+ ├─ components/
+ │   ├─ ui/                  # Primitif UI monokrom (Button, Card, Accordion, ThemeToggle, dll.)
+ │   ├─ layout/              # Header, Footer, ThemeProvider
+ │   ├─ sections/            # Section halaman Home, Online Course, Online & Offline Mentoring
+ │   ├─ blog/                # PostCard, SearchBar, Pagination, TableOfContents
+ │   ├─ portfolio/           # ClientSection & TikTok embed
+ │   ├─ seo/                 # Komponen render JSON-LD
+ │   └─ admin/               # Komponen dashboard CMS
  │
- ├─ lib/                     # Utilitas dan Konfigurasi
- │   ├─ db/                  # Prisma Database Client
- │   └─ seo/
- │       └─ schema/          # Skema JSON-LD Modular (pages.ts, organization.ts, dll)
- │
- ├─ prisma/                  # Skema Database & Seeder
- ├─ public/                  # Aset Statis (Gambar, robots.txt, sitemap, manifest)
- └─ middleware.ts            # Proteksi Rute NextAuth
+ ├─ config/                  # Single source of truth (site, programs, portfolio, locations, navigation)
+ ├─ lib/                     # Prisma client, SEO metadata, Schema.org @graph builder, auth guard
+ ├─ prisma/                  # Schema Prisma & database seeder
+ └─ public/                  # Aset gambar brand, program, bukti klien, & unggahan
 ```
 
 ---
 
 ## Getting Started
 
-Untuk menjalankan proyek ini secara lokal:
-
 1. Install dependensi:
    ```bash
    npm install
    ```
 
-2. Jalankan migrasi database Prisma (opsional jika `dev.db` sudah ada):
+2. Siapkan environment variables (`.env`) sesuai `.env.example`. Pada production Vercel, pastikan `NEXTAUTH_URL="https://ridleylab.com"` (naked domain, non-`www`).
+
+3. Generate Prisma client (jika belum):
    ```bash
-   npx prisma db push
+   npx prisma generate
    ```
 
-3. Jalankan server pengembangan (Development Server):
+4. Jalankan server pengembangan:
    ```bash
    npm run dev
    ```
    Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
 
 ## Deployment
-Proyek ini dikonfigurasi untuk *deployment* secara langsung ke **Vercel**. Pastikan untuk mengatur seluruh Environment Variables (`.env`) yang dibutuhkan seperti `NEXTAUTH_SECRET` saat rilis ke produksi.
+
+Proyek dikonfigurasi untuk *deployment* di **Vercel**. Pastikan domain utama di Vercel diset ke **`ridleylab.com`** (dan `www.ridleylab.com` diarahkan ke `ridleylab.com`), serta seluruh Environment Variables produksi (`DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, dsb.) sudah terisi.

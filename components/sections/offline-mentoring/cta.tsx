@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { Check, MessageCircle } from "lucide-react";
+import { Check } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
-import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -23,9 +23,6 @@ export default function MentoringCTA() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* LEFT */}
           <div className="lg:col-span-7">
-            <Badge variant="inverted" className="mb-5">
-              Slot Bulanan Terbatas
-            </Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.08] text-white mb-5">
               Siap Mentransformasi Tim Marketing Anda dengan AI?
             </h2>
@@ -37,7 +34,7 @@ export default function MentoringCTA() {
 
             <div className="flex flex-col sm:flex-row gap-3.5 mb-5">
               <ButtonLink href={whatsappUrl} external variant="inverted" size="lg">
-                <MessageCircle size={17} />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>Daftar &amp; Kurasi Sekarang</span>
               </ButtonLink>
               <ButtonLink href="/services/online-mentoring" variant="inverted-outline" size="lg">

@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.ridleylab.com" }],
+        destination: "https://ridleylab.com/:path*",
+        permanent: true, // 301 redirect www -> naked domain
+      },
+      {
         source: '/online-course',
         destination: '/services/online-course',
         permanent: true, // 301 redirect

@@ -1,8 +1,8 @@
-import { Check, MessageCircle } from "lucide-react";
+import { Check } from "lucide-react";
 import { getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
-import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
@@ -21,9 +21,6 @@ export default function OnlineMentoringCTA() {
       <Container size="lg">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
-            <Badge variant="inverted" className="mb-5">
-              Slot Bulanan Terbatas
-            </Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight text-white mb-5">
               Siap Latih Tim Anda Pakai AI Lewat Google Meet?
             </h2>
@@ -34,7 +31,7 @@ export default function OnlineMentoringCTA() {
 
             <div className="flex flex-col sm:flex-row gap-3.5 mb-7">
               <ButtonLink href={whatsappUrl} external variant="inverted" size="lg">
-                <MessageCircle size={17} />
+                <WhatsAppIcon className="w-4 h-4" />
                 <span>Daftar Online Mentoring Sekarang</span>
               </ButtonLink>
               <ButtonLink href="/services" variant="inverted-outline" size="lg">
