@@ -4,6 +4,22 @@ export interface TocItem {
   level: number;
 }
 
+function decodeHtmlEntities(input: string): string {
+  return input
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+export function slugifyHeading(text: string): string {
+  return decodeHtmlEntities(text)
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
 export function parseToc(content: string): TocItem[] {
   const items: TocItem[] = [];
   const regex = /(?:^(#{2,3})\s+(.*)$)|(?:<h([23])[^>]*>(.*?)<\/h\3>)/gim;
@@ -11,20 +27,18 @@ export function parseToc(content: string): TocItem[] {
 
   while ((match = regex.exec(content)) !== null) {
     let level: number;
-    let text: string;
+    let rawText: string;
 
     if (match[1]) {
       level = match[1].length;
-      text = match[2].trim();
+      rawText = match[2].trim();
     } else {
       level = parseInt(match[3], 10);
-      text = match[4].replace(/<[^>]*>?/gm, "").trim();
+      rawText = match[4].replace(/<[^>]*>?/gm, "").trim();
     }
 
-    const id = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-");
+    const text = decodeHtmlEntities(rawText);
+    const id = slugifyHeading(text);
 
     items.push({ id, text, level });
   }

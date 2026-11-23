@@ -66,14 +66,14 @@ export default function HomeHero() {
 
           {/* RIGHT — Editorial Workshop Photography */}
           <div className="lg:col-span-6">
-            <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto aspect-[4/5] rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-xl">
+            <div className="relative w-full max-w-[480px] mx-auto lg:ml-auto aspect-square rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-xl">
               <Image
-                src="/images/services/offline-mentoring-hero.jpg"
-                alt={`Sesi workshop ${siteConfig.name} pelatihan AI Social Media Marketing untuk tim bisnis jasa`}
+                src="/images/home/suasana-kelas.png"
+                alt={`Suasana kelas mentoring ${siteConfig.name} pelatihan AI Social Media Marketing untuk tim bisnis jasa`}
                 fill
                 priority
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 460px"
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 480px"
               />
             </div>
           </div>

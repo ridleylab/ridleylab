@@ -148,9 +148,9 @@ export default function AboutPage() {
           <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-7 sm:p-10 mb-20">
             <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="md:col-span-5 lg:col-span-4">
-                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800">
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800">
                   <Image
-                    src="/images/about/founder.png"
+                    src="/images/about/zakaanshori.png"
                     alt={`${siteConfig.founder.name} - ${siteConfig.founder.role}`}
                     fill
                     className="object-cover"

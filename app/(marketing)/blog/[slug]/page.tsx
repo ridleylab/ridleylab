@@ -5,7 +5,9 @@ import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { marked } from "marked";
 import { getPostBySlug, getAllPosts } from "@/lib/posts";
-import TableOfContents from "@/components/blog/table-of-contents";
+import TableOfContents, {
+  slugifyHeading,
+} from "@/components/blog/table-of-contents";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogPostSchemaGraph } from "@/lib/seo/schema";
@@ -94,15 +96,30 @@ export default async function PostPage({ params }: PostPageProps) {
     const html = marked.parse(
       post.content.replace(/<p>/g, "\n\n").replace(/<\/p>/g, "\n\n")
     ) as string;
-    return html.replace(
+
+    const withHeadingIds = html.replace(
       /<h([23])>(.*?)<\/h\1>/g,
-      (match, level, text) => {
-        const id = text
-          .replace(/<[^>]*>?/gm, "")
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, "")
-          .replace(/\s+/g, "-");
+      (_match, level, text) => {
+        const plainHeading = text.replace(/<[^>]*>?/gm, "");
+        const id = slugifyHeading(plainHeading);
         return `<h${level} id="${id}">${text}</h${level}>`;
+      }
+    );
+
+    return withHeadingIds.replace(
+      /<a\s+([^>]*?)>/gi,
+      (fullMatch, attrs: string) => {
+        const isLegacyCta =
+          /data-type\s*=\s*["'](?:button|cta-button)["']/i.test(attrs) ||
+          /class\s*=\s*["'][^"']*\bridley-btn\b/i.test(attrs);
+        if (!isLegacyCta) return fullMatch;
+
+        const cleanedAttrs = attrs
+          .replace(/\s*class\s*=\s*["'][^"']*["']/gi, "")
+          .replace(/\s*data-type\s*=\s*["'][^"']*["']/gi, "")
+          .trim();
+
+        return `<a ${cleanedAttrs} data-type="cta-button" class="article-cta-btn">`;
       }
     );
   })();

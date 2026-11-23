@@ -102,7 +102,7 @@ export function buildFounderPersonNode(): SchemaNode {
     name: siteConfig.founder.name,
     jobTitle: siteConfig.founder.role,
     url: siteConfig.founder.portfolioUrl,
-    image: toAbsoluteUrl("/images/about/founder.png"),
+    image: toAbsoluteUrl("/images/about/zakaanshori.png"),
     worksFor: {
       "@id": SCHEMA_IDS.organization,
     },
