@@ -15,9 +15,9 @@ export default function CourseCTA() {
   return (
     <Section variant="subtle" borderTop>
       <Container size="xl">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* CONTENT */}
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 leading-tight mb-5">
               Saatnya Latih Tim Anda Menggunakan AI Agar Bisnis Tumbuh
               Konsisten
@@ -66,7 +66,7 @@ export default function CourseCTA() {
           </div>
 
           {/* IMAGE */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+          <div className="min-w-0 lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-[520px] aspect-[4/3] rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden p-4">
               <Image
                 src="/images/services/online-course-cta.png"

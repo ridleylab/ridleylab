@@ -3,15 +3,18 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { marked } from "marked";
-import { getPostBySlug, getAllPosts } from "@/lib/posts";
-import TableOfContents, {
-  slugifyHeading,
-} from "@/components/blog/table-of-contents";
+import {
+  getAdjacentAndRelatedPosts,
+  getAllPosts,
+  getPostBySlug,
+} from "@/lib/posts";
+import { renderArticleContent } from "@/lib/blog/render-content";
+import TableOfContents from "@/components/blog/table-of-contents";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogPostSchemaGraph } from "@/lib/seo/schema";
 import { programs } from "@/config/programs";
+import { Accordion } from "@/components/ui/accordion";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -44,15 +47,21 @@ export async function generateMetadata({
     });
   }
 
+  const meta = post.metadata;
+  const keywords = Array.from(
+    new Set([...(meta.focusKeyword ? [meta.focusKeyword] : []), ...meta.tags])
+  );
+
   return buildMetadata({
-    title: post.metadata.title,
-    description: post.metadata.description,
-    path: `/blog/${post.metadata.slug}`,
-    image: post.metadata.coverImage || programs.onlineCourse.ogImage,
+    title: meta.metaTitle || meta.title,
+    description: meta.metaDescription || meta.description,
+    path: `/blog/${meta.slug}`,
+    image: meta.ogImage || meta.coverImage || programs.onlineCourse.ogImage,
     type: "article",
-    publishedTime: post.metadata.publishedAt,
-    modifiedTime: post.metadata.updatedAt,
-    authors: [post.metadata.author],
+    publishedTime: meta.publishedAt,
+    modifiedTime: meta.updatedAt,
+    authors: [meta.author],
+    keywords: keywords.length > 0 ? keywords : undefined,
   });
 }
 
@@ -64,21 +73,8 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound();
   }
 
-  const allPosts = await getAllPosts();
-
-  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
-  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-  const prevPost =
-    currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-
-  const relatedPosts = allPosts
-    .filter((p) => p.slug !== slug)
-    .filter(
-      (p) =>
-        p.category === post.metadata.category ||
-        p.tags.some((t) => post.metadata.tags.includes(t))
-    )
-    .slice(0, 3);
+  const { prevPost, nextPost, relatedPosts } =
+    await getAdjacentAndRelatedPosts(post.metadata);
 
   const formattedDate = new Date(post.metadata.publishedAt).toLocaleDateString(
     "id-ID",
@@ -89,40 +85,23 @@ export default async function PostPage({ params }: PostPageProps) {
     }
   );
 
-  const plainText = post.content.replace(/<[^>]*>?/gm, " ").trim();
-  const wordCount = plainText ? plainText.split(/\s+/).filter(Boolean).length : 0;
+  const { html: renderedHtml, toc, wordCount } = renderArticleContent(
+    post.content
+  );
 
-  const renderedHtml = (() => {
-    const html = marked.parse(
-      post.content.replace(/<p>/g, "\n\n").replace(/<\/p>/g, "\n\n")
-    ) as string;
-
-    const withHeadingIds = html.replace(
-      /<h([23])>(.*?)<\/h\1>/g,
-      (_match, level, text) => {
-        const plainHeading = text.replace(/<[^>]*>?/gm, "");
-        const id = slugifyHeading(plainHeading);
-        return `<h${level} id="${id}">${text}</h${level}>`;
-      }
-    );
-
-    return withHeadingIds.replace(
-      /<a\s+([^>]*?)>/gi,
-      (fullMatch, attrs: string) => {
-        const isLegacyCta =
-          /data-type\s*=\s*["'](?:button|cta-button)["']/i.test(attrs) ||
-          /class\s*=\s*["'][^"']*\bridley-btn\b/i.test(attrs);
-        if (!isLegacyCta) return fullMatch;
-
-        const cleanedAttrs = attrs
-          .replace(/\s*class\s*=\s*["'][^"']*["']/gi, "")
-          .replace(/\s*data-type\s*=\s*["'][^"']*["']/gi, "")
-          .trim();
-
-        return `<a ${cleanedAttrs} data-type="cta-button" class="article-cta-btn">`;
-      }
-    );
-  })();
+  const authorProfile = post.metadata.authorProfile;
+  const showAuthorCard = Boolean(
+    authorProfile &&
+      (authorProfile.role || authorProfile.bio || authorProfile.avatarUrl)
+  );
+  const authorAvatar = authorProfile?.avatarUrl;
+  const isExternalNonUploadthingAvatar = Boolean(
+    authorAvatar &&
+      authorAvatar.startsWith("http") &&
+      !authorAvatar.includes("utfs.io")
+  );
+  const authorInitial =
+    post.metadata.author.trim().charAt(0).toUpperCase() || "R";
 
   return (
     <>
@@ -142,7 +121,10 @@ export default async function PostPage({ params }: PostPageProps) {
                 name: post.metadata.category,
                 path: `/blog/category/${post.metadata.categorySlug}`,
               },
-              { name: post.metadata.title, path: `/blog/${post.metadata.slug}` },
+              {
+                name: post.metadata.title,
+                path: `/blog/${post.metadata.slug}`,
+              },
             ]}
             className="mb-8"
           />
@@ -197,12 +179,30 @@ export default async function PostPage({ params }: PostPageProps) {
             )}
 
             {/* CONTENT + SIDEBAR */}
-            <div className="grid lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <div className="min-w-0 lg:col-span-8">
                 <div
                   className="prose prose-zinc dark:prose-invert prose-lg max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:underline prose-a:underline-offset-4 prose-img:rounded-2xl prose-img:mx-auto"
                   dangerouslySetInnerHTML={{ __html: renderedHtml }}
                 />
+
+                {/* ARTICLE FAQ ACCORDION (SYNCED WITH FAQPAGE SCHEMA) */}
+                {post.metadata.faqs.length > 0 && (
+                  <div className="mt-12 space-y-5 border-t border-zinc-200 dark:border-zinc-800 pt-10">
+                    <div>
+                      <h2 className="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+                        Pertanyaan yang Sering Diajukan
+                      </h2>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                        Ringkasan jawaban cepat seputar topik artikel ini.
+                      </p>
+                    </div>
+                    <Accordion
+                      items={post.metadata.faqs}
+                      defaultOpenIndex={0}
+                    />
+                  </div>
+                )}
 
                 {/* SOFT CONVERSION BANNER */}
                 <div className="mt-12 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/70 p-7 sm:p-8">
@@ -214,7 +214,10 @@ export default async function PostPage({ params }: PostPageProps) {
                     Marketing Anda?
                   </h3>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-                    Pelajari fondasinya lewat Online Course ({programs.onlineCourse.priceFormatted}) atau bimbing tim Anda 8x sesi privat lewat Online Mentoring Google Meet ({programs.onlineMentoring.priceFormatted}).
+                    Pelajari fondasinya lewat Online Course (
+                    {programs.onlineCourse.priceFormatted}) atau bimbing tim
+                    Anda 8x sesi privat lewat Online Mentoring Google Meet (
+                    {programs.onlineMentoring.priceFormatted}).
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <ButtonLink
@@ -236,21 +239,64 @@ export default async function PostPage({ params }: PostPageProps) {
                 </div>
 
                 {/* TAGS */}
-                {post.metadata.tags.length > 0 && (
+                {post.metadata.tagItems.length > 0 && (
                   <div className="border-t border-zinc-200 dark:border-zinc-800 pt-8 mt-10">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mr-1">
                         Tags:
                       </span>
-                      {post.metadata.tags.map((tag) => (
+                      {post.metadata.tagItems.map((tag) => (
                         <Link
-                          key={tag}
-                          href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
+                          key={tag.slug}
+                          href={`/blog/tag/${tag.slug}`}
                           className="px-3 py-1 bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 rounded-lg text-xs font-medium hover:text-zinc-950 dark:hover:text-white transition-colors border border-zinc-200 dark:border-zinc-800"
                         >
-                          #{tag}
+                          #{tag.name}
                         </Link>
                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* AUTHOR E-E-A-T CARD */}
+                {showAuthorCard && authorProfile && (
+                  <div className="border-t border-zinc-200 dark:border-zinc-800 pt-8 mt-10">
+                    <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 p-6 flex items-start gap-4">
+                      {authorAvatar ? (
+                        <div className="relative h-14 w-14 shrink-0 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
+                          <Image
+                            src={authorAvatar}
+                            alt={authorProfile.name}
+                            fill
+                            unoptimized={isExternalNonUploadthingAvatar}
+                            className="object-cover"
+                            sizes="56px"
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-14 w-14 shrink-0 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950 flex items-center justify-center text-lg font-semibold">
+                          {authorInitial}
+                        </div>
+                      )}
+
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                          Ditulis oleh
+                        </p>
+                        <p className="text-base font-semibold text-zinc-950 dark:text-zinc-50">
+                          {authorProfile.name}
+                        </p>
+                        {authorProfile.role && (
+                          <p className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5">
+                            {authorProfile.role}
+                          </p>
+                        )}
+                        {authorProfile.bio && (
+                          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mt-2">
+                            {authorProfile.bio}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -306,9 +352,9 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
 
               {/* SIDEBAR */}
-              <aside className="lg:col-span-4 space-y-6">
+              <aside className="min-w-0 lg:col-span-4 space-y-6">
                 <div className="sticky top-24 space-y-6">
-                  <TableOfContents content={post.content} />
+                  <TableOfContents items={toc} />
 
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 text-zinc-100 p-6">
                     <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-2">

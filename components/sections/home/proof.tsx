@@ -131,7 +131,7 @@ export default function HomeProof() {
             href="/portfolio"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-950 dark:text-zinc-100 hover:underline"
           >
-            <span>Lihat video hasil mentoring klien di Portfolio</span>
+            <span>Lihat studi kasus &amp; hasil mentoring di Portfolio</span>
             <ArrowRight size={15} />
           </Link>
         </div>

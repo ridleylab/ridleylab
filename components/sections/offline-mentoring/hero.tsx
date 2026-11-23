@@ -34,10 +34,10 @@ export default function MentoringHero() {
           className="mb-8"
         />
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* LEFT CONTENT */}
-          <div className="lg:col-span-6">
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
+          <div className="min-w-0 lg:col-span-6">
+            <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
               Offline Mentoring AI Social Media Marketing di Lokasi Bisnis Anda.
             </h1>
 
@@ -97,7 +97,7 @@ export default function MentoringHero() {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto aspect-[4/5] rounded-3xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
               <Image
                 src="/images/services/offline-mentoring-hero.jpg"

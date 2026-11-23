@@ -1,30 +1,47 @@
 "use client";
 
 import "@uploadthing/react/styles.css";
-import { UploadDropzone } from "@/utils/uploadthing";
 import { useRouter } from "next/navigation";
+import { UploadDropzone } from "@/utils/uploadthing";
+import { useToast } from "@/components/ui/toast";
 
 export default function UploadMediaBox() {
   const router = useRouter();
+  const { toast } = useToast();
 
   return (
-    <div className="lg:col-span-4 bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-6 shadow-sm h-fit">
-      <h3 className="font-bold text-black text-base mb-4">Upload File Baru</h3>
-      
+    <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-6 h-fit">
+      <h2 className="font-semibold text-base text-zinc-950 dark:text-zinc-50 mb-1">
+        Upload File Baru
+      </h2>
+      <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
+        Maksimal 4MB per gambar untuk cover dan aset artikel.
+      </p>
+
       <UploadDropzone
         endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          alert("Upload berhasil!");
+        onClientUploadComplete={(uploaded) => {
+          toast({
+            title: `${uploaded.length} file berhasil di-upload`,
+            variant: "success",
+          });
           router.refresh();
         }}
         onUploadError={(error: Error) => {
-          alert(`Gagal upload: ${error.message}`);
+          toast({
+            title: "Gagal meng-upload file",
+            description: error.message,
+            variant: "error",
+          });
         }}
         appearance={{
-          button: "bg-ridley-blue text-white font-bold rounded-xl px-6 py-2 cursor-pointer hover:bg-[#216694] transition-colors focus-within:ring-2 focus-within:ring-ridley-blue focus-within:ring-offset-2",
-          container: "border-2 border-dashed border-gray-300 rounded-xl p-8 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer",
-          label: "text-ridley-blue hover:text-blue-600 font-medium",
-          allowedContent: "text-gray-400 text-xs mt-2",
+          button:
+            "bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950 font-semibold text-xs rounded-xl px-5 py-2.5 cursor-pointer hover:opacity-90 transition-opacity",
+          container:
+            "border-2 border-dashed border-zinc-300 dark:border-zinc-700 rounded-xl p-6 bg-zinc-50 dark:bg-zinc-950 hover:border-zinc-950 dark:hover:border-zinc-400 transition-colors cursor-pointer",
+          label:
+            "text-zinc-900 dark:text-zinc-100 hover:underline text-sm font-medium",
+          allowedContent: "text-zinc-400 text-xs mt-2",
         }}
       />
     </div>

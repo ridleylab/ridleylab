@@ -1,8 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
-import { getAllPosts, getCategoryList } from "@/lib/posts";
+import {
+  getCategoryBySlug,
+  getCategoryList,
+  getPaginatedPosts,
+} from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
+import Pagination from "@/components/blog/pagination";
 import JsonLd from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBlogCategorySchemaGraph } from "@/lib/seo/schema";
@@ -13,6 +18,7 @@ import { Section } from "@/components/ui/section";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ page?: string }>;
 }
 
 function formatFallbackName(slug: string): string {
@@ -34,8 +40,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const categories = await getCategoryList();
-  const matched = categories.find((c) => c.slug === slug);
+  const matched = await getCategoryBySlug(slug);
   const name = matched?.name || formatFallbackName(slug);
 
   return buildMetadata({
@@ -45,32 +50,33 @@ export async function generateMetadata({
   });
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: CategoryPageProps) {
   const { slug } = await params;
+  const resolvedSearch = searchParams ? await searchParams : {};
+  const pageVal = Math.max(1, parseInt(resolvedSearch.page || "1", 10) || 1);
 
-  const [posts, categories] = await Promise.all([
-    getAllPosts(),
-    getCategoryList(),
+  const [matchedCategory, paginated] = await Promise.all([
+    getCategoryBySlug(slug),
+    getPaginatedPosts({
+      categorySlug: slug,
+      page: pageVal,
+      limit: 6,
+    }),
   ]);
-
-  const matchedCategory = categories.find((c) => c.slug === slug);
-
-  const filteredPosts = posts.filter(
-    (p) =>
-      p.categorySlug === slug ||
-      p.category.toLowerCase().replace(/\s+/g, "-") === slug
-  );
 
   const categoryName =
     matchedCategory?.name ||
-    (filteredPosts.length > 0
-      ? filteredPosts[0].category
+    (paginated.posts.length > 0
+      ? paginated.posts[0].category
       : formatFallbackName(slug));
 
   return (
     <>
       <JsonLd
-        data={getBlogCategorySchemaGraph(categoryName, slug, filteredPosts)}
+        data={getBlogCategorySchemaGraph(categoryName, slug, paginated.posts)}
       />
 
       <Section
@@ -108,12 +114,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </Link>
           </div>
 
-          {filteredPosts.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPosts.map((post) => (
-                <PostCard key={post.slug} post={post} />
-              ))}
-            </div>
+          {paginated.posts.length > 0 ? (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginated.posts.map((post) => (
+                  <PostCard key={post.slug} post={post} />
+                ))}
+              </div>
+
+              <Pagination
+                currentPage={paginated.currentPage}
+                totalPages={paginated.totalPages}
+                baseUrl={`/blog/category/${slug}`}
+              />
+            </>
           ) : (
             <div className="text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
               <p className="text-zinc-500 dark:text-zinc-400 text-base font-medium">

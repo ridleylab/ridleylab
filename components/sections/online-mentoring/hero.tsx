@@ -39,10 +39,10 @@ export default function OnlineMentoringHero() {
           className="mb-8"
         />
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* LEFT */}
-          <div className="lg:col-span-6">
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
+          <div className="min-w-0 lg:col-span-6">
+            <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.09] text-zinc-950 dark:text-zinc-50 mb-6">
               Online Mentoring AI Social Media Marketing Live via Google Meet.
             </h1>
 
@@ -98,10 +98,10 @@ export default function OnlineMentoringHero() {
           </div>
 
           {/* RIGHT — Monochrome Google Meet Session Preview UI */}
-          <div className="lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 text-zinc-100 p-5 sm:p-6 shadow-2xl">
               {/* Top Call Bar */}
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-4 mb-5">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 pb-4 mb-5">
                 <div className="flex items-center gap-2.5">
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   <span className="text-xs font-semibold tracking-wide">
@@ -115,7 +115,7 @@ export default function OnlineMentoringHero() {
 
               {/* Shared Screen Area */}
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 sm:p-5 mb-4">
-                <div className="flex items-center justify-between text-xs text-zinc-400 mb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-400 mb-3">
                   <span className="inline-flex items-center gap-1.5 text-zinc-200 font-medium">
                     <Monitor size={14} />
                     <span>Screen Share · Bedah Funnel &amp; Prompt AI</span>
@@ -123,7 +123,7 @@ export default function OnlineMentoringHero() {
                   <span>Direct Feedback</span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2.5 text-left">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
                   <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-3">
                     <p className="text-[10px] uppercase tracking-wider text-zinc-500">
                       Tahap 1
@@ -157,7 +157,7 @@ export default function OnlineMentoringHero() {
                   (role) => (
                     <div
                       key={role}
-                      className="rounded-xl border border-zinc-800 bg-zinc-900/70 px-3 py-2.5 flex items-center gap-2"
+                      className="rounded-xl border border-zinc-800 bg-zinc-900/70 px-3 py-2.5 flex items-center gap-2 min-w-0"
                     >
                       <Users size={13} className="text-zinc-400 shrink-0" />
                       <span className="text-[11px] font-medium text-zinc-200 truncate">
@@ -169,7 +169,7 @@ export default function OnlineMentoringHero() {
               </div>
 
               {/* Call Controls */}
-              <div className="flex items-center justify-between pt-3 border-t border-zinc-800 text-xs text-zinc-400">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-zinc-800 text-xs text-zinc-400">
                 <div className="flex items-center gap-2">
                   <span className="h-8 w-8 rounded-full bg-zinc-800 flex items-center justify-center text-white">
                     <Mic size={14} />

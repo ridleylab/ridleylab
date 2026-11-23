@@ -3,9 +3,10 @@
 import { useActionState, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
+import { AlertCircle, ArrowLeft, Eye, EyeOff, Lock } from "lucide-react";
 import { authenticate } from "./actions";
 import { siteConfig } from "@/config/site";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,32 +16,46 @@ export default function LoginPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-black">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <Link href="/" className="flex justify-center mb-6 relative h-10 w-full">
-          <Image
-            src={siteConfig.brandAssets.logo}
-            alt={`${siteConfig.name} Logo`}
-            fill
-            className="object-contain"
-            priority
-          />
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 flex flex-col justify-between p-5 sm:p-8 transition-colors">
+      {/* Top Bar */}
+      <div className="flex items-center justify-between max-w-5xl w-full mx-auto">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors"
+        >
+          <ArrowLeft size={14} />
+          <span>Kembali ke Situs</span>
         </Link>
-        <h2 className="text-center text-3xl font-medium tracking-tight text-gray-900">
-          Masuk ke Dashboard
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-500">
-          Khusus admin {siteConfig.name}
-        </p>
+        <ThemeToggle />
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-3xl sm:px-10 border border-gray-150">
-          <form action={formAction} className="space-y-6">
+      {/* Centered Card */}
+      <div className="w-full max-w-md mx-auto my-10">
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-block relative h-9 w-36 mb-6">
+            <Image
+              src={siteConfig.brandAssets.logo}
+              alt={`${siteConfig.name} Logo`}
+              fill
+              className="object-contain dark:invert"
+              priority
+              sizes="144px"
+            />
+          </Link>
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+            Masuk ke Dashboard
+          </h1>
+          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            Panel administrasi &amp; CMS {siteConfig.name}
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 p-7 sm:p-8 shadow-sm">
+          <form action={formAction} className="space-y-5">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-bold text-gray-700 mb-2"
+                className="block text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2"
               >
                 Email Address
               </label>
@@ -50,15 +65,15 @@ export default function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                placeholder="masukkan email admin"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-ridley-blue focus:bg-white text-black placeholder-gray-400 rounded-xl outline-none transition text-sm"
+                placeholder="admin@ridleylab.com"
+                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-zinc-950 dark:focus:border-zinc-400 focus:bg-white dark:focus:bg-zinc-950 text-zinc-950 dark:text-zinc-50 placeholder-zinc-400 rounded-xl outline-none transition-colors text-sm"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-bold text-gray-700 mb-2"
+                className="block text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2"
               >
                 Password
               </label>
@@ -70,54 +85,47 @@ export default function LoginPage() {
                   autoComplete="current-password"
                   required
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-ridley-blue focus:bg-white text-black placeholder-gray-400 rounded-xl outline-none transition text-sm pr-12"
+                  className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-zinc-950 dark:focus:border-zinc-400 focus:bg-white dark:focus:bg-zinc-950 text-zinc-950 dark:text-zinc-50 placeholder-zinc-400 rounded-xl outline-none transition-colors text-sm pr-12"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                  aria-label={
+                    showPassword ? "Sembunyikan password" : "Tampilkan password"
+                  }
+                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 transition-colors cursor-pointer"
                 >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
 
             {errorMessage && (
-              <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl">
-                <div className="flex">
-                  <div className="shrink-0">
-                    <svg
-                      className="h-5 w-5 text-red-500"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-xs text-red-700 font-bold">{errorMessage}</p>
-                  </div>
-                </div>
+              <div
+                role="alert"
+                className="flex items-start gap-2.5 rounded-xl border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950/40 px-4 py-3 text-xs font-medium text-red-700 dark:text-red-300"
+              >
+                <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                <span>{errorMessage}</span>
               </div>
             )}
 
-            <div>
-              <button
-                type="submit"
-                disabled={isPending}
-                className="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-2xl shadow-sm text-sm font-bold text-white bg-ridley-blue hover:bg-[#216694] focus:outline-none transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-ridley-blue/20"
-              >
-                {isPending ? "Memproses..." : "Masuk"}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={isPending}
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            >
+              <Lock size={15} />
+              <span>{isPending ? "Memproses..." : "Masuk"}</span>
+            </button>
           </form>
         </div>
       </div>
+
+      {/* Footer Note */}
+      <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
+        © {new Date().getFullYear()} {siteConfig.name} · Akses Terbatas Admin
+      </p>
     </div>
   );
 }

@@ -33,13 +33,10 @@
 
 @theme {
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
 
-  /* Temporary compat for /admin & /login — remove in Fase 4 */
-  --color-ridley-blue: #2980B9;
-  --color-ridley-yellow: #FFCC4A;
-  --color-ridley-black: #09090b;
-  --color-ridley-bg: #fafafa;
-  --color-ridley-text: #52525b;
+.ProseMirror:focus {
+  outline: none;
 }
 
 body {
@@ -79,4 +76,9 @@ body {
 .prose a.article-cta-btn:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+.prose pre {
+  overflow-x: auto;
+  max-width: 100%;
 }

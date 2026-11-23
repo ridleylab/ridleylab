@@ -1,80 +1,107 @@
+import Link from "next/link";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata = {
   title: `Panduan Penggunaan CMS - ${siteConfig.name} Admin`,
 };
 
+const guides = [
+  {
+    title: "1. AI Auto-Pilot Brief (Artikel SEO 1.200+ Kata)",
+    description:
+      "Hasilkan kerangka dan isi artikel blog komprehensif dari modal brief terstruktur.",
+    steps: [
+      "Buka menu Posts > Artikel Baru, lalu klik Buka AI Brief (atau klik langsung Tulis Artikel dari halaman List Topik).",
+      "Isi Topik Artikel, Focus Keyword opsional, Target Audiens bisnis jasa, dan Gaya Bahasa.",
+      "AI menghasilkan judul SEO (<=60 karakter), meta description, slug, subheading H2/H3, studi kasus, FAQ, dan tombol CTA semantik.",
+    ],
+  },
+  {
+    title: "2. Inline AI Rewrite Popover",
+    description:
+      "Revisi paragraf spesifik langsung di dalam editor Tiptap dengan preset cepat maupun custom prompt.",
+    steps: [
+      "Blok (select) teks yang ingin disempurnakan di dalam Tiptap editor.",
+      "Klik tombol AI Rewrite di pojok kanan toolbar editor.",
+      "Pilih preset (Perbaiki Bahasa, Perdalam Poin, Ringkas Padat, Ubah ke Bullet List) atau tulis instruksi custom.",
+    ],
+  },
+  {
+    title: "3. Live SERP Preview & SEO Health Checklist",
+    description:
+      "Pastikan metadata artikel siap bersaing di hasil pencarian Google sebelum diterbitkan.",
+    steps: [
+      "Isi Focus Keyword di panel SEO kanan untuk mengecek kehadirannya di judul, slug, dan paragraf pembuka.",
+      "Pantau Live Google SERP Preview dan penghitung karakter Title (<=60) serta Meta Description (<=155).",
+      "Gunakan tombol Generate SEO bila ingin AI merangkum judul & deskripsi secara otomatis.",
+    ],
+  },
+  {
+    title: "4. Tombol CTA Semantik & Sisipkan Media",
+    description:
+      "Sisipkan gambar dari UploadThing dan tombol CTA monokrom yang konsisten Light & Dark.",
+    steps: [
+      "Gunakan tombol Sisipkan Tombol CTA di toolbar editor dengan preset link program RidleyLab atau WhatsApp.",
+      "Klik ikon Upload Gambar atau Pilih dari Media Gallery untuk memakai gambar yang sudah diunggah.",
+      "Di halaman Media Gallery, klik Copy URL (1-klik) atau perbesar preview via Lightbox Modal.",
+    ],
+  },
+  {
+    title: "5. Kelola Posts, Categories & Tags",
+    description:
+      "Gunakan filter cepat, toggle Publish/Draft instan, serta modal edit/hapus di seluruh halaman manajemen.",
+    steps: [
+      "Di menu Posts, klik badge Published/Draft untuk mengubah status artikel secara instan.",
+      "Menu Categories dan Tags kini mendukung Create, Rename/Edit, dan Delete penuh dengan konfirmasi modal.",
+      "Cek menu System & SEO Overview untuk memverifikasi status env dan endpoint sitemap/robots/llms.txt.",
+    ],
+  },
+];
+
 export default function PanduanPage() {
   return (
-    <div className="max-w-4xl space-y-8 text-black pb-20">
-      <div className="border-b pb-4">
-        <h1 className="text-3xl font-medium text-black">📖 Panduan Penggunaan CMS</h1>
-        <p className="text-gray-500 mt-2">
-          Pelajari cara menggunakan berbagai fitur unggulan di dalam sistem manajemen konten {siteConfig.name}.
-        </p>
+    <div className="max-w-4xl space-y-6 pb-12">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-6">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 flex items-center gap-2.5">
+            <BookOpen size={24} />
+            <span>Panduan Penggunaan CMS</span>
+          </h1>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1.5">
+            Workflow penulisan artikel SEO AI-Native dan manajemen konten{" "}
+            {siteConfig.name}.
+          </p>
+        </div>
+
+        <Link
+          href="/admin/docs/topik"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950 text-xs font-semibold hover:opacity-90 transition-opacity w-fit shrink-0"
+        >
+          <span>Lihat 99 Ide Topik</span>
+          <ArrowRight size={13} />
+        </Link>
       </div>
 
-      <div className="space-y-6">
-        <section className="bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 rounded-2xl shadow-sm">
-          <h2 className="text-xl font-bold text-ridley-blue mb-4">1. Fitur AI Auto-Pilot</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Fitur ini memungkinkan Anda membuat satu artikel utuh (dari awal sampai akhir) secara instan hanya bermodalkan satu kalimat ide.
-          </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li>Buka halaman <strong>Buat Artikel Baru</strong>.</li>
-            <li>Klik tombol <strong>Generate Full Article</strong> di kotak gradasi paling atas.</li>
-            <li>Masukkan topik artikel (contoh: <em>&quot;Pentingnya SOP Konten untuk Bisnis Skala Menengah&quot;</em>).</li>
-            <li>Tunggu beberapa detik, dan sistem akan otomatis mengisi kolom Judul, URL Slug, Teks Artikel, dan Deskripsi Singkat SEO.</li>
-          </ul>
-        </section>
-
-        <section className="bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 rounded-2xl shadow-sm">
-          <h2 className="text-xl font-bold text-ridley-blue mb-4">2. Fitur AI Editor (Rewriter) ✨</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Digunakan saat Anda sedang menulis manual di Editor Tiptap dan butuh bantuan untuk merevisi atau memperbaiki kalimat tertentu.
-          </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li>Blok (select) teks yang ingin diperbaiki di dalam Editor.</li>
-            <li>Klik ikon <strong>✨ AI</strong> di *toolbar* Editor (sebelah ikon Gambar).</li>
-            <li>Ketik instruksi Anda (misal: <em>&quot;Buat menjadi lebih ramah&quot;</em> atau <em>&quot;Terjemahkan ke bahasa Inggris&quot;</em>).</li>
-            <li>Teks lama akan langsung ditimpa dengan hasil yang lebih baik.</li>
-          </ul>
-        </section>
-
-        <section className="bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 rounded-2xl shadow-sm">
-          <h2 className="text-xl font-bold text-ridley-blue mb-4">3. Upload Gambar Langsung</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Sekarang Anda tidak perlu lagi pergi ke menu Media Gallery hanya untuk meng-upload gambar pendukung artikel.
-          </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li>Di *toolbar* Editor, klik ikon <strong>Upload Gambar</strong>.</li>
-            <li>Pilih file gambar (JPG/PNG) dari komputer Anda.</li>
-            <li>Gambar akan otomatis masuk ke artikel dan juga tersimpan di <em>database</em> Media Gallery.</li>
-          </ul>
-        </section>
-
-        <section className="bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 rounded-2xl shadow-sm">
-          <h2 className="text-xl font-bold text-ridley-blue mb-4">4. Publikasi & Draft</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Terdapat dua tombol utama di panel kanan saat mengedit artikel:
-          </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li><strong>Save Draft</strong>: Artikel akan disimpan tapi belum bisa dilihat pengunjung website.</li>
-            <li><strong>Publish</strong>: Artikel langsung *live* di halaman Blog utama.</li>
-          </ul>
-        </section>
-
-        <section className="bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 rounded-2xl shadow-sm">
-          <h2 className="text-xl font-bold text-ridley-blue mb-4">5. Fitur Generate SEO</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Anda dapat meminta AI untuk membaca isi artikel yang telah ditulis dan secara otomatis merumuskan Judul SEO serta Meta Description (Ringkasan).
-          </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li>Pastikan Anda sudah menulis isi artikel di dalam editor (minimal 50 karakter).</li>
-            <li>Di panel sebelah kanan pada kartu Meta Description & Cover, klik tombol <strong>Generate SEO</strong>.</li>
-            <li>Tunggu beberapa detik, AI akan membuatkan dan mengisi kolom secara otomatis agar artikel Anda lebih mudah ditemukan di Google.</li>
-          </ul>
-        </section>
+      <div className="space-y-4">
+        {guides.map((guide) => (
+          <section
+            key={guide.title}
+            className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-6 space-y-3"
+          >
+            <h2 className="text-base sm:text-lg font-semibold text-zinc-950 dark:text-zinc-50">
+              {guide.title}
+            </h2>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              {guide.description}
+            </p>
+            <ul className="list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1.5 leading-relaxed">
+              {guide.steps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     </div>
   );

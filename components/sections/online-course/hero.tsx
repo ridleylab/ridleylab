@@ -31,10 +31,10 @@ export default function CourseHero() {
           className="mb-8"
         />
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* LEFT CONTENT */}
-          <div className="lg:col-span-6">
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-zinc-950 dark:text-zinc-50 mb-6">
+          <div className="min-w-0 lg:col-span-6">
+            <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-zinc-950 dark:text-zinc-50 mb-6">
               Online Course AI Social Media Marketing untuk TikTok &amp; Instagram.
             </h1>
 
@@ -75,9 +75,9 @@ export default function CourseHero() {
           </div>
 
           {/* RIGHT — Monochrome UI Curriculum Preview */}
-          <div className="lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/90 p-5 sm:p-7 shadow-xl">
-              <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-5">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-5">
                 <div className="flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-zinc-900 dark:bg-zinc-100" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
@@ -93,19 +93,19 @@ export default function CourseHero() {
                 {previewModules.map((mod) => (
                   <div
                     key={mod.num}
-                    className="flex items-center justify-between gap-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-3.5"
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3.5 py-3 sm:px-4 sm:py-3.5"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className="w-7 h-7 rounded-lg bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 text-xs font-semibold flex items-center justify-center shrink-0">
+                    <div className="flex items-start sm:items-center gap-3 min-w-0">
+                      <span className="w-7 h-7 rounded-lg bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 text-xs font-semibold flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
                         <Play size={12} />
                       </span>
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-zinc-950 dark:text-zinc-100 truncate">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-semibold text-zinc-950 dark:text-zinc-100 leading-snug sm:truncate">
                           {mod.num}. {mod.title}
                         </p>
                       </div>
                     </div>
-                    <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 shrink-0">
+                    <span className="pl-10 sm:pl-0 text-[11px] font-medium text-zinc-500 dark:text-zinc-400 shrink-0">
                       {mod.meta}
                     </span>
                   </div>
@@ -113,7 +113,7 @@ export default function CourseHero() {
               </div>
 
               <div className="rounded-2xl bg-zinc-950 dark:bg-zinc-950 border border-zinc-800 p-4 text-zinc-100">
-                <div className="flex items-center justify-between text-[11px] text-zinc-400 mb-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-zinc-400 mb-2">
                   <span className="inline-flex items-center gap-1.5 font-medium">
                     <Terminal size={12} />
                     <span>Prompt Snippet · Riset Konten</span>
@@ -123,7 +123,7 @@ export default function CourseHero() {
                     <span>Siap Copy</span>
                   </span>
                 </div>
-                <p className="text-xs font-mono text-zinc-300 leading-relaxed">
+                <p className="text-xs font-mono text-zinc-300 leading-relaxed break-words">
                   &ldquo;Petakan 10 pain point calon klien [niche jasa] dan
                   susun 3 variasi hook video pendek yang mengarah ke konsultasi
                   WhatsApp...&rdquo;

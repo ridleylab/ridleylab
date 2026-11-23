@@ -222,26 +222,79 @@ export function buildFaqNode(path: string, faqs: ProgramFaq[]): SchemaNode {
   };
 }
 
-export function buildBlogPostingNode(post: PostMetadata, wordCount: number): SchemaNode {
-  const postUrl = toAbsoluteUrl(`/blog/${post.slug}`);
+function buildPostAuthorInfo(post: PostMetadata): {
+  authorRef: Record<string, string>;
+  authorNode: SchemaNode | null;
+} {
   const isFounderAuthor =
     post.author.trim().toLowerCase() === siteConfig.founder.name.toLowerCase();
+
+  if (isFounderAuthor) {
+    return {
+      authorRef: { "@id": SCHEMA_IDS.founder },
+      authorNode: null,
+    };
+  }
+
+  if (post.authorProfile) {
+    const authorId = `${siteConfig.url}/#author-${post.authorProfile.id}`;
+    return {
+      authorRef: { "@id": authorId },
+      authorNode: {
+        "@type": "Person",
+        "@id": authorId,
+        name: post.authorProfile.name,
+        ...(post.authorProfile.role ? { jobTitle: post.authorProfile.role } : {}),
+        ...(post.authorProfile.bio
+          ? { description: post.authorProfile.bio }
+          : {}),
+        ...(post.authorProfile.avatarUrl
+          ? { image: toAbsoluteUrl(post.authorProfile.avatarUrl) }
+          : {}),
+        worksFor: {
+          "@id": SCHEMA_IDS.organization,
+        },
+      },
+    };
+  }
+
+  return {
+    authorRef: { "@type": "Person", name: post.author },
+    authorNode: null,
+  };
+}
+
+export function buildBlogPostingNode(
+  post: PostMetadata,
+  wordCount: number
+): SchemaNode {
+  const postUrl = toAbsoluteUrl(`/blog/${post.slug}`);
+  const { authorRef } = buildPostAuthorInfo(post);
+  const headline = post.metaTitle || post.title;
+  const description = post.metaDescription || post.description;
+  const image = toAbsoluteUrl(
+    post.ogImage || post.coverImage || programs.onlineCourse.ogImage
+  );
+  const keywords = Array.from(
+    new Set([
+      ...(post.focusKeyword ? [post.focusKeyword] : []),
+      ...post.tags,
+    ])
+  );
 
   return {
     "@type": "BlogPosting",
     "@id": `${postUrl}#article`,
-    headline: post.title,
-    description: post.description,
-    image: toAbsoluteUrl(post.coverImage || programs.onlineCourse.ogImage),
+    headline,
+    description,
+    image,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     wordCount,
     articleSection: post.category,
-    ...(post.tags.length > 0 ? { keywords: post.tags.join(", ") } : {}),
+    ...(keywords.length > 0 ? { keywords: keywords.join(", ") } : {}),
     inLanguage: siteConfig.language,
-    author: isFounderAuthor
-      ? { "@id": SCHEMA_IDS.founder }
-      : { "@type": "Person", name: post.author },
+    author: authorRef,
     publisher: {
       "@id": SCHEMA_IDS.organization,
     },
@@ -389,27 +442,46 @@ export function getAboutSchemaGraph() {
 }
 
 export function getPortfolioSchemaGraph(items: PortfolioItem[]) {
+  const pageUrl = toAbsoluteUrl("/portfolio");
   return createSchemaGraph([
     buildOrganizationNode(),
     buildWebsiteNode(),
     buildWebPageNode({
       path: "/portfolio",
-      name: `Portfolio Klien Mentoring ${siteConfig.name}`,
-      description: `Lihat hasil mentoring ${siteConfig.name} untuk berbagai klien bisnis jasa di Indonesia.`,
+      name: `Portfolio & Studi Kasus Klien Mentoring ${siteConfig.name}`,
+      description: `Lihat dokumentasi hasil mentoring dan studi kasus ${siteConfig.name} untuk berbagai bisnis jasa di Indonesia.`,
       pageType: "CollectionPage",
     }),
     buildBreadcrumbNode("/portfolio", [
       { name: "Home", path: "/" },
       { name: "Portfolio", path: "/portfolio" },
     ]),
-    buildItemListNode(
-      "/portfolio",
-      `Portfolio Klien ${siteConfig.name}`,
-      items.map((item) => ({
-        name: `${item.name} — ${item.businessType} (${item.location})`,
-        url: "/portfolio",
-      }))
-    ),
+    {
+      "@type": "ItemList",
+      "@id": `${pageUrl}#itemlist`,
+      name: `Portfolio Studi Kasus Klien ${siteConfig.name}`,
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          "@id": `${pageUrl}#${item.slug}`,
+          name: `${item.name} — ${item.resultMetric}`,
+          description: item.mentoringDetails,
+          image: toAbsoluteUrl(item.image),
+          url: `${pageUrl}#${item.slug}`,
+          about: item.businessType,
+          locationCreated: {
+            "@type": "Place",
+            name: item.location,
+          },
+          creator: {
+            "@id": SCHEMA_IDS.organization,
+          },
+        },
+      })),
+    },
   ]);
 }
 
@@ -472,14 +544,17 @@ export function getBlogCategorySchemaGraph(
 
 export function getBlogPostSchemaGraph(post: PostMetadata, wordCount: number) {
   const path = `/blog/${post.slug}`;
+  const { authorNode } = buildPostAuthorInfo(post);
+
   return createSchemaGraph([
     buildOrganizationNode(),
     buildFounderPersonNode(),
+    ...(authorNode ? [authorNode] : []),
     buildWebsiteNode(),
     buildWebPageNode({
       path,
-      name: post.title,
-      description: post.description,
+      name: post.metaTitle || post.title,
+      description: post.metaDescription || post.description,
       datePublished: post.publishedAt,
       dateModified: post.updatedAt,
     }),
@@ -490,6 +565,7 @@ export function getBlogPostSchemaGraph(post: PostMetadata, wordCount: number) {
       { name: post.title, path },
     ]),
     buildBlogPostingNode(post, wordCount),
+    ...(post.faqs.length > 0 ? [buildFaqNode(path, post.faqs)] : []),
   ]);
 }
 

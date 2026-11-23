@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAllPosts, getCategoryList } from "@/lib/posts";
+import { getCategoryList, getPaginatedPosts } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
 import SearchBar from "@/components/blog/search-bar";
 import Pagination from "@/components/blog/pagination";
@@ -49,37 +49,21 @@ export async function generateMetadata({
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const params = await searchParams;
-  const searchVal = params.search || "";
-  const pageVal = parseInt(params.page || "1", 10) || 1;
+  const searchVal = (params.search || "").trim();
+  const pageVal = Math.max(1, parseInt(params.page || "1", 10) || 1);
 
-  const [posts, categories] = await Promise.all([
-    getAllPosts(),
+  const [paginated, categories] = await Promise.all([
+    getPaginatedPosts({
+      search: searchVal,
+      page: pageVal,
+      limit: 6,
+    }),
     getCategoryList(),
   ]);
 
-  const filteredPosts = posts.filter((post) => {
-    const query = searchVal.toLowerCase();
-    return (
-      query === "" ||
-      post.title.toLowerCase().includes(query) ||
-      post.description.toLowerCase().includes(query) ||
-      post.category.toLowerCase().includes(query) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(query))
-    );
-  });
-
-  const limit = 6;
-  const totalPosts = filteredPosts.length;
-  const totalPages = Math.ceil(totalPosts / limit);
-  const currentPage = Math.min(Math.max(1, pageVal), totalPages || 1);
-  const paginatedPosts = filteredPosts.slice(
-    (currentPage - 1) * limit,
-    currentPage * limit
-  );
-
   return (
     <>
-      <JsonLd data={getBlogIndexSchemaGraph(paginatedPosts)} />
+      <JsonLd data={getBlogIndexSchemaGraph(paginated.posts)} />
 
       <Section
         variant="default"
@@ -134,19 +118,19 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </div>
           </div>
 
-          {paginatedPosts.length > 0 ? (
+          {paginated.posts.length > 0 ? (
             <>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {paginatedPosts.map((post) => (
+                {paginated.posts.map((post) => (
                   <PostCard key={post.slug} post={post} />
                 ))}
               </div>
 
               <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
+                currentPage={paginated.currentPage}
+                totalPages={paginated.totalPages}
                 baseUrl="/blog"
-                searchParams={{ search: searchVal }}
+                searchParams={searchVal ? { search: searchVal } : {}}
               />
             </>
           ) : (

@@ -32,9 +32,9 @@ export default function CourseProblem() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* IMAGE */}
-          <div className="lg:col-span-5 flex justify-center">
+          <div className="min-w-0 lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-[460px] aspect-square rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 overflow-hidden">
               <Image
                 src="/images/services/online-course-problem.png"
@@ -47,7 +47,7 @@ export default function CourseProblem() {
           </div>
 
           {/* CONTENT */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="min-w-0 lg:col-span-7 space-y-6">
             <div className="space-y-4">
               {painPoints.map((item) => {
                 const Icon = item.icon;

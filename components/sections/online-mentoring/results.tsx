@@ -54,10 +54,10 @@ export default function OnlineMentoringResults() {
 
         {/* Client Highlight Strip */}
         <div className="grid md:grid-cols-2 gap-5 mb-10">
-          {portfolioItems.map((client) => (
+          {portfolioItems.slice(0, 2).map((client) => (
             <Card key={client.id} variant="subtle" padding="md">
               <div className="flex items-start justify-between gap-4">
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                     {client.location} · {client.businessType}
                   </p>
@@ -69,7 +69,7 @@ export default function OnlineMentoringResults() {
                   </p>
                 </div>
                 <Link
-                  href="/portfolio"
+                  href={`/portfolio#${client.slug}`}
                   className="text-xs font-semibold text-zinc-950 dark:text-zinc-100 hover:underline shrink-0 inline-flex items-center gap-1"
                 >
                   <span>Portfolio</span>

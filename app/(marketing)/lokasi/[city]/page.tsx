@@ -292,7 +292,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
                 href="/portfolio"
                 className="text-sm font-semibold text-zinc-950 dark:text-zinc-100 hover:underline inline-flex items-center gap-1"
               >
-                <span>Lihat semua video portfolio</span>
+                <span>Lihat semua studi kasus portfolio</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
@@ -313,10 +313,10 @@ export default async function LocationPage({ params }: LocationPageProps) {
                     {item.mentoringDetails}
                   </p>
                   <Link
-                    href="/portfolio"
+                    href={`/portfolio#${item.slug}`}
                     className="text-xs font-semibold text-zinc-950 dark:text-zinc-100 hover:underline inline-flex items-center gap-1"
                   >
-                    <span>Tonton hasil video kontennya</span>
+                    <span>Lihat detail studi kasus</span>
                     <ArrowRight size={13} />
                   </Link>
                 </Card>

@@ -1,151 +1,236 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Menu,
-  X,
-  LayoutDashboard,
+  BookOpen,
+  ExternalLink,
   FileText,
   Folder,
-  Tag,
   Image as ImageIcon,
-  User,
-  Settings,
-  BookOpen,
+  LayoutDashboard,
   Lightbulb,
+  LogOut,
+  Settings,
+  Tag,
+  User,
+  X,
 } from "lucide-react";
-import { useState } from "react";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 interface AdminSidebarProps {
+  collapsed: boolean;
+  mobileOpen: boolean;
+  onCloseMobile: () => void;
   userEmail?: string | null;
   onSignOut: () => Promise<void>;
 }
 
-export default function AdminSidebar({ userEmail, onSignOut }: AdminSidebarProps) {
+const navItems = [
+  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Posts", href: "/admin/posts", icon: FileText },
+  { name: "Categories", href: "/admin/categories", icon: Folder },
+  { name: "Tags", href: "/admin/tags", icon: Tag },
+  { name: "Media", href: "/admin/media", icon: ImageIcon },
+  { name: "Profile", href: "/admin/profile", icon: User },
+  { name: "Settings", href: "/admin/settings", icon: Settings },
+];
+
+const navDocs = [
+  { name: "Panduan", href: "/admin/docs/panduan", icon: BookOpen },
+  { name: "List Topik", href: "/admin/docs/topik", icon: Lightbulb },
+];
+
+export default function AdminSidebar({
+  collapsed,
+  mobileOpen,
+  onCloseMobile,
+  userEmail,
+  onSignOut,
+}: AdminSidebarProps) {
   const pathname = usePathname();
-  const [openForPath, setOpenForPath] = useState<string | null>(null);
-  const isOpen = openForPath === pathname;
-  const setIsOpen = (open: boolean) => setOpenForPath(open ? pathname : null);
 
-  const navItems = [
-    { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Posts", href: "/admin/posts", icon: FileText },
-    { name: "Categories", href: "/admin/categories", icon: Folder },
-    { name: "Tags", href: "/admin/tags", icon: Tag },
-    { name: "Media", href: "/admin/media", icon: ImageIcon },
-    { name: "Profile", href: "/admin/profile", icon: User },
-    { name: "Settings", href: "/admin/settings", icon: Settings },
-  ];
-
-  const navDocs = [
-    { name: "Panduan", href: "/admin/docs/panduan", icon: BookOpen },
-    { name: "List Topik", href: "/admin/docs/topik", icon: Lightbulb },
-  ];
+  const isActiveHref = (href: string) => {
+    if (href === "/admin") return pathname === "/admin";
+    return pathname === href || pathname?.startsWith(`${href}/`);
+  };
 
   return (
     <>
-      {/* Mobile Top Bar */}
-      <div className="lg:hidden flex items-center justify-between bg-[#0B0B0B] text-white p-4 sticky top-0 z-40 border-b border-white/5">
-        <Link href="/admin" className="flex items-center gap-2">
-          <span className="text-xl font-black text-ridley-yellow tracking-wider">
-            {siteConfig.name}
-          </span>
-          <span className="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/70">
-            Admin
-          </span>
-        </Link>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 bg-white/10 rounded-lg text-white hover:bg-white/20 transition"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Overlay for mobile */}
-      {isOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
-          onClick={() => setIsOpen(false)}
+      {mobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-xs"
+          onClick={onCloseMobile}
         />
       )}
 
-      {/* Sidebar */}
-      <aside 
-        className={`fixed top-0 left-0 z-50 h-screen w-64 bg-[#0B0B0B] text-white flex flex-col shrink-0 border-r border-white/5 transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+      <aside
+        className={cn(
+          "fixed top-0 left-0 z-50 h-screen bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 flex flex-col transition-all duration-200",
+          collapsed ? "lg:w-16" : "lg:w-60",
+          "w-60",
+          mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        )}
       >
-        {/* BRAND LOGO (Hidden on mobile since top bar has it) */}
-        <div className="hidden lg:block p-6 border-b border-white/5">
-          <Link href="/admin" className="flex items-center gap-2">
-            <span className="text-xl font-black text-ridley-yellow tracking-wider">
-              {siteConfig.name}
-            </span>
-            <span className="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/70">
-              Admin
+        {/* Brand Header */}
+        <div
+          className={cn(
+            "h-14 border-b border-zinc-200 dark:border-zinc-800 flex items-center shrink-0",
+            collapsed ? "lg:justify-center lg:px-2 px-4 justify-between" : "px-4 justify-between"
+          )}
+        >
+          <Link
+            href="/admin"
+            onClick={onCloseMobile}
+            className="flex items-center gap-2 min-w-0"
+            title={`${siteConfig.name} Admin`}
+          >
+            {collapsed ? (
+              <span className="hidden lg:inline-flex relative w-7 h-7 shrink-0">
+                <Image
+                  src={siteConfig.brandAssets.icon}
+                  alt={siteConfig.name}
+                  fill
+                  className="object-contain dark:invert"
+                  sizes="28px"
+                />
+              </span>
+            ) : null}
+
+            <span
+              className={cn(
+                "flex items-center gap-2",
+                collapsed && "lg:hidden"
+              )}
+            >
+              <span className="relative h-6 w-24 shrink-0">
+                <Image
+                  src={siteConfig.brandAssets.logo}
+                  alt={`${siteConfig.name} Logo`}
+                  fill
+                  className="object-contain object-left dark:invert"
+                  sizes="96px"
+                />
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400">
+                CMS
+              </span>
             </span>
           </Link>
+
+          <button
+            type="button"
+            onClick={onCloseMobile}
+            aria-label="Tutup menu sidebar"
+            className="lg:hidden p-1.5 rounded-lg text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900"
+          >
+            <X size={18} />
+          </button>
         </div>
 
-        {/* NAVIGATION LINKS */}
-        <nav className="flex-grow p-4 space-y-1 overflow-y-auto">
+        {/* Navigation Links */}
+        <nav
+          aria-label="Navigasi Admin"
+          className="flex-1 p-2.5 space-y-1 overflow-y-auto"
+        >
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/admin" && pathname?.startsWith(item.href));
+            const active = isActiveHref(item.href);
             const Icon = item.icon;
             return (
               <Link
-                key={item.name}
+                key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition group border ${
-                  isActive ? "bg-white/10 backdrop-blur-md border-white/10 text-ridley-yellow shadow-lg" : "border-transparent text-gray-300 hover:bg-white/5 hover:text-white"
-                }`}
+                onClick={onCloseMobile}
+                title={collapsed ? item.name : undefined}
+                className={cn(
+                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                  collapsed && "lg:justify-center lg:px-0",
+                  active
+                    ? "bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950"
+                    : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-950 dark:hover:text-white"
+                )}
               >
-                <Icon size={20} className={`transition shrink-0 ${isActive ? "opacity-100" : "opacity-60 group-hover:opacity-100"}`} />
-                <span>{item.name}</span>
+                <Icon size={18} className="shrink-0" />
+                <span className={cn("truncate", collapsed && "lg:hidden")}>
+                  {item.name}
+                </span>
               </Link>
             );
           })}
 
-          <div className="pt-4 mt-4 border-t border-white/5">
-            <p className="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">Dokumentasi</p>
+          <div className="pt-4 mt-4 border-t border-zinc-200 dark:border-zinc-800 space-y-1">
+            <p
+              className={cn(
+                "px-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500",
+                collapsed && "lg:hidden"
+              )}
+            >
+              Dokumentasi
+            </p>
             {navDocs.map((item) => {
+              const active = isActiveHref(item.href);
               const Icon = item.icon;
               return (
                 <Link
-                  key={item.name}
+                  key={item.href}
                   href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 text-sm font-semibold text-gray-300 hover:text-white transition group"
+                  onClick={onCloseMobile}
+                  title={collapsed ? item.name : undefined}
+                  className={cn(
+                    "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                    collapsed && "lg:justify-center lg:px-0",
+                    active
+                      ? "bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-950"
+                      : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-950 dark:hover:text-white"
+                  )}
                 >
-                  <Icon size={20} className="opacity-60 group-hover:opacity-100 transition shrink-0" />
-                  <span>{item.name}</span>
-                  <span className="ml-auto opacity-0 group-hover:opacity-100 transition text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-gray-300">↗</span>
+                  <Icon size={18} className="shrink-0" />
+                  <span
+                    className={cn(
+                      "flex-1 truncate flex items-center justify-between",
+                      collapsed && "lg:hidden"
+                    )}
+                  >
+                    <span>{item.name}</span>
+                    <ExternalLink size={12} className="opacity-50" />
+                  </span>
                 </Link>
               );
             })}
           </div>
         </nav>
 
-        {/* USER PROFILE INFO & LOGOUT */}
-        <div className="p-4 border-t border-white/5">
-          <div className="px-4 py-3 mb-2">
-            <p className="text-xs text-gray-400 font-medium">Logged in as</p>
-            <p className="text-sm font-bold text-white truncate">
-              {userEmail}
-            </p>
-          </div>
-          <form
-            action={onSignOut}
-          >
+        {/* User Profile & Sign Out */}
+        <div className="p-2.5 border-t border-zinc-200 dark:border-zinc-800 space-y-2 shrink-0">
+          {userEmail && (
+            <div
+              className={cn(
+                "px-3 py-1.5",
+                collapsed && "lg:hidden"
+              )}
+            >
+              <p className="text-[10px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-semibold">
+                Signed in as
+              </p>
+              <p className="text-xs font-medium text-zinc-900 dark:text-zinc-100 truncate">
+                {userEmail}
+              </p>
+            </div>
+          )}
+
+          <form action={onSignOut}>
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-[#C0392B] hover:bg-[#A93226] text-white py-2.5 rounded-xl text-xs font-bold transition cursor-pointer disabled:cursor-not-allowed"
+              title={collapsed ? "Sign Out" : undefined}
+              className={cn(
+                "w-full flex items-center justify-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 hover:bg-red-50 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-950/50 dark:hover:text-red-300 dark:hover:border-red-900 py-2 text-xs font-semibold text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer",
+                collapsed && "lg:px-0"
+              )}
             >
-              Sign Out
+              <LogOut size={15} className="shrink-0" />
+              <span className={cn(collapsed && "lg:hidden")}>Sign Out</span>
             </button>
           </form>
         </div>

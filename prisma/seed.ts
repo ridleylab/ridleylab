@@ -21,6 +21,7 @@ async function main() {
     create: {
       email: adminEmail,
       name: `${siteConfig.name} Admin`,
+      role: "Founder & AI Marketing Strategist",
       password: hashedPassword,
     },
   });

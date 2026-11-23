@@ -58,7 +58,7 @@ export default function CourseOffer() {
             lebih rapi, cepat beradaptasi, dan siap berkembang.
           </p>
 
-          <div className="inline-flex items-baseline gap-3 rounded-full bg-white text-zinc-950 px-7 py-3.5 shadow-lg">
+          <div className="inline-flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 rounded-2xl sm:rounded-full bg-white text-zinc-950 px-6 sm:px-7 py-3.5 shadow-lg max-w-full">
             <span className="text-xs font-semibold uppercase tracking-wider text-zinc-600">
               Investasi
             </span>

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
-import { getAllPosts, getTags } from "@/lib/posts";
+import { getPaginatedPosts, getTagBySlug, getTagList } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
+import Pagination from "@/components/blog/pagination";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -11,12 +12,21 @@ import { Section } from "@/components/ui/section";
 
 interface TagPageProps {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ page?: string }>;
+}
+
+function formatFallbackTag(slug: string): string {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 export async function generateStaticParams() {
-  const tags = await getTags();
+  const tags = await getTagList();
   return tags.map((tag) => ({
-    slug: tag.toLowerCase().replace(/\s+/g, "-"),
+    slug: tag.slug,
   }));
 }
 
@@ -24,10 +34,8 @@ export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const name = slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const matchedTag = await getTagBySlug(slug);
+  const name = matchedTag?.name || formatFallbackTag(slug);
 
   return buildMetadata({
     title: `Artikel dengan Tag #${name}`,
@@ -37,25 +45,21 @@ export async function generateMetadata({
   });
 }
 
-export default async function TagPage({ params }: TagPageProps) {
+export default async function TagPage({ params, searchParams }: TagPageProps) {
   const { slug } = await params;
+  const resolvedSearch = searchParams ? await searchParams : {};
+  const pageVal = Math.max(1, parseInt(resolvedSearch.page || "1", 10) || 1);
 
-  const posts = await getAllPosts();
-  const filteredPosts = posts.filter((p) =>
-    p.tags.some((tag) => tag.toLowerCase().replace(/\s+/g, "-") === slug)
-  );
+  const [matchedTag, paginated] = await Promise.all([
+    getTagBySlug(slug),
+    getPaginatedPosts({
+      tagSlug: slug,
+      page: pageVal,
+      limit: 6,
+    }),
+  ]);
 
-  let tagName = slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-
-  if (filteredPosts.length > 0) {
-    const matchedTag = filteredPosts[0].tags.find(
-      (t) => t.toLowerCase().replace(/\s+/g, "-") === slug
-    );
-    if (matchedTag) tagName = matchedTag;
-  }
+  const tagName = matchedTag?.name || formatFallbackTag(slug);
 
   return (
     <Section
@@ -92,12 +96,20 @@ export default async function TagPage({ params }: TagPageProps) {
           </Link>
         </div>
 
-        {filteredPosts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
+        {paginated.posts.length > 0 ? (
+          <>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paginated.posts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </div>
+
+            <Pagination
+              currentPage={paginated.currentPage}
+              totalPages={paginated.totalPages}
+              baseUrl={`/blog/tag/${slug}`}
+            />
+          </>
         ) : (
           <div className="text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
             <p className="text-zinc-500 dark:text-zinc-400 text-base font-medium">

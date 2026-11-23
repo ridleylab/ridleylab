@@ -11,6 +11,10 @@ model User {
   name      String?
   email     String   @unique
   password  String   // Hashed password
+  role      String?
+  bio       String?
+  avatarUrl String?
+  posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -32,25 +36,37 @@ model Tag {
 }
 
 model Post {
-  id          String      @id @default(cuid())
-  slug        String      @unique
-  title       String
-  description String
-  coverImage  String?
+  id              String      @id @default(cuid())
+  slug            String      @unique
+  title           String
+  description     String
+  metaTitle       String?
+  metaDescription String?
+  focusKeyword    String?
+  ogImage         String?
+  faqJson         Json?
+  coverImage      String?
+  contentPath     String?     // Legacy nullable column retained in Neon DB for 100% additive push
 
-  content     String      @default("") // Rich-text / Markdown content stored directly in database
-  readingTime String?
-  draft       Boolean     @default(true)
-  publishedAt DateTime?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  content         String      @default("") // Rich-text HTML / Markdown content stored directly in database
+  readingTime     String?
+  draft           Boolean     @default(true)
+  publishedAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
   
-  categoryId  String?
-  category    Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId      String?
+  category        Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   
-  tags        TagOnPost[]
-  
-  authorName  String      @default("RIDLEY")
+  tags            TagOnPost[]
+
+  authorId        String?
+  author          User?       @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorName      String      @default("RidleyLab")
+
+  @@index([draft, publishedAt])
+  @@index([categoryId])
+  @@index([authorId])
 }
 
 model TagOnPost {
