@@ -1,10 +1,12 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Privacy Policy",
   description: `Kebijakan Privasi ${siteConfig.name}. Kami melindungi data dan informasi Anda.`,
-};
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

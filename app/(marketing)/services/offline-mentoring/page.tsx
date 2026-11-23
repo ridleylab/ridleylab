@@ -1,4 +1,3 @@
-
 import MentoringHero from "@/components/sections/offline-mentoring/hero";
 import MentoringChallenges from "@/components/sections/offline-mentoring/challenges";
 import MentoringHowWeWork from "@/components/sections/offline-mentoring/how-we-work";
@@ -7,27 +6,26 @@ import MentoringWhatYouGet from "@/components/sections/offline-mentoring/what-yo
 import MentoringResults from "@/components/sections/offline-mentoring/results";
 import MentoringDesignedFor from "@/components/sections/offline-mentoring/designed-for";
 import MentoringCTA from "@/components/sections/offline-mentoring/cta";
-import { getOrganizationSchema } from "@/lib/seo/schema/organization";
-import { getWebSiteSchema } from "@/lib/seo/schema/website";
-import { getOfflineMentoringServiceSchema, getOfflineMentoringFAQSchema, getOfflineMentoringWebPageSchema } from "@/lib/seo/schema/pages";
+import ProgramFaqSection from "@/components/sections/shared/program-faq";
+import JsonLd from "@/components/seo/json-ld";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { getProgramSchemaGraph } from "@/lib/seo/schema";
+import { programs } from "@/config/programs";
+
+const program = programs.offlineMentoring;
+
+export const metadata = buildMetadata({
+  title: "Offline Mentoring Pelatihan AI Social Media Marketing",
+  description:
+    "Workshop tatap muka 8x sesi di lokasi bisnis Anda bersama RidleyLab. Bangun sistem konten AI, SOP tim, dan training admin closing mulai Rp4.500.000/tim.",
+  path: program.path,
+  image: program.ogImage,
+});
 
 export default function Page() {
-  const schemas = [
-    getOrganizationSchema(),
-    getOfflineMentoringServiceSchema(),
-    getOfflineMentoringFAQSchema(),
-    getOfflineMentoringWebPageSchema(),
-    getWebSiteSchema()
-  ];
   return (
     <>
-      {schemas.map((schema, index) => (
-        <script 
-          key={index} 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 2) }} 
-        />
-      ))}
+      <JsonLd data={getProgramSchemaGraph(program)} />
       <MentoringHero />
       <MentoringChallenges />
       <MentoringHowWeWork />
@@ -35,8 +33,11 @@ export default function Page() {
       <MentoringWhatYouGet />
       <MentoringResults />
       <MentoringDesignedFor />
+      <ProgramFaqSection
+        title="Pertanyaan Seputar Offline Mentoring"
+        faqs={program.faqs}
+      />
       <MentoringCTA />
-
     </>
   );
 }

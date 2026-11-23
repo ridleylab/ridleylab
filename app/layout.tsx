@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    types: {
+      "application/rss+xml": `${siteConfig.url}/blog/rss`,
+    },
+  },
   robots: {
     index: true,
     follow: true,

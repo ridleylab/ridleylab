@@ -17,9 +17,11 @@ export default function CourseHero() {
               </div>
 
               <h1 className="text-4xl lg:text-[3.25rem] font-medium leading-[1.15] text-black tracking-tight mt-0 mb-6">
-                Pelatihan AI <br />
-                <span className="bg-gradient-to-r from-ridley-blue to-ridley-yellow bg-clip-text text-transparent">Social Media Marketing</span> <br />
-                Bisnis Jasa.
+                Online Course{" "}
+                <span className="bg-gradient-to-r from-ridley-blue to-ridley-yellow bg-clip-text text-transparent">
+                  AI Social Media Marketing
+                </span>{" "}
+                untuk TikTok &amp; Instagram.
               </h1>
 
               <p className="ridley-text text-lg mb-10 max-w-xl">

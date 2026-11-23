@@ -53,7 +53,7 @@ export const siteConfig = {
   brandAssets: {
     logo: "/images/brand/ridleylab-logo.png",
     icon: "/images/brand/icon.png",
-    ogDefault: "/images/og/home.jpg",
+    ogDefault: "/opengraph-image",
   },
 } as const;
 

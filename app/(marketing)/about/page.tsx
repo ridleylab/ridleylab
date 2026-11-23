@@ -5,17 +5,23 @@ import { Mail, Phone, MapPin, TrendingUp, Users, Zap, Award } from "lucide-react
 import { siteConfig, getWhatsAppUrl } from "@/config/site";
 import { programs } from "@/config/programs";
 import { InstagramIcon, TikTokIcon } from "@/components/ui/social-icons";
+import JsonLd from "@/components/seo/json-ld";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { getAboutSchemaGraph } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description: `Pelajari lebih lanjut tentang misi ${siteConfig.name} dan founder kami dalam membantu bisnis jasa membangun sistem konten dan alur konversi otomatis berbasis AI.`,
-};
+export const metadata: Metadata = buildMetadata({
+  title: `Tentang ${siteConfig.name} & Founder`,
+  description: `Pelajari lebih lanjut tentang misi ${siteConfig.name} dan founder ${siteConfig.founder.name} dalam membantu bisnis jasa membangun sistem konten dan alur konversi otomatis berbasis AI.`,
+  path: "/about",
+});
 
 export default function AboutPage() {
   const whatsappUrl = getWhatsAppUrl();
 
   return (
-    <div className="bg-white min-h-screen py-16">
+    <>
+      <JsonLd data={getAboutSchemaGraph()} />
+      <div className="bg-white min-h-screen py-16">
       <div className="ridley-container">
         {/* HEADER BLOCK */}
         <div className="text-center max-w-3xl mx-auto mb-20">
@@ -203,5 +209,6 @@ export default function AboutPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

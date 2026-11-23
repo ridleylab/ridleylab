@@ -1,7 +1,11 @@
 import Script from "next/script";
 
 export default function GoogleTagManager() {
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "GTM-XXXXXXX";
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim();
+
+  if (!gtmId || gtmId.includes("XXXX")) {
+    return null;
+  }
 
   return (
     <Script id="google-tag-manager" strategy="afterInteractive">

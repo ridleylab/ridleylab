@@ -1,7 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllPosts, getTags } from "@/lib/posts";
 import PostCard from "@/components/blog/post-card";
 import { siteConfig } from "@/config/site";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 interface TagPageProps {
   params: Promise<{ slug: string }>;
@@ -14,17 +16,19 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: TagPageProps) {
+export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
   const { slug } = await params;
   const name = slug
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-  return {
+  return buildMetadata({
     title: `Artikel dengan Tag #${name}`,
     description: `Kumpulan panduan dan wawasan terbaru dengan tag #${name} dari ${siteConfig.name}.`,
-  };
+    path: `/blog/tag/${slug}`,
+    noIndex: true,
+  });
 }
 
 export default async function TagPage({ params }: TagPageProps) {

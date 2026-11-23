@@ -29,7 +29,7 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="flex flex-col flex-grow p-6">
         <div className="flex items-center gap-3 text-xs mb-3 font-semibold">
           <Link
-            href={`/blog/category/${post.category.toLowerCase().replace(/\s+/g, "-")}`}
+            href={`/blog/category/${post.categorySlug}`}
             className="text-ridley-blue hover:underline uppercase tracking-wider"
           >
             {post.category}

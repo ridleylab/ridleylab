@@ -6,8 +6,10 @@ export interface PostMetadata {
   description: string;
   coverImage?: string;
   publishedAt: string;
+  updatedAt: string;
   draft: boolean;
   category: string;
+  categorySlug: string;
   tags: string[];
   author: string;
   readingTime: string;
@@ -18,10 +20,23 @@ export interface Post {
   content: string;
 }
 
+export interface CategorySummary {
+  name: string;
+  slug: string;
+}
+
+function toSlug(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 // Calculate reading time based on 200 WPM
 export function calculateReadingTime(content: string): string {
-  const words = content.trim().split(/\s+/).length;
-  const minutes = Math.ceil(words / 200);
+  const words = content.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
   return `${minutes} min read`;
 }
 
@@ -41,14 +56,17 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
     if (!post) return null;
 
+    const categoryName = post.category?.name || "General";
     const metadata: PostMetadata = {
       slug: post.slug,
       title: post.title,
       description: post.description,
       coverImage: post.coverImage || undefined,
       publishedAt: post.publishedAt?.toISOString() || post.createdAt.toISOString(),
+      updatedAt: post.updatedAt.toISOString(),
       draft: post.draft,
-      category: post.category?.name || "General",
+      category: categoryName,
+      categorySlug: post.category?.slug || toSlug(categoryName),
       tags: post.tags.map((t) => t.tag.name),
       author: post.authorName,
       readingTime: post.readingTime || calculateReadingTime(post.content),
@@ -64,10 +82,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]> {
   try {
     console.time("getAllPosts");
-    
+
     const posts = await prisma.post.findMany({
       where: includeDrafts ? {} : { draft: false },
-    
       select: {
         slug: true,
         title: true,
@@ -75,16 +92,16 @@ export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]
         coverImage: true,
         publishedAt: true,
         createdAt: true,
+        updatedAt: true,
         draft: true,
         authorName: true,
         readingTime: true,
-    
         category: {
           select: {
             name: true,
+            slug: true,
           },
         },
-    
         tags: {
           select: {
             tag: {
@@ -95,42 +112,54 @@ export async function getAllPosts(includeDrafts = false): Promise<PostMetadata[]
           },
         },
       },
-    
       orderBy: {
         publishedAt: "desc",
       },
     });
 
     console.timeEnd("getAllPosts");
-    
-    return posts.map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      description: post.description,
-      coverImage: post.coverImage || undefined,
-      publishedAt: post.publishedAt?.toISOString() || post.createdAt.toISOString(),
-      draft: post.draft,
-      category: post.category?.name || "General",
-      tags: post.tags.map((t) => t.tag.name),
-      author: post.authorName,
-      readingTime: post.readingTime || "1 min read",
-    }));
+
+    return posts.map((post) => {
+      const categoryName = post.category?.name || "General";
+      return {
+        slug: post.slug,
+        title: post.title,
+        description: post.description,
+        coverImage: post.coverImage || undefined,
+        publishedAt: post.publishedAt?.toISOString() || post.createdAt.toISOString(),
+        updatedAt: post.updatedAt.toISOString(),
+        draft: post.draft,
+        category: categoryName,
+        categorySlug: post.category?.slug || toSlug(categoryName),
+        tags: post.tags.map((t) => t.tag.name),
+        author: post.authorName,
+        readingTime: post.readingTime || "1 min read",
+      };
+    });
   } catch (error) {
     console.error("Error loading all posts from DB:", error);
     return [];
   }
 }
 
-export async function getCategories(): Promise<string[]> {
+export async function getCategoryList(): Promise<CategorySummary[]> {
   try {
-    const categories = await prisma.category.findMany({
+    return await prisma.category.findMany({
       orderBy: { name: "asc" },
+      select: {
+        name: true,
+        slug: true,
+      },
     });
-    return categories.map((c) => c.name);
   } catch (error) {
-    console.error("Error loading categories from DB:", error);
+    console.error("Error loading category list from DB:", error);
     return [];
   }
+}
+
+export async function getCategories(): Promise<string[]> {
+  const categories = await getCategoryList();
+  return categories.map((c) => c.name);
 }
 
 export async function getTags(): Promise<string[]> {
