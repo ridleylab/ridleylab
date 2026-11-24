@@ -145,21 +145,21 @@ export default function AboutPage() {
           </div>
 
           {/* FOUNDER */}
-          <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-7 sm:p-10 mb-20">
-            <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center">
-              <div className="md:col-span-5 lg:col-span-4">
-                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-800">
+          <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 px-7 pt-7 pb-7 sm:px-10 sm:pt-10 md:pb-0 mb-20 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 md:items-end">
+              <div className="min-w-0 md:col-span-5 lg:col-span-4 flex justify-center">
+                <div className="relative w-full max-w-[340px] aspect-square">
                   <Image
                     src="/images/about/zakaanshori.png"
                     alt={`${siteConfig.founder.name} - ${siteConfig.founder.role}`}
                     fill
-                    className="object-cover"
+                    className="object-contain object-bottom"
                     sizes="(max-width: 768px) 100vw, 340px"
                   />
                 </div>
               </div>
 
-              <div className="md:col-span-7 lg:col-span-8">
+              <div className="min-w-0 md:col-span-7 lg:col-span-8 md:pb-10">
                 <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">
                   {siteConfig.founder.role}
                 </p>

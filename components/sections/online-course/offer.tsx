@@ -65,7 +65,9 @@ export default function CourseOffer() {
             <span className="text-2xl sm:text-3xl font-semibold tracking-tight">
               {program.priceFormatted}
             </span>
-            <span className="text-xs text-zinc-600">{program.priceUnit}</span>
+            {program.priceUnit && (
+              <span className="text-xs text-zinc-600">{program.priceUnit}</span>
+            )}
           </div>
         </div>
 

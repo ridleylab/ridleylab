@@ -86,15 +86,17 @@ export default function HomeOffer() {
                   <span className="text-3xl sm:text-4xl font-semibold tracking-tight">
                     {program.priceFormatted}
                   </span>
-                  <span
-                    className={
-                      highlighted
-                        ? "text-xs text-zinc-400"
-                        : "text-xs text-zinc-500 dark:text-zinc-400"
-                    }
-                  >
-                    {program.priceUnit}
-                  </span>
+                  {program.priceUnit && (
+                    <span
+                      className={
+                        highlighted
+                          ? "text-xs text-zinc-400"
+                          : "text-xs text-zinc-500 dark:text-zinc-400"
+                      }
+                    >
+                      {program.priceUnit}
+                    </span>
+                  )}
                 </div>
                 <p
                   className={

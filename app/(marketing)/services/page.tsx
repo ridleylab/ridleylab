@@ -105,16 +105,21 @@ export default function ServicesHubPage() {
                   <div className="mb-6 pb-6 border-b border-zinc-200 dark:border-zinc-800">
                     <span className="text-3xl sm:text-4xl font-semibold tracking-tight">
                       {prog.priceFormatted}
-                    </span>{" "}
-                    <span
-                      className={
-                        isHighlighted
-                          ? "text-xs text-zinc-400"
-                          : "text-xs text-zinc-500 dark:text-zinc-400"
-                      }
-                    >
-                      {prog.priceUnit}
                     </span>
+                    {prog.priceUnit && (
+                      <>
+                        {" "}
+                        <span
+                          className={
+                            isHighlighted
+                              ? "text-xs text-zinc-400"
+                              : "text-xs text-zinc-500 dark:text-zinc-400"
+                          }
+                        >
+                          {prog.priceUnit}
+                        </span>
+                      </>
+                    )}
                   </div>
 
                   <ul

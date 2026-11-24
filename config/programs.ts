@@ -47,7 +47,7 @@ export const programs: Record<ProgramItem["key"], ProgramItem> = {
     price: 199000,
     priceFormatted: "Rp199.000",
     priceDisplayNumber: "199.000",
-    priceUnit: "sekali bayar",
+    priceUnit: "",
     courseMode: "online",
     ogImage: "/images/og/online-course.jpg",
     badge: "BELAJAR MANDIRI",
@@ -288,7 +288,7 @@ export const priceRangeLabel = "Rp199.000 - Rp4.500.000+";
 export const programComparisonRows: ProgramComparisonRow[] = [
   {
     aspect: "Investasi",
-    onlineCourse: "Rp199.000 (sekali bayar)",
+    onlineCourse: "Rp199.000",
     onlineMentoring: "Rp4.000.000 / tim",
     offlineMentoring: "Rp4.500.000 / tim",
   },

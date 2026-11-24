@@ -188,7 +188,7 @@ export default function AdminSettingsPage() {
                 {prog.name}
               </p>
               <p className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mt-1">
-                {prog.priceFormatted} {prog.priceUnit}
+                {[prog.priceFormatted, prog.priceUnit].filter(Boolean).join(" ")}
               </p>
               <Link
                 href={prog.path}

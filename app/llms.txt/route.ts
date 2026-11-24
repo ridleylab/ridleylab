@@ -25,7 +25,7 @@ export async function GET() {
     "",
     "## Program Utama",
     "",
-    `- **${programs.onlineCourse.name} (${programs.onlineCourse.priceFormatted} ${programs.onlineCourse.priceUnit})**: ${programs.onlineCourse.description} (${siteConfig.url}${programs.onlineCourse.path})`,
+    `- **${programs.onlineCourse.name} (${[programs.onlineCourse.priceFormatted, programs.onlineCourse.priceUnit].filter(Boolean).join(" ")})**: ${programs.onlineCourse.description} (${siteConfig.url}${programs.onlineCourse.path})`,
     `- **${programs.onlineMentoring.name} (${programs.onlineMentoring.priceFormatted} ${programs.onlineMentoring.priceUnit})**: ${programs.onlineMentoring.description} (${siteConfig.url}${programs.onlineMentoring.path})`,
     `- **${programs.offlineMentoring.name} (${programs.offlineMentoring.priceFormatted} ${programs.offlineMentoring.priceUnit})**: ${programs.offlineMentoring.description} (${siteConfig.url}${programs.offlineMentoring.path})`,
     "",

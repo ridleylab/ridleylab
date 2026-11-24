@@ -57,22 +57,23 @@ export default function MentoringWhatYouGet() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch mb-14">
           {/* IMAGE */}
-          <div className="lg:col-span-5">
-            <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-lg">
+          <div className="min-w-0 lg:col-span-5 lg:relative flex items-center justify-center">
+            <div className="w-full max-w-[400px] lg:max-w-none lg:absolute lg:inset-0 flex items-center justify-center">
               <Image
                 src="/images/services/offline-mentoring-output.png"
                 alt="Preview output sistem konten AI dan SOP Offline Mentoring RidleyLab"
-                fill
-                className="object-contain p-3"
+                width={1122}
+                height={1402}
+                className="w-full h-auto lg:w-auto lg:max-w-full lg:h-full object-contain rounded-2xl"
                 sizes="(max-width: 1024px) 100vw, 450px"
               />
             </div>
           </div>
 
           {/* CARDS */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="min-w-0 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {items.map((item) => {
               const Icon = item.icon;
               return (

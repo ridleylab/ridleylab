@@ -35,12 +35,12 @@ export default function CourseProblem() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* IMAGE */}
           <div className="min-w-0 lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[460px] aspect-square rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 overflow-hidden">
+            <div className="relative w-full max-w-[460px] aspect-square">
               <Image
                 src="/images/services/online-course-problem.png"
                 alt="Ilustrasi konten ramai namun belum menghasilkan konversi bisnis"
                 fill
-                className="object-contain p-4"
+                className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 460px"
               />
             </div>

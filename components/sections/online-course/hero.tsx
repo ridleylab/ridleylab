@@ -43,7 +43,8 @@ export default function CourseHero() {
               konten, dan membangun alur konversi yang rapi — lengkap dengan
               template prompt dan SOP dasar tim konten. Investasi{" "}
               <span className="font-semibold text-zinc-950 dark:text-zinc-100">
-                {program.priceFormatted} ({program.priceUnit})
+                {program.priceFormatted}
+                {program.priceUnit ? ` (${program.priceUnit})` : ""}
               </span>
               .
             </p>

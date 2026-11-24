@@ -67,13 +67,13 @@ export default function CourseCTA() {
 
           {/* IMAGE */}
           <div className="min-w-0 lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[520px] aspect-[4/3] rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden p-4">
+            <div className="relative w-full max-w-[540px] aspect-[3/2]">
               <Image
                 src="/images/services/online-course-cta.png"
                 alt="Preview materi Online Course AI Social Media Marketing RidleyLab"
                 fill
-                className="object-contain p-4"
-                sizes="(max-width: 1024px) 100vw, 500px"
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 540px"
               />
             </div>
           </div>

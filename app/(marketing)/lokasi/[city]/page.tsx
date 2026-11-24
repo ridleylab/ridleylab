@@ -144,10 +144,15 @@ export default async function LocationPage({ params }: LocationPageProps) {
                   {recommendedProgram.name}
                 </h2>
                 <p className="text-2xl font-semibold text-zinc-950 dark:text-white mb-4">
-                  {recommendedProgram.priceFormatted}{" "}
-                  <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
-                    {recommendedProgram.priceUnit}
-                  </span>
+                  {recommendedProgram.priceFormatted}
+                  {recommendedProgram.priceUnit && (
+                    <>
+                      {" "}
+                      <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
+                        {recommendedProgram.priceUnit}
+                      </span>
+                    </>
+                  )}
                 </p>
                 <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed border-t border-zinc-200 dark:border-zinc-800 pt-4">
                   {location.logisticsNote}
@@ -233,16 +238,21 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
                   <h3 className="text-xl font-semibold mb-1.5">{prog.name}</h3>
                   <p className="text-2xl font-semibold mb-4">
-                    {prog.priceFormatted}{" "}
-                    <span
-                      className={
-                        isRec
-                          ? "text-xs font-normal text-zinc-400"
-                          : "text-xs font-normal text-zinc-500 dark:text-zinc-400"
-                      }
-                    >
-                      {prog.priceUnit}
-                    </span>
+                    {prog.priceFormatted}
+                    {prog.priceUnit && (
+                      <>
+                        {" "}
+                        <span
+                          className={
+                            isRec
+                              ? "text-xs font-normal text-zinc-400"
+                              : "text-xs font-normal text-zinc-500 dark:text-zinc-400"
+                          }
+                        >
+                          {prog.priceUnit}
+                        </span>
+                      </>
+                    )}
                   </p>
 
                   <ul

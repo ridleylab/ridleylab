@@ -397,7 +397,7 @@ export function getServicesHubSchemaGraph() {
       "/services",
       `Program Pelatihan ${siteConfig.name}`,
       allPrograms.map((prog) => ({
-        name: `${prog.name} (${prog.priceFormatted} ${prog.priceUnit})`,
+        name: `${prog.name} (${[prog.priceFormatted, prog.priceUnit].filter(Boolean).join(" ")})`,
         url: prog.path,
       }))
     ),
