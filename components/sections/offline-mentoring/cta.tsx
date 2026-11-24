@@ -22,7 +22,7 @@ export default function MentoringCTA() {
       <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* LEFT */}
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.08] text-white mb-5">
               Siap Mentransformasi Tim Marketing Anda dengan AI?
             </h2>
@@ -66,13 +66,13 @@ export default function MentoringCTA() {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[440px] aspect-square rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900">
+          <div className="min-w-0 lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[440px] aspect-[4/5] rounded-3xl overflow-hidden">
               <Image
                 src="/images/services/offline-mentoring-cta.png"
                 alt="Preview implementasi sistem Offline Mentoring RidleyLab"
                 fill
-                className="object-contain p-4"
+                className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 440px"
               />
             </div>
