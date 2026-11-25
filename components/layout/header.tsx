@@ -159,16 +159,17 @@ export default function Header() {
           <div className="flex items-center gap-2.5">
             <ThemeToggle />
 
-            <ButtonLink
-              href={whatsappUrl}
-              external
-              variant="primary"
-              size="sm"
-              className="hidden sm:inline-flex"
-            >
-              <WhatsAppIcon className="w-4 h-4" />
-              <span>Konsultasi</span>
-            </ButtonLink>
+            <div className="hidden md:block">
+              <ButtonLink
+                href={whatsappUrl}
+                external
+                variant="primary"
+                size="sm"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+                <span>Konsultasi</span>
+              </ButtonLink>
+            </div>
 
             <button
               type="button"

@@ -24,7 +24,7 @@ export const portfolioItems: PortfolioItem[] = [
     location: "Yogyakarta",
     program: "Offline Mentoring 8x Pertemuan",
     period: "Mei 2026",
-    image: "/images/services/offline-mentoring-hero.jpg",
+    image: "/images/services/hero-offmen.png",
     imageAlt:
       "Dokumentasi sesi Offline Mentoring AI Social Media Marketing bersama tim Akara Cipta Karya di Yogyakarta",
     resultMetric: "Sistem konten & tim berjalan mandiri",

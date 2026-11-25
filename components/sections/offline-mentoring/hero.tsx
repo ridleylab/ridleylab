@@ -100,7 +100,7 @@ export default function MentoringHero() {
           <div className="min-w-0 lg:col-span-6">
             <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto aspect-[4/5] rounded-3xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
               <Image
-                src="/images/services/offline-mentoring-hero.jpg"
+                src="/images/services/hero-offmen.png"
                 alt={`Offline Mentoring ${siteConfig.name} sesi tatap muka langsung di kantor klien`}
                 fill
                 priority

@@ -62,7 +62,7 @@ export default function MentoringWhatYouGet() {
           <div className="min-w-0 lg:col-span-5 lg:relative flex items-center justify-center">
             <div className="w-full max-w-[400px] lg:max-w-none lg:absolute lg:inset-0 flex items-center justify-center">
               <Image
-                src="/images/services/offline-mentoring-output.png"
+                src="/images/services/ai-powered.png"
                 alt="Preview output sistem konten AI dan SOP Offline Mentoring RidleyLab"
                 width={1122}
                 height={1402}
