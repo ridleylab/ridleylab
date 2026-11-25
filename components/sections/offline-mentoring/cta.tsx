@@ -67,19 +67,12 @@ export default function MentoringCTA() {
 
           {/* RIGHT IMAGE */}
           <div className="min-w-0 lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[440px] aspect-[4/5] rounded-3xl overflow-hidden">
+            <div className="relative w-full max-w-[440px] aspect-[4/5]">
               <Image
-                src="/images/services/siap-naik-hitam.png"
+                src="/images/services/ridleylab_transparent.png"
                 alt="Preview implementasi sistem Offline Mentoring RidleyLab"
                 fill
-                className="object-cover block dark:hidden"
-                sizes="(max-width: 1024px) 100vw, 440px"
-              />
-              <Image
-                src="/images/services/siap-naik-abu.png"
-                alt="Preview implementasi sistem Offline Mentoring RidleyLab"
-                fill
-                className="object-cover hidden dark:block"
+                className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 440px"
               />
             </div>

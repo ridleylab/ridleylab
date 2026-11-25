@@ -72,7 +72,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-[72px]">
           <Link
             href="/"
-            className="relative h-8 w-28 sm:h-9 sm:w-32 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 rounded-md"
+            className="relative h-9 w-32 sm:h-11 sm:w-40 lg:h-12 lg:w-44 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 rounded-md"
           >
             <Image
               src={siteConfig.brandAssets.logo}
@@ -80,7 +80,7 @@ export default function Header() {
               fill
               priority
               className="object-contain object-left dark:invert"
-              sizes="(max-width: 768px) 112px, 128px"
+              sizes="(max-width: 640px) 128px, (max-width: 1024px) 160px, 176px"
             />
           </Link>
 
