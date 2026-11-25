@@ -24,7 +24,7 @@ export const portfolioItems: PortfolioItem[] = [
     location: "Yogyakarta",
     program: "Offline Mentoring 8x Pertemuan",
     period: "Mei 2026",
-    image: "/images/services/hero-offmen.png",
+    image: "/images/portfolio/pelatihan-akara.png",
     imageAlt:
       "Dokumentasi sesi Offline Mentoring AI Social Media Marketing bersama tim Akara Cipta Karya di Yogyakarta",
     resultMetric: "Sistem konten & tim berjalan mandiri",
@@ -45,7 +45,7 @@ export const portfolioItems: PortfolioItem[] = [
     location: "Jakarta",
     program: "Mentoring 8x Pertemuan",
     period: "Juni 2026",
-    image: "/images/home/suasana-kelas.png",
+    image: "/images/portfolio/pelatihan-zipzap.png",
     imageAlt:
       "Sesi pendampingan sistem konten AI dan SOP tim bersama klien konveksi Zipzap Garment Jakarta",
     resultMetric: "Pipeline konten B2B konveksi lebih rapi",
