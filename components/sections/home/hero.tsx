@@ -68,7 +68,7 @@ export default function HomeHero() {
           <div className="lg:col-span-6">
             <div className="relative w-full max-w-[480px] mx-auto lg:ml-auto aspect-square rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-xl">
               <Image
-                src="/images/home/suasana-kelas.png"
+                src="/images/home/home.png"
                 alt={`Suasana kelas mentoring ${siteConfig.name} pelatihan AI Social Media Marketing untuk tim bisnis jasa`}
                 fill
                 priority

@@ -69,7 +69,7 @@ export default function MentoringCTA() {
           <div className="min-w-0 lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-[440px] aspect-[4/5]">
               <Image
-                src="/images/services/ridleylab_transparent.png"
+                src="/images/services/cta.png"
                 alt="Preview implementasi sistem Offline Mentoring RidleyLab"
                 fill
                 className="object-contain"
