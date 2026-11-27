@@ -49,18 +49,15 @@ export default function AdminShell({
                 <Menu size={18} />
               </button>
 
-              <Link href="/admin" className="flex items-center gap-2 min-w-0">
-                <span className="relative h-6 w-24 shrink-0">
+              <Link href="/admin" className="flex items-center min-w-0">
+                <span className="relative h-8 w-36 shrink-0">
                   <Image
                     src={siteConfig.brandAssets.logo}
                     alt={`${siteConfig.name} Logo`}
                     fill
                     className="object-contain object-left dark:invert"
-                    sizes="96px"
+                    sizes="144px"
                   />
-                </span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400">
-                  CMS
                 </span>
               </Link>
             </div>

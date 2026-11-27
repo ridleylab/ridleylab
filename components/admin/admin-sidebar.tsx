@@ -147,12 +147,12 @@ export default function AdminSidebar({
           <Link
             href="/admin"
             onClick={onCloseMobile}
-            className="flex items-center gap-2 min-w-0"
+            className="flex items-center min-w-0"
             title={`${siteConfig.name} Admin`}
           >
             <span
               className={cn(
-                "relative w-7 h-7 shrink-0",
+                "relative w-8 h-8 shrink-0",
                 desktopCollapsed ? "hidden lg:inline-flex" : "hidden"
               )}
             >
@@ -161,27 +161,24 @@ export default function AdminSidebar({
                 alt={siteConfig.name}
                 fill
                 className="object-contain dark:invert"
-                sizes="28px"
+                sizes="32px"
               />
             </span>
 
             <span
               className={cn(
-                "items-center gap-2",
+                "items-center",
                 desktopCollapsed ? "flex lg:hidden" : "flex"
               )}
             >
-              <span className="relative h-6 w-24 shrink-0">
+              <span className="relative h-8 w-36 shrink-0">
                 <Image
                   src={siteConfig.brandAssets.logo}
                   alt={`${siteConfig.name} Logo`}
                   fill
                   className="object-contain object-left dark:invert"
-                  sizes="96px"
+                  sizes="144px"
                 />
-              </span>
-              <span className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400">
-                CMS
               </span>
             </span>
           </Link>
